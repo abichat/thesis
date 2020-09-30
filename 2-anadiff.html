@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapitre 2 Études d’analyse différentielle | Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles</title>
+  <meta name="description" content="Thèse de mathématiques appliquées par Antoine Bichat. Statistique – Apprentissage – Métagénomique – Arbre phylogénétique – Tests multiples – Processus stochastiques" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapitre 2 Études d’analyse différentielle | Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://abichat.github.io/thesis/" />
+  <meta property="og:image" content="https://abichat.github.io/thesis/img/tree_ou.png" />
+  <meta property="og:description" content="Thèse de mathématiques appliquées par Antoine Bichat. Statistique – Apprentissage – Métagénomique – Arbre phylogénétique – Tests multiples – Processus stochastiques" />
+  <meta name="github-repo" content="abichat/thesis" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapitre 2 Études d’analyse différentielle | Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles" />
+  
+  <meta name="twitter:description" content="Thèse de mathématiques appliquées par Antoine Bichat. Statistique – Apprentissage – Métagénomique – Arbre phylogénétique – Tests multiples – Processus stochastiques" />
+  <meta name="twitter:image" content="https://abichat.github.io/thesis/img/tree_ou.png" />
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="1-metagenomique.html"/>
+<link rel="next" href="3-arbres.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-131161788-01', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<br><br><br>
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="1-metagenomique.html"><a href="1-metagenomique.html"><i class="fa fa-check"></i><b>1</b> Métagénomique</a><ul>
+<li class="chapter" data-level="1.1" data-path="1-metagenomique.html"><a href="1-metagenomique.html#microbiote"><i class="fa fa-check"></i><b>1.1</b> Le microbiote intestinal humain</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="1-metagenomique.html"><a href="1-metagenomique.html#description"><i class="fa fa-check"></i><b>1.1.1</b> Description</a></li>
+<li class="chapter" data-level="1.1.2" data-path="1-metagenomique.html"><a href="1-metagenomique.html#rôle"><i class="fa fa-check"></i><b>1.1.2</b> Rôle</a></li>
+<li class="chapter" data-level="1.1.3" data-path="1-metagenomique.html"><a href="1-metagenomique.html#dysbioses"><i class="fa fa-check"></i><b>1.1.3</b> Dysbioses</a></li>
+<li class="chapter" data-level="1.1.4" data-path="1-metagenomique.html"><a href="1-metagenomique.html#utilisations"><i class="fa fa-check"></i><b>1.1.4</b> Utilisations</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="1-metagenomique.html"><a href="1-metagenomique.html#caracterisation"><i class="fa fa-check"></i><b>1.2</b> Caractérisation du microbiote</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="1-metagenomique.html"><a href="1-metagenomique.html#collecte-des-échantillons"><i class="fa fa-check"></i><b>1.2.1</b> Collecte des échantillons</a></li>
+<li class="chapter" data-level="1.2.2" data-path="1-metagenomique.html"><a href="1-metagenomique.html#séquençage-par-gène-marqueur"><i class="fa fa-check"></i><b>1.2.2</b> Séquençage par gène marqueur</a></li>
+<li class="chapter" data-level="1.2.3" data-path="1-metagenomique.html"><a href="1-metagenomique.html#séquençage-non-ciblé"><i class="fa fa-check"></i><b>1.2.3</b> Séquençage non ciblé</a></li>
+<li class="chapter" data-level="1.2.4" data-path="1-metagenomique.html"><a href="1-metagenomique.html#donneesmetagenomiques"><i class="fa fa-check"></i><b>1.2.4</b> Données métagénomiques</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="1-metagenomique.html"><a href="1-metagenomique.html#jeuxdonnees"><i class="fa fa-check"></i><b>1.3</b> Jeux de données</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-anadiff.html"><a href="2-anadiff.html"><i class="fa fa-check"></i><b>2</b> Études d’analyse différentielle</a><ul>
+<li class="chapter" data-level="2.1" data-path="2-anadiff.html"><a href="2-anadiff.html#tests-statistiques"><i class="fa fa-check"></i><b>2.1</b> Tests statistiques</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="2-anadiff.html"><a href="2-anadiff.html#analyse-de-la-variance-à-un-facteur"><i class="fa fa-check"></i><b>2.1.1</b> Analyse de la variance à un facteur</a></li>
+<li class="chapter" data-level="2.1.2" data-path="2-anadiff.html"><a href="2-anadiff.html#test-de-wilcoxon"><i class="fa fa-check"></i><b>2.1.2</b> Test de Wilcoxon</a></li>
+<li class="chapter" data-level="2.1.3" data-path="2-anadiff.html"><a href="2-anadiff.html#test-de-kruskall-wallis"><i class="fa fa-check"></i><b>2.1.3</b> Test de Kruskall-Wallis</a></li>
+<li class="chapter" data-level="2.1.4" data-path="2-anadiff.html"><a href="2-anadiff.html#autres-methodes"><i class="fa fa-check"></i><b>2.1.4</b> Autres méthodes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="2-anadiff.html"><a href="2-anadiff.html#problématique-des-tests-multiples"><i class="fa fa-check"></i><b>2.2</b> Problématique des tests multiples</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="2-anadiff.html"><a href="2-anadiff.html#évaluation-des-performances"><i class="fa fa-check"></i><b>2.2.1</b> Évaluation des performances</a></li>
+<li class="chapter" data-level="2.2.2" data-path="2-anadiff.html"><a href="2-anadiff.html#correction-de-bonferroni"><i class="fa fa-check"></i><b>2.2.2</b> Correction de Bonferroni</a></li>
+<li class="chapter" data-level="2.2.3" data-path="2-anadiff.html"><a href="2-anadiff.html#correction-de-benjamini-hochberg"><i class="fa fa-check"></i><b>2.2.3</b> Correction de Benjamini-Hochberg</a></li>
+<li class="chapter" data-level="2.2.4" data-path="2-anadiff.html"><a href="2-anadiff.html#correction-de-benjamini-yekutieli"><i class="fa fa-check"></i><b>2.2.4</b> Correction de Benjamini-Yekutieli</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="2-anadiff.html"><a href="2-anadiff.html#procédures-hiérarchiques-pour-tests-multiples"><i class="fa fa-check"></i><b>2.3</b> Procédures hiérarchiques pour tests multiples</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="2-anadiff.html"><a href="2-anadiff.html#treefdr"><i class="fa fa-check"></i><b>2.3.1</b> <em>TreeFDR</em></a></li>
+<li class="chapter" data-level="2.3.2" data-path="2-anadiff.html"><a href="2-anadiff.html#fdr-hiérarchique"><i class="fa fa-check"></i><b>2.3.2</b> FDR hiérarchique</a></li>
+<li class="chapter" data-level="2.3.3" data-path="2-anadiff.html"><a href="2-anadiff.html#treeclimbr"><i class="fa fa-check"></i><b>2.3.3</b> <em>treeclimbR</em></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="3-arbres.html"><a href="3-arbres.html"><i class="fa fa-check"></i><b>3</b> Arbres</a><ul>
+<li class="chapter" data-level="3.1" data-path="3-arbres.html"><a href="3-arbres.html#définitions"><i class="fa fa-check"></i><b>3.1</b> Définitions</a></li>
+<li class="chapter" data-level="3.2" data-path="3-arbres.html"><a href="3-arbres.html#distances"><i class="fa fa-check"></i><b>3.2</b> Distances</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="3-arbres.html"><a href="3-arbres.html#distance-de-robinson-foulds"><i class="fa fa-check"></i><b>3.2.1</b> Distance de Robinson-Foulds</a></li>
+<li class="chapter" data-level="3.2.2" data-path="3-arbres.html"><a href="3-arbres.html#distance-cophénétique"><i class="fa fa-check"></i><b>3.2.2</b> Distance cophénétique</a></li>
+<li class="chapter" data-level="3.2.3" data-path="3-arbres.html"><a href="3-arbres.html#distance-de-billera-holmes-vogtmann-bhv"><i class="fa fa-check"></i><b>3.2.3</b> Distance de Billera-Holmes-Vogtmann (BHV)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="3-arbres.html"><a href="3-arbres.html#arbres-dintérêt"><i class="fa fa-check"></i><b>3.3</b> Arbres d’intérêt</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="3-arbres.html"><a href="3-arbres.html#phylogénie"><i class="fa fa-check"></i><b>3.3.1</b> Phylogénie</a></li>
+<li class="chapter" data-level="3.3.2" data-path="3-arbres.html"><a href="3-arbres.html#taxonomie"><i class="fa fa-check"></i><b>3.3.2</b> Taxonomie</a></li>
+<li class="chapter" data-level="3.3.3" data-path="3-arbres.html"><a href="3-arbres.html#cortree"><i class="fa fa-check"></i><b>3.3.3</b> Arbre des corrélations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="3-arbres.html"><a href="3-arbres.html#comparaison-entre-les-arbres"><i class="fa fa-check"></i><b>3.4</b> Comparaison entre les arbres</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="3-arbres.html"><a href="3-arbres.html#forêt-darbres"><i class="fa fa-check"></i><b>3.4.1</b> Forêt d’arbres</a></li>
+<li class="chapter" data-level="3.4.2" data-path="3-arbres.html"><a href="3-arbres.html#distance-entre-les-arbres"><i class="fa fa-check"></i><b>3.4.2</b> Distance entre les arbres</a></li>
+<li class="chapter" data-level="3.4.3" data-path="3-arbres.html"><a href="3-arbres.html#checktreefdr"><i class="fa fa-check"></i><b>3.4.3</b> Choix de l’arbre et lissage de z-score</a></li>
+<li class="chapter" data-level="3.4.4" data-path="3-arbres.html"><a href="3-arbres.html#choix-de-larbre-et-fdr-hiérarchique"><i class="fa fa-check"></i><b>3.4.4</b> Choix de l’arbre et FDR hiérarchique</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html"><i class="fa fa-check"></i><b>4</b> <em>zazou</em> : une nouvelle approche</a><ul>
+<li class="chapter" data-level="4.1" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#ou"><i class="fa fa-check"></i><b>4.1</b> Processus d’Ornstein-Uhlenbeck</a></li>
+<li class="chapter" data-level="4.2" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#zazousection"><i class="fa fa-check"></i><b>4.2</b> Zazou</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#modèle"><i class="fa fa-check"></i><b>4.2.1</b> Modèle</a></li>
+<li class="chapter" data-level="4.2.2" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#estimation-ponctuelle"><i class="fa fa-check"></i><b>4.2.2</b> Estimation ponctuelle</a></li>
+<li class="chapter" data-level="4.2.3" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#débiaisage-et-intervalles-de-confiance"><i class="fa fa-check"></i><b>4.2.3</b> Débiaisage et intervalles de confiance</a></li>
+<li class="chapter" data-level="4.2.4" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#correction-pour-tests-multiples"><i class="fa fa-check"></i><b>4.2.4</b> Correction pour tests multiples</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#evaluation"><i class="fa fa-check"></i><b>4.3</b> Évaluation de la méthode</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#simuzazou"><i class="fa fa-check"></i><b>4.3.1</b> Données simulées</a></li>
+<li class="chapter" data-level="4.3.2" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#influence-de-lâge"><i class="fa fa-check"></i><b>4.3.2</b> Influence de l’âge</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-ananum.html"><a href="5-ananum.html"><i class="fa fa-check"></i><b>5</b> Problèmes d’analyse numérique</a><ul>
+<li class="chapter" data-level="5.1" data-path="5-ananum.html"><a href="5-ananum.html#shooting"><i class="fa fa-check"></i><b>5.1</b> Algorithme du <em>shooting</em></a></li>
+<li class="chapter" data-level="5.2" data-path="5-ananum.html"><a href="5-ananum.html#mam"><i class="fa fa-check"></i><b>5.2</b> Minimisation sous contrainte de <span class="math inline">\(x^TAx\)</span></a></li>
+<li class="chapter" data-level="5.3" data-path="5-ananum.html"><a href="5-ananum.html#proj"><i class="fa fa-check"></i><b>5.3</b> Projection sur un ensemble de faisabilité</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html"><i class="fa fa-check"></i>Conclusion et perspectives</a><ul>
+<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#détection-versus-prédiction"><i class="fa fa-check"></i>Détection versus prédiction</a></li>
+<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#autres-procédures-hiérarchiques"><i class="fa fa-check"></i>Autres procédures hiérarchiques</a></li>
+<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#amélioration-de-zazou"><i class="fa fa-check"></i>Amélioration de zazou</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html"><i class="fa fa-check"></i>Digest</a><ul>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-i"><i class="fa fa-check"></i>Chapter I</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-ii"><i class="fa fa-check"></i>Chapter II</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-iii"><i class="fa fa-check"></i>Chapter III</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-iv"><i class="fa fa-check"></i>Chapter IV</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-v"><i class="fa fa-check"></i>Chapter V</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#conclusions-and-outlooks"><i class="fa fa-check"></i>Conclusions and outlooks</a></li>
+</ul></li>
+<li class="appendix"><span><b>Annexes</b></span></li>
+<li class="chapter" data-level="A" data-path="A-notations.html"><a href="A-notations.html"><i class="fa fa-check"></i><b>A</b> Notations</a></li>
+<li class="chapter" data-level="B" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html"><i class="fa fa-check"></i><b>B</b> Productions scientifiques</a><ul>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#quantifying-the-impact-of-tree-choice-in-metagenomics-differential-abundance-studies-with-r"><i class="fa fa-check"></i>Quantifying the impact of tree choice in metagenomics differential abundance studies with R</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#incorporating-phylogenetic-information-in-microbiome-differential-abundance-studies-has-no-effect-on-detection-power-and-fdr-control"><i class="fa fa-check"></i>Incorporating Phylogenetic Information in Microbiome Differential Abundance Studies Has No Effect on Detection Power and FDR Control</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#hierarchical-correction-of-p-values-via-a-tree-running-ornstein-uhlenbeck-process"><i class="fa fa-check"></i>Hierarchical correction of p-values via a tree running Ornstein-Uhlenbeck process</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#packages-r"><i class="fa fa-check"></i>Packages R</a><ul>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#yatah"><i class="fa fa-check"></i>yatah</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#evabic"><i class="fa fa-check"></i>evabic</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#correlationtree"><i class="fa fa-check"></i>correlationtree</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#zazou"><i class="fa fa-check"></i>zazou</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="C-vignette.html"><a href="C-vignette.html"><i class="fa fa-check"></i><b>C</b> Vignette de zazou</a></li>
+<li class="chapter" data-level="" data-path="références.html"><a href="références.html"><i class="fa fa-check"></i>Références</a></li>
+<li class="chapter" data-level="" data-path="mentions-légales.html"><a href="mentions-légales.html"><i class="fa fa-check"></i>Mentions légales</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+      NN: "{\\mathbb{N}}",
+      ZZ: "{\\mathbb{Z}}",
+      QQ: "{\\mathbb{Q}}",
+      RR: "{\\mathbb{R}}",
+      shiftset: "{\\mathcal{D}}",
+      dx: ["{\\mathrm{d}^{#1}\\mspace{-1mu}\\mathord{#2}}", 2, ""],
+      indic: "{\\unicode{x1D7D9}}",
+      prob: "\\mathop{\\mathbb{P}}",
+      esp: "\\mathop{\\mathbb{E}}",
+      var: "\\mathop{\\mathbb{V}\\text{ar}}",
+      cov: "\\mathop{\\mathbb{C}\\text{ov}}",
+      PP: ["{\\prob\\left({#1}\\right)}", 1],
+      EE: ["{\\esp\\left[{#1}\\right]}", 1],
+      VV: ["{\\var\\left[{#1}\\right]}", 1],
+      CC: ["{\\cov\\left[{#1}\\right]}", 1],
+      normal: ["{\\mathcal{N}\\left({#1},{#2}\\right)}", 2],
+      ou: ["{#1}_{\\text{ou}}", 1],
+      oui: ["{#1}_{\\text{ou},#2}", 2],
+      pv: "{\\mathfrak{p}}",
+      qv: "{\\mathfrak{q}}",
+      zs: "{\\mathfrak{z}}",
+      ts: "{\\mathfrak{t}}",
+      sign: "{\\mathfrak{s}}",
+      shifts: "{\\delta}",
+      optim: "{\\beta}",
+      param: "{\\theta}",
+      unif: ["{\\mathcal{U}\\left({#1}\\right)}", 1],
+      argmin: "\\mathop{\\mathrm{argmin}}",
+      diag: "\\mathop{\\mathrm{Diag}}",
+      rang: "\\mathop{\\mathrm{rang}}",
+      pa: "\\mathop{\\mathrm{pa}}",
+      mrca: "\\mathop{\\mathrm{mrca}}",
+      desc: "\\mathop{\\mathrm{desc}}",
+      warning: ["\\color{red}{{#1}}", 1]
+    }
+  }
+});
+</script>
+<div id="anadiff" class="section level1">
+<h1><span class="header-section-number">Chapitre 2</span> Études d’analyse différentielle</h1>
+<p>Ce chapitre est un chapitre bibliographique sur les méthodes d’analyses différentielles existantes.
+<img src="img/cohort.png" width="90%" style="display: block; margin: auto;" /></p>
+<div id="tests-statistiques" class="section level2">
+<h2><span class="header-section-number">2.1</span> Tests statistiques</h2>
+<div id="analyse-de-la-variance-à-un-facteur" class="section level3">
+<h3><span class="header-section-number">2.1.1</span> Analyse de la variance à un facteur</h3>
+<p>Une première approche pour tester s’il y a un effet du groupe sur l’abondance est d’utiliser un modèle d’ANOVA à un facteur.</p>
+<p>Avec <span class="math inline">\(k\)</span> groupes, on renumérote les abondances des <span class="math inline">\(N\)</span> individus tels que <span class="math inline">\(y_{i,j}\)</span> soit l’abondance du <span class="math inline">\(j^{\text{ème}}\)</span> individu au sein <span class="math inline">\(i^{\text{ème}}\)</span> groupe. Avec <span class="math inline">\(n_i\)</span> individus dans le groupe <span class="math inline">\(i\)</span>, la moyenne des abondances au sein du groupe est <span class="math inline">\(y_{i,\bullet} = \frac{1}{n_i}\sum_{j = 1}^{n_1} y_{i,j}\)</span> et la moyenne générale est <span class="math inline">\(y_{\bullet, \bullet} = \frac{1}{N} \sum_{i=1}^k \sum_{j = 1}^{n_i} y_{i,j}\)</span>.</p>
+<p>Sous les hypothèses de normalité et d’homoscédasticité des résidus, la statistique de test <span class="math inline">\(F\)</span>, définie par</p>
+<p><span class="math display">\[\begin{equation*}
+F = \frac{\sum_{i = 1}^k n_i \left(y_{i,\bullet} - y_{\bullet, \bullet} \right)^2 / (k - 1)}{\sum_{i=1}^k \sum_{j = 1}^{n_i} \left(y_{i,j} - y_{i,\bullet} \right)^2 / (N - k)},
+\end{equation*}\]</span></p>
+<p>suit une loi de Fisher à <span class="math inline">\(k - 1\)</span> et <span class="math inline">\(N - k\)</span> degrés de liberté.</p>
+<p><span class="math inline">\(F\)</span> correspond au ratio entre la variance des moyennes de chaque groupe et la variance totale. On rejette alors <span class="math inline">\(\mathcal{H}_0 = \left\{\text{tous les groupes ont la même moyenne}\right\}\)</span> si <span class="math inline">\(F\)</span> est suffisamment grande et on considère que le groupe a une influence sur l’abondance.</p>
+</div>
+<div id="test-de-wilcoxon" class="section level3">
+<h3><span class="header-section-number">2.1.2</span> Test de Wilcoxon</h3>
+<p>Le test de Wilcoxon-Mann-Whitney <span class="citation">(Mann &amp; Whitney, 1947; Wilcoxon, 1992)</span> permet de tester si, pour deux échantillons, la probabilité qu’une valeur tirée au hasard dans un échantillon soit plus petite qu’une valeur tiré au hasard dans le second est égale à la probabilité qu’elle soit plus grande.
+L’hypothèse nulle est alors <span class="math inline">\(\mathcal{H}_0 = \left\{\PP{X &lt; Y} = \PP {Y &lt; X} \right\}\)</span> pour <span class="math inline">\(X\)</span> et <span class="math inline">\(Y\)</span> tirés dans chacune des populations.
+En pratique, on utilise ce test non-paramétrique pour vérifier si les deux populations suivent la même distribution ou non.</p>
+<p>Formellement, soit <span class="math inline">\(X = (x_1, \ldots, x_{n_1})\)</span> et <span class="math inline">\(Y = (y_1, \ldots, y_{n_2})\)</span> les deux échantillons à comparer pour lesquels il n’y a pas d’égalité dans leurs valeurs. Il est possible de définir sans ambiguïté le rang de chaque individu au sein de l’échantillon concaténé de taille <span class="math inline">\(n_1 + n_2\)</span>, puis <span class="math inline">\(R_1\)</span> la somme des rangs des individus du premier groupe. Sous <span class="math inline">\(\mathcal{H}_0\)</span>, la statistique de test
+<span class="math display">\[\begin{equation*}
+U = R_1 - \frac{n_1(n_1 + 1)}{2}
+\end{equation*}\]</span></p>
+<p>suit asymptotiquement une loi normale de moyenne <span class="math inline">\(\frac{n_1n_2}{2}\)</span> et de variance <span class="math inline">\(\frac{n_1 n_2(n_1 + n_2 + 1)}{12}\)</span>. On rejette <span class="math inline">\(\mathcal{H}_0\)</span> lorsque <span class="math inline">\(\left|U\right| &gt; \Phi^{-1}(1-\alpha)\)</span>.
+Il est possible de généraliser lorsqu’il y a des égalités dans les valeurs au sein d’un échantillon ou entre les échantillons. Dans ce cas là, la variance de la loi asymptotique doit être ajustée en conséquence.</p>
+</div>
+<div id="test-de-kruskall-wallis" class="section level3">
+<h3><span class="header-section-number">2.1.3</span> Test de Kruskall-Wallis</h3>
+<p>Le test de Kruskall-Wallis <span class="citation">(Kruskal &amp; Wallis, 1952)</span> est une généralisation à <span class="math inline">\(k\)</span> groupes du test de Wilcoxon-Mann-Whitney. Il est utilisé pour déterminer si les <span class="math inline">\(k\)</span> échantillons proviennent d’une même population ou si au moins un des échantillons a une distribution différente des autres.</p>
+<p>Comme pour Wilcoxon-Mann-Whitney, on commence par concaténer les <span class="math inline">\(N = \sum_{i = 1}^{k}n_i\)</span> observations des <span class="math inline">\(k\)</span> échantillons puis calculer la somme des rangs au sein de chaque groupe : <span class="math inline">\(R_1, \ldots, R_k\)</span>. Si les observations sont indépendantes et qu’il n’y a pas d’égalité dans leurs valeurs, la statistique de test</p>
+<p><span class="math display" id="eq:hkw">\[\begin{equation}
+\tag{2.1}
+H = \frac{12}{N (N + 1)} \sum_{i=1}^{k} \frac{R_i^2}{n_i} - 3(N + 1)
+\end{equation}\]</span></p>
+<p>suit une loi du <span class="math inline">\(\chi^2\)</span> à <span class="math inline">\(k - 1\)</span> degrés de libertés. <span class="math inline">\(H\)</span> peut être réécrite comme</p>
+<p><span class="math display">\[\begin{equation*}
+\frac{N - 1}{N} \frac{ \sum_{i=1}^k n_i \left(\frac{R_i}{n_i} - \frac{N + 1}{2}\right)^2}{\frac{N^2-1}{12}},
+\end{equation*}\]</span></p>
+<p>qui, à un facteur multiplicatif près, correspond à la statistique de test d’une ANOVA à un facteur sur les rangs et où la variance au dénominateur n’a pas besoin d’être estimée (il s’agit de la variance de la loi uniforme sur <span class="math inline">\([\![1,N]\!]\)</span>).</p>
+<p>Lorsque des égalités sont présentes au sein des échantillons, <span class="math inline">\(H\)</span> est calculée en divisant l’expression <a href="2-anadiff.html#eq:hkw">(2.1)</a> par</p>
+<p><span class="math display">\[\begin{equation*}
+1-\frac{\sum_{i = 1}^k t_i^3 - t_i}{N^3 - N},
+\end{equation*}\]</span></p>
+<p>où <span class="math inline">\(t_i\)</span> est le nombre d’égalités au sein du <span class="math inline">\(i^{\text{ème}}\)</span> échantillon. Après cette correction, si les <span class="math inline">\(n_i\)</span> ne sont pas trop petits, cette nouvelle statistique <span class="math inline">\(H\)</span> corrigée suit toujours une loi qui <span class="math inline">\(\chi^2\)</span> à <span class="math inline">\(k - 1\)</span> degrés de liberté.</p>
+<p>On rejette l’hypothèse nulle sur l’égalité des rangs moyens <span class="math inline">\(\mathcal{H}_0 = \left\{ \frac{R_1}{n_1} = \ldots = \frac{R_k}{n_k} \right\}\)</span> lorsque <span class="math inline">\(H\)</span> est plus grande que la valeur seuil déterminée par <span class="math inline">\(\alpha\)</span>.</p>
+</div>
+<div id="autres-methodes" class="section level3">
+<h3><span class="header-section-number">2.1.4</span> Autres méthodes</h3>
+<p>Les données métagénomiques ayant les spécificités précédemment présentées dans la section <a href="1-metagenomique.html#donneesmetagenomiques">1.2.4</a> (non-normalité, surabondance de zéros, somme contrainte…), des méthodes spécifiques ont été développées pour les appréhender. Nous pouvons par exemple citer <em>edgeR</em> <span class="citation">(Robinson, McCarthy, &amp; Smyth, 2010)</span>, <em>DESeq2</em> <span class="citation">(Love, Huber, &amp; Anders, 2014)</span>, <em>metagenomeSeq</em> <span class="citation">(Paulson, Stine, Bravo, &amp; Pop, 2013)</span> ou <em>mbzinb</em> <span class="citation">(Chen et al., 2018)</span>. Celles-ci peuvent utiliser des modèles linéaires généralisés ou des modèles avec excès de zéros pour essayer d’appréhender au mieux les données.</p>
+<p>Nous n’avons pas testé ces méthodes dans nos analyses. Nous nous intéressons à l’apport de l’information hiérarchique et avons préféré utiliser le même test classique (Wilcoxon ou Kruskall-Wallis) dans toutes nos comparaison. La nouvelle procédure que nous proposons dans le chapitre <a href="4-nouvelleapproche.html#nouvelleapproche">4</a> peut cependant être appliquée sur les sorties de méthodes quelconques, pourvu qu’elles fournissent un vecteur de <span class="math inline">\(p\)</span>-valeurs.</p>
+<div id="edger-et-deseq2" class="section level4 unnumbered">
+<h4><em>edgeR</em> et <em>DESeq2</em></h4>
+<p>Proposés initialement pour de l’analyse de données de transcriptomique, <em>edgeR</em> <span class="citation">(Robinson et al., 2010)</span> et <em>DESeq2</em> <span class="citation">(Love et al., 2014)</span> ajustent un modèle de régression linéaire généralisé avec une structure d’erreur binomiale négative, afin de prendre en compte la surdispersion des données.</p>
+<p>Le compte du taxon <span class="math inline">\(i\)</span> dans l’échantillon <span class="math inline">\(j\)</span> appartenant au groupe <span class="math inline">\(g\)</span> est modélisé par</p>
+<p><span class="math display">\[\begin{equation*}
+Y_{i,j} \sim \text{NB}\left(s_j \mu_{i,g},\alpha_{i,g}\right)
+\end{equation*}\]</span></p>
+<p>où <span class="math inline">\(s_j\)</span> est un facteur de normalisation qui modélise le nombre total de lectures dans l’échantillon <span class="math inline">\(j\)</span>, <span class="math inline">\(\mu_{i,g}\)</span> est l’abondance du taxon <span class="math inline">\(i\)</span> dans le groupe <span class="math inline">\(g\)</span> et <span class="math inline">\(\alpha_{i,g}\)</span> sa dispersion. La comparaison entre les groupes <span class="math inline">\(g\)</span> et <span class="math inline">\(g&#39;\)</span> se formule alors <span class="math inline">\(\mathcal{H}_0 : \left\{\mu_{i,g} = \mu_{i,g&#39;}\right\}\)</span> contre <span class="math inline">\(\mathcal{H}_1 : \left\{\mu_{i,g} \neq \mu_{i,g&#39;}\right\}\)</span>.</p>
+</div>
+<div id="mbzinb" class="section level4 unnumbered">
+<h4><em>mbzinb</em></h4>
+<p><em>mbzinb</em> <span class="citation">(Chen et al., 2018)</span> modélise également les comptes de lectures. En notant de plus <span class="math inline">\(p_{i,g}\)</span> la proportion de zéros pour le taxon <span class="math inline">\(i\)</span> dans les échantillons du groupe <span class="math inline">\(g\)</span> (et donc <span class="math inline">\(1 - p_{i,g}\)</span> sa prévalence), on a un nouveau modèle avec excès de zéros :</p>
+<p><span class="math display">\[\begin{equation*}
+Y_{i,j} \sim p_{i,g} \delta_0 + (1-p_{i,g}) \text{NB}\left(s_j\mu_{i,g},\alpha_{i,g}\right),
+\end{equation*}\]</span></p>
+<p>où <span class="math inline">\(\delta_0\)</span> est la masse de Dirac en <span class="math inline">\(0\)</span>.</p>
+</div>
+<div id="aldex2" class="section level4 unnumbered">
+<h4><em>ALDEx2</em></h4>
+<p>Contrairement aux méthodes précédentes, <em>ALDEx2</em> <span class="citation">(Fernandes et al., 2014)</span> considère les données métagénomiques comme des données compositionnelles. Ce test commence par normaliser les données pour les plonger dans le simplexe, puis ajuste une distribution de Dirichlet sur celles-ci. Elle génère alors des réalisations conformément à la loi de Dirichlet apprise via une méthode de Monte-Carlo afin d’augmenter artificiellement la taille du jeu de données. Enfin, les jeux de données artificiels sont projetés dans <span class="math inline">\(\RR^p\)</span> via la transformation <span class="math inline">\(\text{clr}\)</span> avant d’effectuer des tests d’abondance différentiels classiques pour obtenir des <span class="math inline">\(p\)</span>-valeurs.</p>
+</div>
+</div>
+</div>
+<div id="problématique-des-tests-multiples" class="section level2">
+<h2><span class="header-section-number">2.2</span> Problématique des tests multiples</h2>
+<p>À chaque fois qu’un test est réalisé, il y une probabilité <span class="math inline">\(\alpha\)</span> que celui-ci rejette à tort une hypothèse nulle. Si <span class="math inline">\(m\)</span> tests indépendants sont réalisés, la probabilité qu’au moins une hypothèse rejetée le soit à tort est alors de <span class="math inline">\(1-(1-\alpha)^m\)</span>, qui dépasse <span class="math inline">\(0.9\)</span> pour <span class="math inline">\(m = 50\)</span> et <span class="math inline">\(\alpha = 0.05\)</span>. En métagénomique, il est courant d’effectuer plusieurs centaines de tests simultanés, et la nécessité de corriger pour la multiplicité des tests est d’autant plus importante.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:xkcd"></span>
+<img src="img/significant.png" alt="Dessin humoristique illustrant la problématique des tests multiples, par XKCD." width="40%" />
+<p class="caption">
+Figure 2.1: Dessin humoristique illustrant la problématique des tests multiples, par <a href="https://xkcd.com/882">XKCD</a>.
+</p>
+</div>
+<div id="évaluation-des-performances" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Évaluation des performances</h3>
+<p>Lorsqu’une série de tests est réalisée et que la vérité est connue, il est possible de comparer le résultat avec l’attendu et de compter les effectifs dans les quatre configurations possibles.</p>
+<p>Lorsqu’un test rejette l’hypothèse nulle à raison, on parlera de vrai positif et s’il la rejette à tort, il s’agira d’un faux positif. Si un test ne parvient pas à rejeter l’hypothèse nulle alors que celle-ci est vraie, il s’agit d’un vrai négatif alors que s’il aurait dû la rejeter, il s’agit d’un faux négatif.
+Sur l’ensemble des tests, le nombre de vrais positifs, vrais négatifs, faux positifs et faux négatifs sont notés respectivement TP, TN, FP et FN. Ces quantités sont agrégées dans la <em>matrice de confusion</em>, présentée dans la figure <a href="2-anadiff.html#fig:conf">2.2</a>.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:conf"></span>
+<img src="img/confusionmatrix.png" alt="Matrice de confusion. TP est le nombre de vrais positifs, TN le nombre de vrais négatifs, FP le nombre de faux positifs et FN le nombre de faux négatifs." width="70%" />
+<p class="caption">
+Figure 2.2: Matrice de confusion. TP est le nombre de vrais positifs, TN le nombre de vrais négatifs, FP le nombre de faux positifs et FN le nombre de faux négatifs.
+</p>
+</div>
+<p>À partir de ces mesures primaires, on peut définir le taux de vrais positifs (<em>true positive rate</em>), appelé également puissance, sensibilité ou rappel :</p>
+<p><span class="math display">\[\begin{equation*}
+\text{TPR} = \frac{\text{TP}}{\text{TP} + \text{FN}},
+\end{equation*}\]</span></p>
+<p>qui représente la proportion d’espèces vraiment différentiellement abondantes que la méthode arrive à détecter. C’est une quantité que l’on souhaite maximiser. Cependant, un test qui détecterait toutes les espèces comme différentiellement abondantes aurait un TPR au maximum, à <span class="math inline">\(1\)</span>. Il faut donc aussi pouvoir contrôler que l’on ne rejette pas trop à tort, en contrôlant soit directement le nombre de faux positifs FP, soit la proportion de faux positifs parmi les positifs (<em>false discovery proportion</em>) :</p>
+<p><span class="math display">\[\begin{equation*}
+\text{FDP} = \frac{\text{FP}}{\text{TP} + \text{FP}}.
+\end{equation*}\]</span></p>
+
+<p>Le FDP est lié à la précision <span class="math inline">\(\text{PPV}\)</span> (<em>positive predictive value</em>) via <span class="math inline">\(\text{PPV} = 1 - \text{FDP}\)</span>. Celle-ci mesure la crédence que l’on peut accorder au test sachant qu’il a rejeté l’hypothèse nulle.</p>
+<p>Une fois que l’on maximise la puissance d’un test tout en contrôlant le nombre ou la proportion de fausses découvertes, il est intéressant d’avoir des métriques qui combinent ces métriques secondaires, comme l’exactitude (<em>accuracy</em>), qui est la proportion de fois où le test a correctement assigné les bactéries :</p>
+<p><span class="math display">\[\begin{equation*}
+\text{ACC} =\frac{\text{TP} + \text{TN}}{\text{TP} + \text{FP} + \text{FN} + \text{TN}},
+\end{equation*}\]</span></p>
+<p>ou du score <span class="math inline">\(\text{F}_1\)</span> qui est la moyenne harmonique entre la précision et le rappel :</p>
+<p><span class="math display">\[\begin{equation*}
+\text{F}_1 = \frac{2}{\frac{1}{\text{TPR}} + \frac{1}{\text{PPV}}} = \frac{2 \text{TP}}{2\text{TP} + \text{FP} + \text{FN}}.
+\end{equation*}\]</span></p>
+<p>Ces deux quantités sont à valeurs dans <span class="math inline">\(\mathopen[0,1\mathclose]\)</span> et plus elles sont proches de <span class="math inline">\(1\)</span>, plus le modèle est performant.</p>
+<p>Les mesures présentées auparavant sont valables quelque soit le seuil à partir duquel on rejette l’hypothèse nulle, couramment égal à <span class="math inline">\(0.05\)</span>. Il peut alors être intéressant de regarder ces quantités comme une fonction du seuil de rejet <span class="math inline">\(t\)</span> : <span class="math inline">\(\text{TPR}(t)\)</span>, <span class="math inline">\(\text{FDP}(t)\)</span>, <span class="math inline">\(\text{ACC}(t)\)</span>…</p>
+<p>On défini alors la courbe ROC (<em>receiver operating characteristic</em>) comme étant la sensibilité en fonction de la spécificité pour les différents seuil, soit l’ensemble des points <span class="math inline">\(\left(\text{FDP}(t), \text{TPR}(t)\right)_{t\in\mathopen[0,1\mathclose]}\)</span>.</p>
+<p>Lorsque <span class="math inline">\(t=0\)</span>, on ne rejette jamais, il n’y a ni faux positif ni vrai positif et on est en <span class="math inline">\((0,0)\)</span>. Lorsque <span class="math inline">\(t=1\)</span>, on rejette tout le temps, <span class="math inline">\(\text{FN} = \text{TN} = 0\)</span> et on est en <span class="math inline">\((1,1)\)</span>. <span class="math inline">\(\text{FDP}\)</span> et <span class="math inline">\(\text{TPR}\)</span> sont des fonctions croissantes en <span class="math inline">\(t\)</span>. En <span class="math inline">\((0,1)\)</span>, il n’y a ni faux négatif ni faux positif et le test est toujours correct. La courbe ROC relie donc <span class="math inline">\((0,0)\)</span> à <span class="math inline">\((1,1)\)</span> et plus elle s’approche de <span class="math inline">\((0,1)\)</span>, mieux c’est. L’aire sous la courbe ROC, dite AUC pour <em>area under the curve</em>, permet de quantifier la qualité d’un classificateur indépendamment du seuil choisi. Plus l’AUC est proche de <span class="math inline">\(1\)</span>, plus le classificateur est performant.</p>
+</div>
+<div id="correction-de-bonferroni" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Correction de Bonferroni</h3>
+<p>La correction de Bonferroni a pour objectif de contrôler le <em>family-wise error rate</em>, la probabilité de faire au moins une erreur dans les découvertes en changeant le seuil auquel on rejette l’hypothèse nulle. Si au lieu de rejeter en dessous du seuil <span class="math inline">\(\alpha\)</span>, on rejette en dessous de <span class="math inline">\(\frac{\alpha}{m}\)</span>, on contrôle le FWER au niveau <span class="math inline">\(\alpha\)</span> :</p>
+<p><span class="math display">\[\begin{align*}
+\text{FWER} &amp; = \PP{\text{FP} \geq 1} \\
+&amp; = \PP{\bigcup_{i\in \mathbb{H}_0} \left\{\pv_i \leq \frac{\alpha}{m}\right\} } \\
+&amp; \leq \sum_{i\in \mathbb{H}_0} \PP{\left\{\pv_i \leq \frac{\alpha}{m} \right\}} \\
+&amp; = m_0 \frac{\alpha}{m}  \\
+&amp; \leq \alpha.
+\end{align*}\]</span></p>
+<p>Pour plus de praticité, on travaille avec les <span class="math inline">\(q\)</span>-valeurs associées à la correction de Bonferroni définies par</p>
+<p><span class="math display">\[\begin{equation*}
+\qv^{\text{bonf}} = m * \pv,
+\end{equation*}\]</span></p>
+<p>qui sont, elles, comparées au seuil <span class="math inline">\(\alpha\)</span>.</p>
+<p>Ainsi, avec une probabilité de <span class="math inline">\(1-\alpha\)</span>, il n’y a aucun faux positif pour l’ensemble des tests réalisés.</p>
+<p>Cependant, les procédures qui contrôlent le FWER comme les corrections de Bonferroni ou de Holm, une alternative plus puissante <span class="citation">(Holm, 1979)</span>, sont très conservatrices et peu utilisées en métagénomique.</p>
+</div>
+<div id="correction-de-benjamini-hochberg" class="section level3">
+<h3><span class="header-section-number">2.2.3</span> Correction de Benjamini-Hochberg</h3>
+<p>Au lieu de n’autoriser aucun faux positif à un risque <span class="math inline">\(\alpha\)</span>, <span class="citation">Benjamini &amp; Hochberg (1995)</span> proposent de contrôler la proportion de fausses découvertes parmi les découvertes. Il s’agit alors de garder la quantité <span class="math inline">\(\text{FDP} = \frac{\text{FP}}{\text{R} \vee 1}\)</span> en dessous d’un seuil <span class="math inline">\(\alpha\)</span>, où <span class="math inline">\(\text{R} = \text{TP} + \text{FP}\)</span> est le nombre d’hypothèses rejetées.</p>
+<p>Sous réserve d’une indépendance entre les tests, la procédure de Benjamini-Hochberg (BH) contrôle l’espérance du <span class="math inline">\(\text{FDP}\)</span>, appelée FDR (pour <em>false discovery rate</em>), au seuil <span class="math inline">\(\alpha\)</span>. Celle-ci se fait en trois étapes :</p>
+<ul>
+<li><p>ordonner les <span class="math inline">\(p\)</span>-valeurs <span class="math inline">\(\pv_{(1)}, \ldots, \pv_{(m)}\)</span> et poser <span class="math inline">\(\pv_{(0)} = 0\)</span> ;</p></li>
+<li><p>trouver le rang <span class="math inline">\(\hat{\ell} = \max\left\{\ell \in [\![0,m]\!] \left| \pv_{(\ell)} \leq \frac{\alpha\ell}{m} \right. \right\}\)</span> ;</p></li>
+<li><p>rejeter les <span class="math inline">\(\hat{\ell}\)</span> hypothèses correspondant aux plus petites <span class="math inline">\(p\)</span>-valeurs.</p></li>
+</ul>
+<p>En effet, notons <span class="math inline">\(V_i = \indic_{\left\{H_i \text{ est rejetée}\right\}}\)</span> pour <span class="math inline">\(i \in \mathbb{H}_0\)</span>. On a alors
+<span class="math inline">\(\text{FDP} = \frac{\text{FP}}{\text{R} \vee 1} = \sum_{i\in \mathbb{H}_0} \frac{V_i}{\text{R} \vee 1}\)</span>.</p>
+<p>Fixons <span class="math inline">\(i\in \mathbb{H}_0 \neq \emptyset\)</span>. S’il y a <span class="math inline">\(k\)</span> hypothèses rejetées, alors <span class="math inline">\(H_i\)</span> est rejetée si et seulement si <span class="math inline">\(\pv_i \leq \frac{\alpha k}{m}\)</span> et alors <span class="math inline">\(V_i = \indic_{\left\{\pv_i \leq \frac{\alpha k}{m}\right\}}\)</span>. Définissons <span class="math inline">\(\text{R}(\pv_i \rightarrow 0)\)</span> le nombre d’hypothèses rejetées lorsqu’on fixe <span class="math inline">\(\pv_i\)</span> à <span class="math inline">\(0\)</span>. S’il y a <span class="math inline">\(k\)</span> hypothèses rejetées et que <span class="math inline">\(\pv_i \leq \frac{\alpha k}{m}\)</span>, <span class="math inline">\(H_i\)</span> est rejetée et fixer <span class="math inline">\(\pv_i\)</span> à <span class="math inline">\(0\)</span> ne change pas le nombre d’hypothèses rejetées : <span class="math inline">\(\text{R} = \text{R}(\pv_i \rightarrow 0)\)</span>. À l’inverse, si <span class="math inline">\(\pv_i &gt; \frac{\alpha k}{m}\)</span>, <span class="math inline">\(H_i\)</span> n’est pas rejetée et <span class="math inline">\(V_i = 0\)</span>. La concaténation des deux résultats précédents donne <span class="math inline">\(V_i\indic_{\left\{\text{R}=k\right\}} = V_i\indic_{\left\{\text{R}(\pv_i \rightarrow 0) = k\right\}}\)</span>.</p>
+<p>En notant <span class="math inline">\(\mathcal{F}_i = \left\{\pv_1, \ldots, \pv_{i-1}, \pv_{i+1}, \ldots, \pv_m \right\}\)</span> la tribu engendrée par les <span class="math inline">\(p\)</span>-valeurs sauf <span class="math inline">\(\pv_i\)</span>,</p>
+<p><span class="math display">\[\begin{equation*}
+\begin{aligned}
+\EE{\left.\frac{V_i}{\text{R}\vee 1} \right| \mathcal{F}_i} &amp; = \EE{\left.\sum_{k = 1}^m\frac{V_i\indic_{\left\{\text{R}=k\right\}}}{k} + \frac{0}{0\vee1} \right| \mathcal{F}_i} \\
+&amp; = \sum_{k = 1}^m \EE{\left.\frac{V_i\indic_{\left\{\text{R}(\pv_i \rightarrow 0)=k\right\}}}{k}\right| \mathcal{F}_i} \\
+&amp; = \sum_{k = 1}^m \indic_{\left\{\text{R}(\pv_i \rightarrow 0)=k\right\}} \EE{\left.\frac{\indic_{\left\{\pv_i \leq \frac{\alpha k}{m}\right\}}}{k}\right| \mathcal{F}_i} \\
+&amp; = \sum_{k = 1}^m \indic_{\left\{\text{R}(\pv_i \rightarrow 0)=k\right\}} \frac{\alpha}{m} \\
+&amp; = \frac{\alpha}{m}.
+\end{aligned}
+\end{equation*}\]</span></p>
+<p>La troisième égalité provient du fait que <span class="math inline">\(\text{R}(\pv_i \rightarrow 0)\)</span> est connue conditionnellement à <span class="math inline">\(\mathcal{F}_i\)</span>, la quatrième découle du fait que <span class="math inline">\(\pv_i \sim \unif{\mathopen[0, 1\mathclose]}\)</span> et la dernière résulte du fait qu’en fixant une <span class="math inline">\(p\)</span>-valeur à <span class="math inline">\(0\)</span>, on va rejeter au moins une fois et <span class="math inline">\(\text{R}(\pv_i \rightarrow 0)\)</span> est compris entre <span class="math inline">\(1\)</span> et <span class="math inline">\(m\)</span>.</p>
+<p>Finalement,</p>
+<p><span class="math display">\[\begin{equation*}
+\text{FDR} = \EE{\text{FDP}} = \EE{\sum_{i\in \mathbb{H}_0} \frac{V_i}{\text{R} \vee 1}} = \sum_{i\in \mathbb{H}_0}\frac{\alpha}{m} \leq \alpha.
+\end{equation*}\]</span></p>
+<p>En terme de <span class="math inline">\(q\)</span>-valeurs,</p>
+<p><span class="math display">\[\begin{equation*}
+\qv^{\text{bh}}_{(i)} = \min\left\{\min_{j\ge i}\left\{\frac{m\pv_{(j)}}{j}\right\},1\right\},
+\end{equation*}\]</span></p>
+<p>où <span class="math inline">\(\pv_{(1)}, \ldots, \pv_{(m)}\)</span> sont les <span class="math inline">\(p\)</span>-valeurs réordonnées et <span class="math inline">\(\qv^{\text{bh}}_{(i)}\)</span> est la <span class="math inline">\(q\)</span>-valeur associée à <span class="math inline">\(\pv_{(i)}\)</span>.</p>
+</div>
+<div id="correction-de-benjamini-yekutieli" class="section level3">
+<h3><span class="header-section-number">2.2.4</span> Correction de Benjamini-Yekutieli</h3>
+<p>Si les tests ne sont pas indépendants, il est possible d’appliquer la procédure de Benjamini-Yekutieli (BY) <span class="citation">(Benjamini &amp; Yekutieli, 2001)</span> qui ne requiert aucune hypothèse d’indépendance entre les tests. Il s’agit d’une modification dans la procédure de Benjamini-Hochberg, où l’on ne compare plus à <span class="math inline">\(\frac{\alpha\ell}{m}\)</span> mais à <span class="math inline">\(\frac{\alpha\ell}{m\sum_{i = 1}^m \frac{1}{\ell}}\)</span>.</p>
+<p>Les <span class="math inline">\(q\)</span>-valeurs sont alors</p>
+<p><span class="math display">\[\begin{equation*}
+\qv^{\text{by}}_{(i)} = \min\left\{\min_{j\ge i}\left\{\sum_{i = 1}^m \frac{1}{i} \frac{ m\pv_{(j)}}{j}\right\},1\right\}.
+\end{equation*}\]</span></p>
+<p>Cette procédure très générique présente l’inconvénient d’être extrêmement conservatrice et de faire peu de découvertes.</p>
+</div>
+</div>
+<div id="procédures-hiérarchiques-pour-tests-multiples" class="section level2">
+<h2><span class="header-section-number">2.3</span> Procédures hiérarchiques pour tests multiples</h2>
+<p>Jusqu’alors, les corrections proposées font l’hypothèse (<em>a priori</em> fausse) que les tests sont indépendants ou vérifient une hypothèse technique de dépendance positive, comme BH, ou fonctionnent quelque soit la relation de dépendance entre les tests, au prix d’un fort conservatisme, comme BY.</p>
+<p>Il serait plus intéressant d’utiliser explicitement la relation de dépendance entre les tests afin d’augmenter la puissance statistique. C’est ce que proposent les méthodes présentées dans cette section.</p>
+<p>Cette section ne nécessite qu’une définition intuitive de ce qu’est un arbre : un graphe acyclique connexe orienté dont les nœuds terminaux (feuilles) sont étiquetés et ayant ou non des longueurs de branches. Une définition plus rigoureuse en sera donnée dans le chapitre <a href="3-arbres.html#arbres">3</a>.</p>
+<div id="treefdr" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> <em>TreeFDR</em></h3>
+<p><em>TreeFDR</em> <span class="citation">(Xiao, Cao, &amp; Chen, 2017)</span> est une procédure de lissage des <span class="math inline">\(z\)</span>-scores suivie d’une procédure de correction par permutation implémentée dans le package <code>{StructFDR}</code>.</p>
+<p>Dans ce modèle hiérarchique, les <span class="math inline">\(z\)</span>-scores <span class="math inline">\(\zs = \Phi^{-1}\left(\pv\right)\)</span> sont vus comme la réalisation un vecteur gaussien multivarié de moyenne <span class="math inline">\(\mu\)</span> :</p>
+<p><span class="math display">\[\begin{equation*}
+\left. \zs \mid \mu \right. \sim \mathcal{N}_m\left(\mu,\sigma^2 \mathbf{I}_m\right).
+\end{equation*}\]</span></p>
+<p>À partir de l’arbre, on calcule la matrice des distances patristiques entre feuilles <span class="math inline">\(D = (d_{i,j})_{i,j}\)</span> que l’on converti en une matrice de corrélation <span class="math inline">\(C_{\rho} = \left(\exp\left(-2\rho D_{i,j}\right)\right)_{i,j}\)</span>. Cette matrice de corrélation est ensuite utilisée pour décrire les corrélations entre les composantes de <span class="math inline">\(\mu\)</span> :</p>
+<p><span class="math display">\[\begin{equation*}
+\mu \sim \mathcal{N}_m\left(\gamma \mathbf{1}_m,\tau^2C_{\rho}\right).
+\end{equation*}\]</span></p>
+<p>L’estimateur du maximum <em>a posteriori</em> de <span class="math inline">\(\mu\)</span> est alors</p>
+<p><span class="math display">\[\begin{equation*}
+\mu^* = \left(\mathbf{I}_m + k^2 C_{\rho}^{-1}\right)\left(k^2 C_{\rho}^{-1} \gamma \mathbf{1}_m + \zs \right),
+\end{equation*}\]</span></p>
+<p>avec <span class="math inline">\(k = \frac{\sigma}{\tau}\)</span>.</p>
+<p>Les hyperparamètres <span class="math inline">\(\rho\)</span> et <span class="math inline">\(k\)</span> contrôlent le niveau de lissage du modèle : les <span class="math inline">\(z\)</span>-scores issus d’un même clade vont être regroupés vers une valeur commune. De hautes valeurs de <span class="math inline">\(k\)</span> ou de faibles valeurs de <span class="math inline">\(\rho\)</span> entraînent un fort lissage.</p>
+</div>
+<div id="fdr-hiérarchique" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> FDR hiérarchique</h3>
+<p>Le FDR hiérarchique (hFDR) est une procédure proposée par <span class="citation">Yekutieli (2008)</span> et implémentée dans le <em>package</em> R <code>{structSSI}</code> <span class="citation">(Sankaran &amp; Holmes, 2014)</span>.</p>
+<p>Contrairement à <em>TreeFDR</em>, le FDR hiérarchique a besoin d’avoir une <span class="math inline">\(p\)</span>-valeur à chaque nœud interne. Dans le cas de données métagénomiques, celles-ci peuvent facilement être obtenues en effectuant un test d’abondance différentielle sur la somme des bactéries qui descendent du nœud considéré.</p>
+<p>C’est un algorithme descendant qui teste les hypothèses par <em>familles</em> –c’est à dire tous les enfants d’un même nœud– au niveau <span class="math inline">\(\alpha\)</span> en corrigeant avec BH à chaque fois. Plus précisément, on commence par tester la famille de la racine (avec une correction de BH). Puis, pour chaque nœud rejeté au sein de cette famille, on va tester ses enfants (en corrigeant toujours avec BH). À l’inverse, si un nœud n’est pas rejeté, aucun de ses enfants directs et de ses descendants n’est testé. L’algorithme se termine une fois arrivé aux feuilles ou lorsqu’il ne reste que des nœuds qui n’ont pas pu être rejetés. La figure <a href="2-anadiff.html#fig:hfdr">2.3</a> illustre cette procédure sur un arbre à <span class="math inline">\(6\)</span> feuilles.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:hfdr"></span>
+<img src="img/hfdr.png" alt="Exemple d’une procédure de FDR hiérarchique. Les hypothèses à tester sont notées \(H_1\) à \(H_{12}\). L’algorithme commence par tester et rejeter (après correction) \(H_1\) et \(H_2\). Puis il teste la famille \((H_3, H_4)\), car ce sont des enfants de \(H_1\), et rejette \(H_4\) mais pas \(H_3\). La famille \((H_7, H_8, H_9)\) n’est pas testée car \(H_3\) n’a pas été rejeté. \(H_{10}\) est testé et rejeté. L’algorithme procède de même sur les descendants de \(H_2\). En définitive, il y a trois découvertes aux feuilles (\(H_{10}\), \(H_{11}\) et \(H_{12}\)) pour \(5\) familles testées. Le FDR a posteriori pour les feuilles est alors de \(1.44 \times \alpha \times 2\)." width="90%" />
+<p class="caption">
+Figure 2.3: Exemple d’une procédure de FDR hiérarchique. Les hypothèses à tester sont notées <span class="math inline">\(H_1\)</span> à <span class="math inline">\(H_{12}\)</span>. L’algorithme commence par tester et rejeter (après correction) <span class="math inline">\(H_1\)</span> et <span class="math inline">\(H_2\)</span>. Puis il teste la famille <span class="math inline">\((H_3, H_4)\)</span>, car ce sont des enfants de <span class="math inline">\(H_1\)</span>, et rejette <span class="math inline">\(H_4\)</span> mais pas <span class="math inline">\(H_3\)</span>. La famille <span class="math inline">\((H_7, H_8, H_9)\)</span> n’est pas testée car <span class="math inline">\(H_3\)</span> n’a pas été rejeté. <span class="math inline">\(H_{10}\)</span> est testé et rejeté. L’algorithme procède de même sur les descendants de <span class="math inline">\(H_2\)</span>. En définitive, il y a trois découvertes aux feuilles (<span class="math inline">\(H_{10}\)</span>, <span class="math inline">\(H_{11}\)</span> et <span class="math inline">\(H_{12}\)</span>) pour <span class="math inline">\(5\)</span> familles testées. Le FDR a <em>posteriori</em> pour les feuilles est alors de <span class="math inline">\(1.44 \times \alpha \times 2\)</span>.
+</p>
+</div>
+<p>Alors que <span class="math inline">\(\alpha\)</span> est le niveau de contrôle <em>a priori</em> intra-familles, si l’on ne considère que les découvertes au niveau des feuilles, hFDR garanti un contrôle <em>a posteriori</em> au niveau</p>
+<p><span class="math display">\[\begin{equation*}
+\alpha&#39; = 1.44 \times \alpha \times \frac{\# \text{découvertes} + \#\text{familles testées}}{\# \text{découvertes} + 1}.
+\end{equation*}\]</span></p>
+
+<p>Cette méthode souffre de plusieurs problèmes majeurs. Tout d’abord, le contrôle du FDR est fait seulement <em>a posteriori</em>, et plusieurs essais sont nécessaires pour contrôler le FDR au niveau souhaité, sans avoir la certitude que cela soit possible.
+De plus, pour que la procédure descende jusqu’aux feuilles, il faut que le signal d’abondance différentielle soit détectable dès la famille de la racine, sinon la procédure s’arrête dès le début, et cela arrive souvent en pratique <span class="citation">(Huang et al., 2020)</span>.</p>
+<p>Enfin, dans son implémentation par <span class="citation">Sankaran &amp; Holmes (2014)</span>, les <span class="math inline">\(p\)</span>-valeurs d’entrées ne sont pas données en argument par l’utilisateur mais calculées au sein la procédure via une ANOVA à un facteur. Ce type de test n’est malheureusement pas adapté aux données métagénomiques, ce qui fait perdre de la puissance à la procédure <span class="citation">(Bichat, Plassais, Ambroise, &amp; Mariadassou, 2020)</span>. Pour ces raisons, la procédure hFDR ne sera pas comparée aux autres méthodes dans la section <a href="4-nouvelleapproche.html#nouvelleapproche">4</a>.</p>
+</div>
+<div id="treeclimbr" class="section level3">
+<h3><span class="header-section-number">2.3.3</span> <em>treeclimbR</em></h3>
+<p><span class="citation">Huang et al. (2020)</span> ont récemment proposé <em>treeclimbR</em>, une procédure ascendante qui permet de sélectionner directement des clades différentiellement abondants.</p>
+<p>Tout d’abord, pour chaque nœud interne, on agrège les abondances en les sommant sur ses descendants. Puis, pour chaque nœud <span class="math inline">\(i\)</span> (interne ou feuille), on effectue un test qui renvoie une <span class="math inline">\(p\)</span>-valeur <span class="math inline">\(\pv_i\)</span> ainsi que le signe <span class="math inline">\(\sign_i\in \{-1,1\}\)</span> associé à la direction du changement d’abondance.</p>
+<p>On calcule ensuite un score à chaque nœud défini par</p>
+<p><span class="math display">\[\begin{equation*}
+U_i(t) = \left|\frac{\sum_{k \in \desc(i)} \sign_k \indic_{\{\pv_i &lt; t\}}}{\#\desc(i)}\right|
+\end{equation*}\]</span></p>
+<p>où <span class="math inline">\(t \in \mathopen[0,1\mathclose]\)</span> est un hyperparamètre que l’on va estimer dans la suite et <span class="math inline">\(\desc(i)\)</span> est l’ensemble des descendants de <span class="math inline">\(i\)</span>. Lorsque <span class="math inline">\(U_i(t)\)</span> est proche de <span class="math inline">\(1\)</span>, cela signifie que les descendants de <span class="math inline">\(i\)</span> sont différentiellement abondants et dans le même sens. À l’inverse, quand <span class="math inline">\(U_i(t)\)</span> s’approche de <span class="math inline">\(0\)</span>, soit les espèces ne sont pas différentiellement abondantes, soit elles le sont dans des directions opposées.</p>
+<p>Pour chaque <span class="math inline">\(t\)</span> candidat sur une grille, on parcours l’arbre depuis la racine et on arrête la descente d’une branche lorsque l’on rencontre un nœud <span class="math inline">\(i\)</span> tel que <span class="math inline">\(U_i(t) = 1\)</span> : il s’agit d’un nœud terminal pour la procédure, qui représente tous ses descendants.</p>
+<p>On effectue ensuite une correction pour test multiple (Benjamini-Hochberg) sur les nœuds terminaux et les feuilles qui ne font pas partie de la descendance d’un nœud terminal.</p>
+<p>Il reste à sélectionner le meilleur <span class="math inline">\(t\)</span> candidat. On utilise trois critères éliminatoires. Le premier est un choix <em>a posteriori</em> d’une borne maximale <span class="math inline">\(t_{\max}\)</span> pour <span class="math inline">\(t\)</span> (dépendante des résultats) et on exclut les candidats tels que <span class="math inline">\(t\in\mathopen[0, t_{\max}\mathclose]\)</span>, ceci permettant de contrôler le FDR au niveau des feuilles parmi les candidats restants. Puis on ne conserve que les candidats ayant le plus grand nombre de feuille rejetées, ce qui maximise la puissance. Et enfin, parmi les candidats restants, on ne garde que ceux qui minimisent le nombre de nœuds rejetés, pour retenir le niveau de résolution le plus adapté.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="1-metagenomique.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="3-arbres.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["twitter", "linkedin", "facebook", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "night",
+"family": "serif",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["thesis.pdf", "PDF"]],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

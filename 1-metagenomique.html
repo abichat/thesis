@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapitre 1 Métagénomique | Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles</title>
+  <meta name="description" content="Thèse de mathématiques appliquées par Antoine Bichat. Statistique – Apprentissage – Métagénomique – Arbre phylogénétique – Tests multiples – Processus stochastiques" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapitre 1 Métagénomique | Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://abichat.github.io/thesis/" />
+  <meta property="og:image" content="https://abichat.github.io/thesis/img/tree_ou.png" />
+  <meta property="og:description" content="Thèse de mathématiques appliquées par Antoine Bichat. Statistique – Apprentissage – Métagénomique – Arbre phylogénétique – Tests multiples – Processus stochastiques" />
+  <meta name="github-repo" content="abichat/thesis" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapitre 1 Métagénomique | Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles" />
+  
+  <meta name="twitter:description" content="Thèse de mathématiques appliquées par Antoine Bichat. Statistique – Apprentissage – Métagénomique – Arbre phylogénétique – Tests multiples – Processus stochastiques" />
+  <meta name="twitter:image" content="https://abichat.github.io/thesis/img/tree_ou.png" />
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="index.html"/>
+<link rel="next" href="2-anadiff.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-131161788-01', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<br><br><br>
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="1-metagenomique.html"><a href="1-metagenomique.html"><i class="fa fa-check"></i><b>1</b> Métagénomique</a><ul>
+<li class="chapter" data-level="1.1" data-path="1-metagenomique.html"><a href="1-metagenomique.html#microbiote"><i class="fa fa-check"></i><b>1.1</b> Le microbiote intestinal humain</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="1-metagenomique.html"><a href="1-metagenomique.html#description"><i class="fa fa-check"></i><b>1.1.1</b> Description</a></li>
+<li class="chapter" data-level="1.1.2" data-path="1-metagenomique.html"><a href="1-metagenomique.html#rôle"><i class="fa fa-check"></i><b>1.1.2</b> Rôle</a></li>
+<li class="chapter" data-level="1.1.3" data-path="1-metagenomique.html"><a href="1-metagenomique.html#dysbioses"><i class="fa fa-check"></i><b>1.1.3</b> Dysbioses</a></li>
+<li class="chapter" data-level="1.1.4" data-path="1-metagenomique.html"><a href="1-metagenomique.html#utilisations"><i class="fa fa-check"></i><b>1.1.4</b> Utilisations</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="1-metagenomique.html"><a href="1-metagenomique.html#caracterisation"><i class="fa fa-check"></i><b>1.2</b> Caractérisation du microbiote</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="1-metagenomique.html"><a href="1-metagenomique.html#collecte-des-échantillons"><i class="fa fa-check"></i><b>1.2.1</b> Collecte des échantillons</a></li>
+<li class="chapter" data-level="1.2.2" data-path="1-metagenomique.html"><a href="1-metagenomique.html#séquençage-par-gène-marqueur"><i class="fa fa-check"></i><b>1.2.2</b> Séquençage par gène marqueur</a></li>
+<li class="chapter" data-level="1.2.3" data-path="1-metagenomique.html"><a href="1-metagenomique.html#séquençage-non-ciblé"><i class="fa fa-check"></i><b>1.2.3</b> Séquençage non ciblé</a></li>
+<li class="chapter" data-level="1.2.4" data-path="1-metagenomique.html"><a href="1-metagenomique.html#donneesmetagenomiques"><i class="fa fa-check"></i><b>1.2.4</b> Données métagénomiques</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="1-metagenomique.html"><a href="1-metagenomique.html#jeuxdonnees"><i class="fa fa-check"></i><b>1.3</b> Jeux de données</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-anadiff.html"><a href="2-anadiff.html"><i class="fa fa-check"></i><b>2</b> Études d’analyse différentielle</a><ul>
+<li class="chapter" data-level="2.1" data-path="2-anadiff.html"><a href="2-anadiff.html#tests-statistiques"><i class="fa fa-check"></i><b>2.1</b> Tests statistiques</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="2-anadiff.html"><a href="2-anadiff.html#analyse-de-la-variance-à-un-facteur"><i class="fa fa-check"></i><b>2.1.1</b> Analyse de la variance à un facteur</a></li>
+<li class="chapter" data-level="2.1.2" data-path="2-anadiff.html"><a href="2-anadiff.html#test-de-wilcoxon"><i class="fa fa-check"></i><b>2.1.2</b> Test de Wilcoxon</a></li>
+<li class="chapter" data-level="2.1.3" data-path="2-anadiff.html"><a href="2-anadiff.html#test-de-kruskall-wallis"><i class="fa fa-check"></i><b>2.1.3</b> Test de Kruskall-Wallis</a></li>
+<li class="chapter" data-level="2.1.4" data-path="2-anadiff.html"><a href="2-anadiff.html#autres-methodes"><i class="fa fa-check"></i><b>2.1.4</b> Autres méthodes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="2-anadiff.html"><a href="2-anadiff.html#problématique-des-tests-multiples"><i class="fa fa-check"></i><b>2.2</b> Problématique des tests multiples</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="2-anadiff.html"><a href="2-anadiff.html#évaluation-des-performances"><i class="fa fa-check"></i><b>2.2.1</b> Évaluation des performances</a></li>
+<li class="chapter" data-level="2.2.2" data-path="2-anadiff.html"><a href="2-anadiff.html#correction-de-bonferroni"><i class="fa fa-check"></i><b>2.2.2</b> Correction de Bonferroni</a></li>
+<li class="chapter" data-level="2.2.3" data-path="2-anadiff.html"><a href="2-anadiff.html#correction-de-benjamini-hochberg"><i class="fa fa-check"></i><b>2.2.3</b> Correction de Benjamini-Hochberg</a></li>
+<li class="chapter" data-level="2.2.4" data-path="2-anadiff.html"><a href="2-anadiff.html#correction-de-benjamini-yekutieli"><i class="fa fa-check"></i><b>2.2.4</b> Correction de Benjamini-Yekutieli</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="2-anadiff.html"><a href="2-anadiff.html#procédures-hiérarchiques-pour-tests-multiples"><i class="fa fa-check"></i><b>2.3</b> Procédures hiérarchiques pour tests multiples</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="2-anadiff.html"><a href="2-anadiff.html#treefdr"><i class="fa fa-check"></i><b>2.3.1</b> <em>TreeFDR</em></a></li>
+<li class="chapter" data-level="2.3.2" data-path="2-anadiff.html"><a href="2-anadiff.html#fdr-hiérarchique"><i class="fa fa-check"></i><b>2.3.2</b> FDR hiérarchique</a></li>
+<li class="chapter" data-level="2.3.3" data-path="2-anadiff.html"><a href="2-anadiff.html#treeclimbr"><i class="fa fa-check"></i><b>2.3.3</b> <em>treeclimbR</em></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="3-arbres.html"><a href="3-arbres.html"><i class="fa fa-check"></i><b>3</b> Arbres</a><ul>
+<li class="chapter" data-level="3.1" data-path="3-arbres.html"><a href="3-arbres.html#définitions"><i class="fa fa-check"></i><b>3.1</b> Définitions</a></li>
+<li class="chapter" data-level="3.2" data-path="3-arbres.html"><a href="3-arbres.html#distances"><i class="fa fa-check"></i><b>3.2</b> Distances</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="3-arbres.html"><a href="3-arbres.html#distance-de-robinson-foulds"><i class="fa fa-check"></i><b>3.2.1</b> Distance de Robinson-Foulds</a></li>
+<li class="chapter" data-level="3.2.2" data-path="3-arbres.html"><a href="3-arbres.html#distance-cophénétique"><i class="fa fa-check"></i><b>3.2.2</b> Distance cophénétique</a></li>
+<li class="chapter" data-level="3.2.3" data-path="3-arbres.html"><a href="3-arbres.html#distance-de-billera-holmes-vogtmann-bhv"><i class="fa fa-check"></i><b>3.2.3</b> Distance de Billera-Holmes-Vogtmann (BHV)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="3-arbres.html"><a href="3-arbres.html#arbres-dintérêt"><i class="fa fa-check"></i><b>3.3</b> Arbres d’intérêt</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="3-arbres.html"><a href="3-arbres.html#phylogénie"><i class="fa fa-check"></i><b>3.3.1</b> Phylogénie</a></li>
+<li class="chapter" data-level="3.3.2" data-path="3-arbres.html"><a href="3-arbres.html#taxonomie"><i class="fa fa-check"></i><b>3.3.2</b> Taxonomie</a></li>
+<li class="chapter" data-level="3.3.3" data-path="3-arbres.html"><a href="3-arbres.html#cortree"><i class="fa fa-check"></i><b>3.3.3</b> Arbre des corrélations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="3-arbres.html"><a href="3-arbres.html#comparaison-entre-les-arbres"><i class="fa fa-check"></i><b>3.4</b> Comparaison entre les arbres</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="3-arbres.html"><a href="3-arbres.html#forêt-darbres"><i class="fa fa-check"></i><b>3.4.1</b> Forêt d’arbres</a></li>
+<li class="chapter" data-level="3.4.2" data-path="3-arbres.html"><a href="3-arbres.html#distance-entre-les-arbres"><i class="fa fa-check"></i><b>3.4.2</b> Distance entre les arbres</a></li>
+<li class="chapter" data-level="3.4.3" data-path="3-arbres.html"><a href="3-arbres.html#checktreefdr"><i class="fa fa-check"></i><b>3.4.3</b> Choix de l’arbre et lissage de z-score</a></li>
+<li class="chapter" data-level="3.4.4" data-path="3-arbres.html"><a href="3-arbres.html#choix-de-larbre-et-fdr-hiérarchique"><i class="fa fa-check"></i><b>3.4.4</b> Choix de l’arbre et FDR hiérarchique</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html"><i class="fa fa-check"></i><b>4</b> <em>zazou</em> : une nouvelle approche</a><ul>
+<li class="chapter" data-level="4.1" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#ou"><i class="fa fa-check"></i><b>4.1</b> Processus d’Ornstein-Uhlenbeck</a></li>
+<li class="chapter" data-level="4.2" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#zazousection"><i class="fa fa-check"></i><b>4.2</b> Zazou</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#modèle"><i class="fa fa-check"></i><b>4.2.1</b> Modèle</a></li>
+<li class="chapter" data-level="4.2.2" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#estimation-ponctuelle"><i class="fa fa-check"></i><b>4.2.2</b> Estimation ponctuelle</a></li>
+<li class="chapter" data-level="4.2.3" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#débiaisage-et-intervalles-de-confiance"><i class="fa fa-check"></i><b>4.2.3</b> Débiaisage et intervalles de confiance</a></li>
+<li class="chapter" data-level="4.2.4" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#correction-pour-tests-multiples"><i class="fa fa-check"></i><b>4.2.4</b> Correction pour tests multiples</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#evaluation"><i class="fa fa-check"></i><b>4.3</b> Évaluation de la méthode</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#simuzazou"><i class="fa fa-check"></i><b>4.3.1</b> Données simulées</a></li>
+<li class="chapter" data-level="4.3.2" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#influence-de-lâge"><i class="fa fa-check"></i><b>4.3.2</b> Influence de l’âge</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-ananum.html"><a href="5-ananum.html"><i class="fa fa-check"></i><b>5</b> Problèmes d’analyse numérique</a><ul>
+<li class="chapter" data-level="5.1" data-path="5-ananum.html"><a href="5-ananum.html#shooting"><i class="fa fa-check"></i><b>5.1</b> Algorithme du <em>shooting</em></a></li>
+<li class="chapter" data-level="5.2" data-path="5-ananum.html"><a href="5-ananum.html#mam"><i class="fa fa-check"></i><b>5.2</b> Minimisation sous contrainte de <span class="math inline">\(x^TAx\)</span></a></li>
+<li class="chapter" data-level="5.3" data-path="5-ananum.html"><a href="5-ananum.html#proj"><i class="fa fa-check"></i><b>5.3</b> Projection sur un ensemble de faisabilité</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html"><i class="fa fa-check"></i>Conclusion et perspectives</a><ul>
+<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#détection-versus-prédiction"><i class="fa fa-check"></i>Détection versus prédiction</a></li>
+<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#autres-procédures-hiérarchiques"><i class="fa fa-check"></i>Autres procédures hiérarchiques</a></li>
+<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#amélioration-de-zazou"><i class="fa fa-check"></i>Amélioration de zazou</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html"><i class="fa fa-check"></i>Digest</a><ul>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-i"><i class="fa fa-check"></i>Chapter I</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-ii"><i class="fa fa-check"></i>Chapter II</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-iii"><i class="fa fa-check"></i>Chapter III</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-iv"><i class="fa fa-check"></i>Chapter IV</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-v"><i class="fa fa-check"></i>Chapter V</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#conclusions-and-outlooks"><i class="fa fa-check"></i>Conclusions and outlooks</a></li>
+</ul></li>
+<li class="appendix"><span><b>Annexes</b></span></li>
+<li class="chapter" data-level="A" data-path="A-notations.html"><a href="A-notations.html"><i class="fa fa-check"></i><b>A</b> Notations</a></li>
+<li class="chapter" data-level="B" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html"><i class="fa fa-check"></i><b>B</b> Productions scientifiques</a><ul>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#quantifying-the-impact-of-tree-choice-in-metagenomics-differential-abundance-studies-with-r"><i class="fa fa-check"></i>Quantifying the impact of tree choice in metagenomics differential abundance studies with R</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#incorporating-phylogenetic-information-in-microbiome-differential-abundance-studies-has-no-effect-on-detection-power-and-fdr-control"><i class="fa fa-check"></i>Incorporating Phylogenetic Information in Microbiome Differential Abundance Studies Has No Effect on Detection Power and FDR Control</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#hierarchical-correction-of-p-values-via-a-tree-running-ornstein-uhlenbeck-process"><i class="fa fa-check"></i>Hierarchical correction of p-values via a tree running Ornstein-Uhlenbeck process</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#packages-r"><i class="fa fa-check"></i>Packages R</a><ul>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#yatah"><i class="fa fa-check"></i>yatah</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#evabic"><i class="fa fa-check"></i>evabic</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#correlationtree"><i class="fa fa-check"></i>correlationtree</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#zazou"><i class="fa fa-check"></i>zazou</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="C-vignette.html"><a href="C-vignette.html"><i class="fa fa-check"></i><b>C</b> Vignette de zazou</a></li>
+<li class="chapter" data-level="" data-path="références.html"><a href="références.html"><i class="fa fa-check"></i>Références</a></li>
+<li class="chapter" data-level="" data-path="mentions-légales.html"><a href="mentions-légales.html"><i class="fa fa-check"></i>Mentions légales</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+      NN: "{\\mathbb{N}}",
+      ZZ: "{\\mathbb{Z}}",
+      QQ: "{\\mathbb{Q}}",
+      RR: "{\\mathbb{R}}",
+      shiftset: "{\\mathcal{D}}",
+      dx: ["{\\mathrm{d}^{#1}\\mspace{-1mu}\\mathord{#2}}", 2, ""],
+      indic: "{\\unicode{x1D7D9}}",
+      prob: "\\mathop{\\mathbb{P}}",
+      esp: "\\mathop{\\mathbb{E}}",
+      var: "\\mathop{\\mathbb{V}\\text{ar}}",
+      cov: "\\mathop{\\mathbb{C}\\text{ov}}",
+      PP: ["{\\prob\\left({#1}\\right)}", 1],
+      EE: ["{\\esp\\left[{#1}\\right]}", 1],
+      VV: ["{\\var\\left[{#1}\\right]}", 1],
+      CC: ["{\\cov\\left[{#1}\\right]}", 1],
+      normal: ["{\\mathcal{N}\\left({#1},{#2}\\right)}", 2],
+      ou: ["{#1}_{\\text{ou}}", 1],
+      oui: ["{#1}_{\\text{ou},#2}", 2],
+      pv: "{\\mathfrak{p}}",
+      qv: "{\\mathfrak{q}}",
+      zs: "{\\mathfrak{z}}",
+      ts: "{\\mathfrak{t}}",
+      sign: "{\\mathfrak{s}}",
+      shifts: "{\\delta}",
+      optim: "{\\beta}",
+      param: "{\\theta}",
+      unif: ["{\\mathcal{U}\\left({#1}\\right)}", 1],
+      argmin: "\\mathop{\\mathrm{argmin}}",
+      diag: "\\mathop{\\mathrm{Diag}}",
+      rang: "\\mathop{\\mathrm{rang}}",
+      pa: "\\mathop{\\mathrm{pa}}",
+      mrca: "\\mathop{\\mathrm{mrca}}",
+      desc: "\\mathop{\\mathrm{desc}}",
+      warning: ["\\color{red}{{#1}}", 1]
+    }
+  }
+});
+</script>
+<div id="metagenomique" class="section level1">
+<h1><span class="header-section-number">Chapitre 1</span> Métagénomique</h1>
+<p>Quel est le point commun entre une poignée de terre, du camembert et votre intestin ? Tous hébergent une communauté de micro-organismes —bactéries, virus, champignons…— collectivement appelés le microbiote. Aussi extrêmes soient-ils, tous les environnements hébergent des communautés microbiennes. Comme l’on pourrait s’y attendre, les bactéries présentes dans le tube digestif d’escargots sous-marins <span class="citation">(Aronson, Zellmer, &amp; Goffredi, 2017)</span> ne sont pas les mêmes que celles présentes dans le désert d’Atacama <span class="citation">(Araya, González, Cardinale, Schnell, &amp; Stoll, 2020)</span>, mais même au sein d’environnements comparables, il existe une grande variabilité tant au niveau des espèces présentes que de leurs abondances.</p>
+<p>Depuis la fin des années 2000, le développement des techniques de séquençage haut-débit et la baisse de leurs coûts (voir figure <a href="1-metagenomique.html#fig:couts">1.1</a>) ont rendu accessible l’ensemble des génomes du microbiote, aussi appelé microbiome ou métagénome.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:couts"></span>
+<img src="img/couts.png" alt="Évolution du coût de séquençage (en dollar) d’une mégabase d’ADN, en échelle logarithmique, tiré de www.genome.gov." width="90%" />
+<p class="caption">
+Figure 1.1: Évolution du coût de séquençage (en dollar) d’une mégabase d’ADN, en échelle logarithmique, tiré de <a href="www.genome.gov">www.genome.gov</a>.
+</p>
+</div>
+<div id="microbiote" class="section level2">
+<h2><span class="header-section-number">1.1</span> Le microbiote intestinal humain</h2>
+<p>Même si les développements méthodologiques présentés dans cette thèse ont une portée générale et ne sont pas limités à un type de microbiote en particulier, ils ont effectués avec le microbiote intestinal humain en ligne de mire. Nous présentons ici quelques propriétés de ce microbiote afin que le lecteur prenne conscience de son importance et ai un exemple concret auquel se raccrocher par la suite.</p>
+<div id="description" class="section level3">
+<h3><span class="header-section-number">1.1.1</span> Description</h3>
+<p>Le tractus gastro-intestinal, ou tube digestif, abrite une communauté microbienne composée d’environ cent mille milliards de micro-organismes pour un poids d’environ <span class="math inline">\(2~\text{kg}\)</span> <span class="citation">(Ley, Peterson, &amp; Gordon, 2006)</span>. Par abus de langage, on l’appelle le microbiote intestinal. Chez les adultes au mode de vie occidental et en bonne santé, les bactéries appartenant à l’embranchement (<em>phylum</em>) des <em>Firmicutes</em> représentent plus de <span class="math inline">\(60~\%\)</span> de la composante bactérienne du microbiote. Si l’on y ajoute celles appartenant aux embranchements des <em>Actinobacteria</em> et des <em>Bacteroidetes</em>, cette fraction monte à <span class="math inline">\(90~\%\)</span> <span class="citation">(Zhernakova et al., 2016)</span>.</p>
+<p>La variabilité inter-individus reflète principalement des facteurs environnementaux ou comportementaux, qui structurent fortement les flores microbiennes, notamment: le régime alimentaire <span class="citation">(David et al., 2014)</span>, l’âge <span class="citation">(O’Toole &amp; Claesson, 2010; Yatsunenko et al., 2012)</span> mais aussi la prise d’antibiotiques <span class="citation">(Bokulich et al., 2016; Palleja et al., 2018)</span>, la présence d’un animal de compagnie <span class="citation">(Kates et al., 2020)</span>, etc.</p>
+</div>
+<div id="rôle" class="section level3">
+<h3><span class="header-section-number">1.1.2</span> Rôle</h3>
+<p>Les micro-organismes qui colonisent le tractus gastro-intestinal dégradent les glucides qui n’ont pas été préalablement absorbés par l’hôte <span class="citation">(Flint, Scott, Duncan, Louis, &amp; Forano, 2012; Rowland et al., 2018)</span>. Ces réactions produisent des acides gras à chaîne courte (AGCC) qui sont des sources d’énergies importantes pour l’humain. Plusieurs voies métaboliques, présentes chez différentes bactéries, permettent de produire des AGCC et il n’existe donc un profil unique pour tous les humains. Des études à grande échelles <span class="citation">(Arumugam et al., 2011)</span> ont cependant permis de dégager des « profils types », appelés entérotypes, caractérisés entre autres par l’alimentation.</p>
+<p>Certaines dégradations de sucres effectuées par le microbiote sont inaccessible aux seules voies métaboliques humaines : le microbiote constitue donc un compagnon indispensable pour assimiler pleinement les nutriments que nous consommons. Citons l’exemple de la population japonaise, qui consomme en moyenne <span class="math inline">\(14.2~\text{g}\)</span> de nori (un type d’algue) par jour et dans laquelle les enzymes porphyranases et agarases responsables de la dégradation des algues sont produites par la bactérie <em>Bacteroides plebeius</em>. Cette capacité a été obtenue à la suite d’un transfert horizontal de gène de la part <em>Zobellia galactanivorans</em>, une bactérie marine <span class="citation">(Hehemann et al., 2010)</span>.</p>
+<p>Le système immunitaire doit également beaucoup au microbiote intestinal <span class="citation">(Blander, Longman, Iliev, Sonnenberg, &amp; Artis, 2017)</span>. Parmi les AGCC précédemment cités, on retrouve le butyrate, un métabolite ayant des propriétés anti-inflammatoires et favorisant la prolifération cellulaire au sein de la muqueuse intestinale, ce qui participe à la prévention du cancer colorectal <span class="citation">(Canani et al., 2011)</span>.
+La composition du microbiote intestinal a également un effet sur l’efficacité des vaccins <span class="citation">(Valdez, Brown, &amp; Finlay, 2014)</span>. <span class="citation">Eloe-Fadrosh et al. (2013)</span> ont mis en évidence que les patients les plus répondeurs pour un vaccin antityphoïdique étaient ceux présentant une proportion plus importante de <em>Clostridiales</em>. Mentionnons enfin dans ce domaine, la bactérie <em>Bacteroides thetaiotamicron</em> qui induit une production du peptide antimicrobien <span class="math inline">\(\text{LL-37}\)</span>, lequel protège à son tour son hôte contre les infections par <em>Candida albicans</em> <span class="citation">(Fan et al., 2015)</span>.</p>
+<p>La signalisation biochimique bidirectionnelle entre le tractus gastro-intestinal et le système nerveux central, communément appelée axe intestin-cerveau, est grandement affectée par le microbiote intestinal. Les résultats les plus spectaculaires sont obtenues chez la drosophile, dans laquelle le microbiote intestinal participe à la modulation des comportements locomoteur <span class="citation">(Schretter et al., 2018)</span> et sexuel <span class="citation">(Sharon et al., 2010)</span>, et chez le rat, dans lequel la production d’un métabolite (l’indole) par certaines bactéries du microbiote induit des troubles du comportement et des troubles de l’anxiété <span class="citation">(Jaglin et al., 2018)</span>.</p>
+</div>
+<div id="dysbioses" class="section level3">
+<h3><span class="header-section-number">1.1.3</span> Dysbioses</h3>
+<p>Le terme dysbiose désigne un déséquilibre du microbiote, qui se traduit généralement par une perte de diversité ou par la surreprésentation d’une espèce. La table <a href="1-metagenomique.html#tab:dysbioses">1.1</a> présente un ensemble de maladies qui seraient causées par ou associées à une dysbiose.</p>
+<div style="page-break-after: always;"></div>
+<table>
+<caption><span id="tab:dysbioses">Table 1.1: </span> Quelques exemples de maladies associées à une dysbiose.</caption>
+<colgroup>
+<col width="33%" />
+<col width="66%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Type de maladie</th>
+<th align="center">Maladie</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Maladies métaboliques</td>
+<td align="center">Obésité <span class="citation">(Turnbaugh et al., 2009)</span>
+<br>
+Diabète de type 2 <span class="citation">(Qin et al., 2012)</span>
+<br>
+Cirrhose <span class="citation">(Qin et al., 2014)</span></td>
+</tr>
+<tr class="even">
+<td align="center">Maladies immunitaires</td>
+<td align="center">Maladie de Crohn <span class="citation">(Morgan et al., 2012)</span>
+<br>
+Syndrome de l’intestin irritable <span class="citation">(Chong et al., 2019)</span>
+<br>
+Sclérose en plaques <span class="citation">(Cekanaviciute et al., 2017)</span>
+<br>
+Asthme <span class="citation">(Stokholm et al., 2018)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">Maladies psychiatrique</td>
+<td align="center">Dépression <span class="citation">(Foster &amp; Neufeld, 2013)</span>
+<br>
+Schizophrénie <span class="citation">(Zheng et al., 2019)</span></td>
+</tr>
+<tr class="even">
+<td align="center">Maladies neurologiques</td>
+<td align="center">Maladie d’Alzheimer <span class="citation">(Pistollato et al., 2016)</span>
+<br>
+Maladie de Parkinson <span class="citation">(Bedarf et al., 2017)</span>
+<br>
+Syndrome de Gilles de La Tourette <span class="citation">(Ding et al., 2019)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">Autres maladies</td>
+<td align="center">Eczema <span class="citation">(Abrahamsson et al., 2012)</span>
+<br>
+Maladies cardiovasculaires <span class="citation">(Kelly et al., 2016)</span>
+<br>
+Cancer colorectal <span class="citation">(Zeller et al., 2014)</span>
+<br>
+Entérocolite nécrosante <span class="citation">(Mai et al., 2011)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="utilisations" class="section level3">
+<h3><span class="header-section-number">1.1.4</span> Utilisations</h3>
+<p>Les liens entre microbiote et santé étant très nombreux, la recherche académique ainsi que les départements de recherche et innovation des industries pharmaceutiques et agroalimentaires n’ont pas attendu pour se lancer dans la recherche d’applications et de traitements tirant parti de ces micro-organismes.</p>
+<p>Si certaines bactéries sont bénéfiques pour l’organisme, pourquoi ne pas augmenter volontairement leur quantité dans le microbiote ? C’est ce que proposent les approches probiotiques –aussi appelés bioaugmentation– qui consistent à administrer (le plus souvent par voie orale) des bactéries vivantes et non-pathogènes <span class="citation">(Gibson et al., 2017)</span>. Les probiotiques sont majoritairement considérés comme des compléments alimentaires, qui n’ont pas besoin de montrer leur efficacité pour être commercialisés. Des études cliniques prouvent cependant leur efficacité dans certains cas, comme l’utilisation d’un probiotique à base d’une souche de <em>Bifidobacterium longum</em> pour diminuer la dépression chez les patients souffrant du syndrome de l’intestin irritable <span class="citation">(Pinto-Sanchez et al., 2017)</span>.</p>
+<p>Plutôt que de fournir directement des souches vivantes, l’approche par prébiotiques fournit des nutriments non digestibles par l’hôte mais stimulant la croissance de certaines bactéries <span class="citation">(Gibson et al., 2017)</span>. Si les aliments « riches en fibres » peuvent être considérés comme des prébiotiques, des prébiotiques de synthèse font leur apparition sur le marché. Nestlé a par exemple déposé un brevet sur des prébiotiques à base d’oligosaccharides qui réduisent la présence de <em>Streptococcus</em> chez l’enfant dans le but de diminuer le risque d’obésité une fois adulte <span class="citation">(Sakwinska, Berger, Zolezzi, &amp; Holbrook, 2017)</span>. Dans le même registre, la baguette « Amibiote » (contraction entre ami et microbiote), issue d’un partenariat entre l’INRAE et Bridor, contient <span class="math inline">\(11~\text{g}\)</span> de fibres pour <span class="math inline">\(100~\text{g}\)</span> de pain (contre <span class="math inline">\(2.9~\text{g}\)</span> pour une baguette normale) et favorise la croissance de trois bactéries probiotiques.</p>
+<p>Pour modifier la composition du microbiote intestinal, la méthode la plus efficace reste la transplantation fécale. Déjà pratiquée en Chine au <span class="math inline">\(\text{IV}^{\text{e}}\)</span> siècle <span class="citation">(Zhang, Luo, Shi, Fan, &amp; Ji, 2012)</span>, la repopulation de l’intestin d’un sujet malade avec le microbiote d’un sujet sain a fait un retour en force en montrant des résultats spectaculaire pour le traitement des infections à <em>Clostridium difficile</em> comparé aux thérapies habituelles (prise d’antibiotiques avec ou sans lavement) <span class="citation">(Van Nood et al., 2013)</span>. L’infection à <em>Clostridium difficile</em> provoque des diarrhées potentiellement mortelles et se produit chez des patients dont le microbiote intestinal a déjà subi une perte de diversité, laissant la place au pathogène pour se développer.</p>
+<p>Si la transplantation fécale pourrait servir de traitement à d’autres maladies, comme le syndrome de Gilles de La Tourette <span class="citation">(Ding et al., 2019)</span>, ce n’est pas le seul dessein dans lequel l’utilisation de cette technique est possible. Des transplantations fécales autologues peuvent être envisagées dans le cas où une altération du microbiote serait à prévoir. Cette technique a été testée avec succès par la société française MaaT Pharma pour des patients souffrants de leucémie aiguë myéloïde. Leurs selles sont collectées avant la chimiothérapie et une transplantation fécale autologue permet de restaurer un microbiote diversifié comparable à celui présent dans le tractus avant le traitement <span class="citation">(Mohty et al., 2018)</span>. Une utilisation plus originale en est faite chez les koalas : la transplantation fécale leur permet de diversifier les espèces d’eucalyptus qu’ils sont capable de digérer, ce qui augmente leurs chances de survie alors que leur environnement est menacé <span class="citation">(Reardon, 2018)</span>.</p>
+<p>La médiatisation de ces bons résultats a conduit à l’apparition sur les réseaux sociaux de protocoles pour des transplantations fécales « à faire soi-même » <span class="citation">(Ekekezie et al., 2020)</span>, y compris pour des indications pour lesquelles elles ne sont (pour l’instant) pas recommandées comme le syndrome de l’intestin irritable ou les troubles de l’autisme. En fonction des pays, la thérapie fécale est considérée comme un médicament ou une transplantation au même titre que les organes.</p>
+<p>Plutôt que de modifier le microbiote et d’espérer que la nouvelle composition sera favorable, il est possible d’administrer directement des composés issus des bactéries désirées. C’est sur ce terrain que se place la biotech Enterome, qui a montré que l’administration de peptides issus du microbiote déclenchait une réponse immunitaire capable de s’attaquer à des tumeurs spécifiques <span class="citation">(Chene et al., 2019)</span>.</p>
+<p>Une autre façon de tirer parti du microbiome est de s’en servir comme d’un biomarqueur : regarder sa composition peut être un moyen de déceler une maladie sans avoir recours à des tests invasifs ou plus coûteux.
+<span class="citation">Zeller et al. (2014)</span> ont par exemple proposé un modèle prédictif basé principalement sur les abondances de souches de <em>Fusobacterium nucleatum</em>, <em>Porphyromonas asaccharolytica</em> et <em>Peptostreptococcus stomatis</em> pour détecter de façon précoce un cancer colorectal.
+Chez les nouveaux-nés, l’entérocolite nécrosante est précédée d’une dysbiose caractéristique <span class="citation">(Mai et al., 2011)</span> permettant de l’identifier et de proposer un traitement adapté avant que la maladie ne leur soit fatale.</p>
+<p>Toutes ces opportunités ont incité de nombreuses sociétés à se lancer sur le marché du microbiote dans l’espoir de croissances rapides. Mais le réveil peut être douloureux lorsque les espoirs se fracassent sur le mur de la réalité, comme Seres Therapeutics en a fait les frais. Le 29 juillet 2016, l’annonce de l’échec de la phase II de son probiotique SER-109 contre les infections à <em>Clostridium difficile</em> a entraîné une chute du cours de son action près de <span class="math inline">\(70~\%\)</span> (figure <a href="1-metagenomique.html#fig:seres">1.2</a>). L’entreprise a publié un communiqué en janvier 2017 indiquant que cet échec était dû à une erreur de protocole et qu’elle allait par conséquent entamer un essai de phase III, mais cela n’a pas suffi à rassurer les investisseurs.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:seres"></span>
+<img src="img/seres.png" alt="Cotation de Seres Therapeutics à partir de l’été 2016." width="90%" />
+<p class="caption">
+Figure 1.2: Cotation de Seres Therapeutics à partir de l’été 2016.
+</p>
+</div>
+</div>
+</div>
+<div id="caracterisation" class="section level2">
+<h2><span class="header-section-number">1.2</span> Caractérisation du microbiote</h2>
+<p>Nous décrivons ici brièvement les différentes méthodes et techniques utilisées pour caractériser le microbiote.</p>
+<div id="collecte-des-échantillons" class="section level3">
+<h3><span class="header-section-number">1.2.1</span> Collecte des échantillons</h3>
+<p>La collecte des échantillons et le mode de conservation des échantillons sont des étapes cruciales pour la reproductibilité des analyses et la fiabilité des résultats. En effet, le temps de stockage avant une congélation à <span class="math inline">\(-80~^\circ\text{C}\)</span> <span class="citation">(Cuthbertson et al., 2014)</span> ou le nombre de dégels successifs <span class="citation">(Sergeant, Constantinidou, Cogan, Penn, &amp; Pallen, 2012)</span> peuvent avoir un impact important sur la composition microbienne des échantillons, en affectant certains genres plutôt que d’autres.</p>
+<p>Il est donc souhaitable d’avoir les conditions les plus homogènes possibles. Cependant, il peut être relativement compliqué d’obtenir des conditions homogènes de collecte et de conservation, notamment quand il s’agit d’études longitudinales où la récolte d’échantillons s’étale sur plusieurs pays ou plusieurs années, avec des équipes différentes, ou bien quand celle-ci est effectuée au domicile du donneur dans le cadre d’études participatives, telles que l’<em>American Gut Project</em> <span class="citation">(McDonald et al., 2018)</span>.</p>
+</div>
+<div id="séquençage-par-gène-marqueur" class="section level3">
+<h3><span class="header-section-number">1.2.2</span> Séquençage par gène marqueur</h3>
+<p>Le séquençage par gène marqueur, en général la sous-unité 16S de l’ARN ribosomique, permet de faire un inventaire taxonomique des espèces présentes dans le microbiote et de répondre à la question « qui est là ? ». Fait notable, le gène codant pour le 16S est présent chez toutes les espèces de bactéries et archées <span class="citation">(Kembel, Wu, Eisen, &amp; Green, 2012)</span>. Sa séquence présente une succession de région conservées, idéales pour l’extraire et l’amplifier par PCR, et des régions hypervariables, qui permettent de déterminer à quel genre (et dans une certaine mesure à quelle espèce) il appartient et de reconstruire une phylogénie. Il bénéficie également de bases de données taxonomiques extrêmement riches (par exemple, SILVA <span class="citation">(Quast et al., 2012)</span>). Pour toutes ces raisons, le gène 16S est un marqueur idéal pour identifier les différents micro-organismes présents dans un échantillon et quantifier leur abondance <span class="citation">(Morgan &amp; Huttenhower, 2012)</span>.</p>
+<p>Les différentes étapes d’analyse s’enchaînent comme suit. Après extraction de l’ADN, on amplifie le gène 16S par PCR avec des amorces universelles, calibrées à partir des régions conservées, puis on séquence une ou plusieurs régions hypervariables (pour une longueur totale d’environ 550 paires de base) par séquençage haut débit. Une fois ces portions d’ADN séquencés, on a accès aux séquences brutes des nucléotides qui les composent, appelé lectures ou <em>reads</em>.</p>
+<p>Ces lectures doivent ensuite subir un contrôle qualité. En effet, les technologies de séquençage produisent des lectures trop courtes ou de mauvaise qualité <span class="citation">(Modolo &amp; Lerat, 2015)</span> qui doivent être éliminées. De plus, lors de l’amplification par PCR, il peut y avoir des évènements d’hybridation entre séquences d’ADN <span class="citation">(Meyerhans, Vartanian, &amp; Wain-Hobson, 1990)</span> qui créent des séquences chimériques et augmentent artificiellement la richesse microbienne. Des algorithmes ont été proposés pour identifier et filtrer les séquences chimériques avant la suite des analyses <span class="citation">(Edgar, 2016; Wright, Yilmaz, &amp; Noguera, 2012)</span>.</p>
+<p>Une première approche, dite <em>affiliation first</em>, pour identifier à quelles espèces correspondent les lectures séquencés et de trouver une correspondance entre celles-ci et des séquences de références dans des bases de données de gènes 16S comme RDP <span class="citation">(Maidak et al., 2000, 1997)</span>, SILVA <span class="citation">(Quast et al., 2012)</span> ou Greengenes <span class="citation">(DeSantis et al., 2006)</span>. Cette méthode est rapide et facilement parallélisable mais rend impossible le regroupement et l’analyse des lectures qui n’ont pas d’homologues dans les bases de référence.</p>
+<p>L’approche la plus utilisée, dite <em>clustering first</em>, consiste à rassembler les lectures au sein de groupes appelés OTUs, pour <em>Operational Taxonomic Units</em>. Ce partitionnement se fait en agglomérant toutes les séquences qui ont au moins <span class="math inline">\(97~\%\)</span> de similarité de séquence. Des outils bioinformatiques comme Mothur <span class="citation">(Schloss et al., 2009)</span> ou QIIME <span class="citation">(Caporaso et al., 2010)</span> utilisent des algorithmes de classification ascendante hiérarchique pour effectuer ce partitionnement, ce qui est coûteux en calcul et en mémoire. Des algorithmes gloutons <span class="citation">(Edgar, 2010)</span> permettent d’accélérer et de réduire l’empreinte mémoire de cette étape de partitionnement. À l’issue de cette étape, un représentant est ensuite choisi pour chaque groupe afin de lui assigner une affiliation taxonomique en comparant ce représentant à des bases de références. Les séquences des représentants permettent également de déterminer un arbre phylogénétique des OTUs. Comparée à l’approche <em>affiliation first</em>, l’identification par OTU a l’avantage de pouvoir gérer des espèces non présentes dans les bases de données de référence en les considérant simplement comme mal affiliées. Le microbiote est finalement résumée par une table de comptage <span class="math inline">\(X = (x_{ij})\)</span> où <span class="math inline">\(x_{ij}\)</span> correspond au nombre de lectures de l’OTU <span class="math inline">\(i\)</span> dans l’échantillon <span class="math inline">\(j\)</span>.</p>
+<p>Au delà du partitionnement par similarité de séquences, il existe d’autres méthodes pour partitionner l’ensemble des séquences. Mentionnons par exemple le regroupement aux sein d’ASVs, pour <em>Amplicon Sequence Variants</em>, qui a vocation à reconstruire les séquences exactes des représentants à l’aide d’un modèle probabiliste des erreurs de séquençage <span class="citation">(Callahan, McMurdie, &amp; Holmes, 2017; Callahan et al., 2016)</span>, ou au sein d’oligotypes, qui se focalisent sur les sites nucléotidiques de grande variabilité <span class="citation">(Eren, Borisy, Huse, &amp; Welch, 2014; Eren et al., 2013)</span>. Le point de différentiation majeur de ces méthodes par rapport aux OTUs est de ne pas donner le même poids à toutes les positions lors de la construction des groupes de lectures.</p>
+<p>La caractérisation par gène marqueur, en particulier le 16S, est bon marché, rapide et s’appuie sur des outils matures. Elle souffre néanmoins de quelques inconvénients :</p>
+<ol style="list-style-type: decimal">
+<li><p>Lors de l’amplification par PCR, outre la possible création de chimères, les taxons très abondants vont avoir plus de chances de voir leurs deux brins s’apparier entre eux plutôt qu’avec une amorce, ce qui brise la chaîne de réplication <span class="citation">(Mathieu-Daudé, Welsh, Vogt, &amp; McClelland, 1996)</span>. Les taxons peu présents vont au contraire avoir plus de chances d’aller jusqu’au bout de la chaîne de réplication et leur abondance sera surestimée.</p></li>
+<li><p>Le nombre de copies du gène 16S varie entre espèces, dans un rapport de <span class="math inline">\(1\)</span> à <span class="math inline">\(21\)</span> <span class="citation">(Stoddard, Smith, Hein, Roller, &amp; Schmidt, 2015)</span>. Utiliser cette information pour corriger la quantification des OTU améliore l’estimation de la composition microbienne, mais le nombre de copies n’est pas toujours disponible <span class="citation">(Kembel et al., 2012)</span>, en particulier pour les groupes microbiens peu étudiés.</p></li>
+<li><p>Le 16S est limité à la fraction bactérienne du microbiote. D’autres marqueurs comme l’ITS1 et l’ITS2 doivent être utilisées pour la fraction fongique du microbiote. Ces derniers souffrent également du biais du nombre de copies (mais dans un rapport de <span class="math inline">\(1\)</span> à <span class="math inline">\(1~000\)</span>) et de bases de référence nettement moins riches.</p></li>
+<li><p>Le séquençage par gène marqueur ne permet d’obtenir une résolution taxonomique qu’au niveau du genre, éventuellement de l’espèce dans certains cas favorables. Il ne permet pas non plus de déterminer les fonctions ou voies métaboliques présentes dans le microbiote. Ces dernières peuvent en effet être spécifiques aux souches au sein d’une espèce et nécessitent d’adopter une stratégie non ciblée.</p></li>
+</ol>
+
+<div class="figure" style="text-align: center"><span id="fig:16s"></span>
+<img src="img/16s.png" alt="Résumé des étapes du séquençage par gène marqueur, tiré de Regier et al. (2019)." width="90%" />
+<p class="caption">
+Figure 1.3: Résumé des étapes du séquençage par gène marqueur, tiré de <span class="citation">Regier et al. (2019)</span>.
+</p>
+</div>
+</div>
+<div id="séquençage-non-ciblé" class="section level3">
+<h3><span class="header-section-number">1.2.3</span> Séquençage non ciblé</h3>
+<p>Comme son nom l’indique, le séquençage non ciblé, ou <em>whole genome shotgun</em> souvent abrégé en <em>shotgun</em>, cible l’ensemble du matériel génétique présent dans les échantillons, et non un unique gène marqueur. Il permet d’étudier le potentiel fonctionnel du microbiote et de répondre à la question « qui peut faire quoi ? ».</p>
+<p>On commence par extraire l’ADN contenu dans les cellules puis on le brise par ultrason –ou sonification– afin d’obtenir de courts fragments, de l’ordre d’une centaine de nucléotides. On effectue ensuite une PCR non ciblée avec des amorces aléatoires pour amplifier les fragments avant de les séquencer pour obtenir des lectures couvrant l’ensemble du matériel génétique.</p>
+<p>La construction d’une table de comptage à partir des lectures est sensiblement plus compliquée que dans l’approche par gène marqueur. Il existe en effet plusieurs manières d’obtenir une table de comptage à partir des lectures: par comparaison de lectures <span class="citation">(Maillet, Collet, Vannier, Lavenier, &amp; Peterlongo, 2014; Maillet, Lemaitre, Chikhi, Lavenier, &amp; Peterlongo, 2012)</span>, par comparaison des profils en <span class="math inline">\(k\)</span>-mers <span class="citation">(Benoit et al., 2016; Deorowicz, Kokot, Grabowski, &amp; Debudaj-Grabysz, 2015)</span>, par classification exhaustive des lectures <span class="citation">(Brady &amp; Salzberg, 2009; Kim, Song, Breitwieser, &amp; Salzberg, 2016; Ounit, Wanamaker, Close, &amp; Lonardi, 2015; Wood &amp; Salzberg, 2014)</span>, par recensement de gènes marqueurs <span class="citation">(Liu, Gibbons, Ghodsi, Treangen, &amp; Pop, 2011; Segata et al., 2012; Truong et al., 2015)</span> ou encore par utilisation d’un catalogue de gènes <span class="citation">(Coelho et al., 2019; Kultima et al., 2012; Pons et al., 2010)</span>. Nous allons détailler cette dernière méthode, qui nécessite la construction préalable d’un catalogue ou l’utilisation d’un catalogue public <span class="citation">(Almeida et al., 2020)</span>.</p>
+<p>Une fois le catalogue obtenu, chaque lecture est alignée contre celui-ci pour déterminer le gène auquel elle correspond le plus, sur la base de la similarité de séquence. Dans le meilleur des cas, une lecture ne s’aligne que sur un seul gène, mais il arrive dans environ <span class="math inline">\(10~\%\)</span> des cas qu’elle s’aligne sur plusieurs gènes distincts, par exemple parce qu’elle correspond à un domaine protéique partagé par plusieurs séquences. Dans ce dernier cas, plusieurs procédures sont possibles :</p>
+<ul>
+<li><p>On ne prend pas en compte cette lecture dans le comptage.</p></li>
+<li><p>Le compte de cette lecture est réparti uniformément entre les gènes (<em>i.e.</em> elle augmente le comptage de chacun des <span class="math inline">\(n\)</span> gènes sur lesquels elle s’aligne de <span class="math inline">\(1/n\)</span>).</p></li>
+<li><p>Le compte de cette lecture est réparti entre les gènes, au prorata de leurs comptages obtenus à partir des lectures non ambiguës (<em>i.e.</em> si elle s’aligne sur les gènes <span class="math inline">\(G_1, \dots, G_n\)</span> de comptages respectifs <span class="math inline">\(A_1, \dots, A_n\)</span> dans les lectures non ambiguës, l’abondance du gène <span class="math inline">\(i\)</span> est augmentée de <span class="math inline">\(A_i / \sum_{j=1}^n A_j\)</span>).</p></li>
+</ul>
+<p>Contrairement à l’approche par gène marqueur, l’approche non-ciblée sur catalogue de gène dresse un inventaire fonctionnel du microbiote, où le gène remplace l’OTU comme descripteur de base du microbiote.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:shotgun"></span>
+<img src="img/shotgun.png" alt="Résumé des étapes du séquençage non ciblé, tiré de Quince, Walker, Simpson, Loman, &amp; Segata (2017)." width="90%" />
+<p class="caption">
+Figure 1.4: Résumé des étapes du séquençage non ciblé, tiré de <span class="citation">Quince, Walker, Simpson, Loman, &amp; Segata (2017)</span>.
+</p>
+</div>
+</div>
+<div id="donneesmetagenomiques" class="section level3">
+<h3><span class="header-section-number">1.2.4</span> Données métagénomiques</h3>
+<p>Une fois l’annotation effectuée, on dispose d’une table de comptage, c’est à dire du compte des différentes entités considérées dans les échantillons. Dans la suite, on désignera ces entités sous le terme générique <em>taxon</em>, qu’il s’agisse d’espèces, de genres bactériens, d’OTUs, de gènes…</p>
+<p>Plusieurs cadres conceptuels existent pour analyser ces données mais les deux plus populaires sont ceux (i) des données de comptage et (ii) des données compositionnelles. Chacun de ces cadres possède des avantages et inconvénients qui lui sont propres et malgré des discussions intenses dans la littérature, <span class="citation">(Gloor, Macklaim, Pawlowsky-Glahn, &amp; Egozcue, 2017; Gloor et al., 2016; McMurdie &amp; Holmes, 2014; Vandeputte et al., 2017)</span>, il n’existe pas à l’heure actuelle de consensus sur celui à privilégier.</p>
+<div id="données-de-comptage" class="section level4 unnumbered">
+<h4>Données de comptage</h4>
+<p>Par la façon dont elles sont construites, à savoir en comptant le nombre de lectures de chaque taxon dans chaque échantillon, les tables d’abondance sont composées de données de comptage, à valeurs dans <span class="math inline">\(\NN\)</span>.</p>
+<p>Une approche naturelle serait de considérer ces comptes comme issus d’une loi de Poisson, dont les masses sont telles que <span class="math inline">\(\PP{X = k} = \frac{\lambda^k}{k!}e^{-\lambda}\)</span> pour <span class="math inline">\(k \in \NN\)</span>. Cependant, l’espérance et la variance d’une loi de Poisson sont égales, alors que les données observées sont surdispersées : elles possèdent une plus grande variabilité qu’attendue pour une distribution de Poisson <span class="citation">(Anders &amp; Huber, 2010; Robinson &amp; Smyth, 2007)</span>. Afin de prendre en compte une telle surdispersion dans les données, il est préférable d’utiliser une loi binomiale négative <span class="citation">(Zhang et al., 2017)</span>, qui peut être vu comme un mélange de loi de Poisson, avec une densité <span class="math inline">\(\Gamma\)</span> sur le paramètre de la loi de Poisson.</p>
+<p>Dans sa définition classique, la loi binomiale négative de paramètres <span class="math inline">\(n\)</span> et <span class="math inline">\(p\)</span> compte le nombre d’échecs avant d’obtenir <span class="math inline">\(n\)</span> succès pour un événement binaire, avec <span class="math inline">\(p\)</span> comme probabilité de succès. Sa fonction de répartition est alors telle que</p>
+<p><span class="math display">\[\begin{equation*}
+\PP{X = k} = \binom{k+n-1}{n-1} p^n(1-p)^k.
+\end{equation*}\]</span></p>
+<p>On préférera utiliser ici une autre paramétrisation, celle de moyenne <span class="math inline">\(m\)</span> et de paramètre de dispersion <span class="math inline">\(\alpha \geq 0\)</span>. Lorsque <span class="math inline">\(\alpha = 0\)</span>, on retombe sur une loi de Poisson. Dans le cas contraire,</p>
+<p><span class="math display">\[\begin{equation*}
+\PP{X = k} = \frac{\Gamma(k+r)}{k!\Gamma(r)}\left(\frac{m}{r+m}\right)^r\left(\frac{r}{r+m}\right)^k
+\end{equation*}\]</span></p>
+<p>où <span class="math inline">\(r=\frac{1}{\alpha}\)</span> et <span class="math inline">\(\Gamma : z \mapsto \int_0^{+\infty}t^{z-1}e^{-t}\dx{t}\)</span> est la fonction gamma.</p>
+<p>Une autre particularité des données métagénomiques est leur grande proportion de zéros : les comptages nuls sont surreprésentés et représentent fréquemment <span class="math inline">\(90~\%\)</span> ou plus des coefficients de la table. Ceux-ci peuvent être des zéros structurels –de nature biologique– où le taxon n’est pas présent dans le jeu de données, ou des zéros d’échantillonnage –de nature probabiliste– où le taxon n’a pas été détecté alors qu’il est présent (mais en faible quantité) dans le jeu de données. Pour modéliser cette fréquence élevée de comptages nuls, on utilise alors des lois avec excès de zéros. Si <span class="math inline">\(X\)</span> suit une loi sur <span class="math inline">\(\NN\)</span>, on peut créer <span class="math inline">\(Y\)</span> avec excès de zéros comme suit :</p>
+<p><span class="math display">\[\begin{equation*}
+\left\{
+\begin{aligned}
+\PP{Y = 0} &amp; = p_0 + (1-p_0) \PP{X = 0}\\
+\PP{Y = k} &amp; = (1-p_0) \PP{X = k} &amp; \text{pour } k\in \NN^*,
+\end{aligned}
+\right.
+\end{equation*}\]</span></p>
+<p>où <span class="math inline">\(p_0\)</span> est la proportion de zéros structurels. Si <span class="math inline">\(X\)</span> suit une loi binomiale négative, <span class="math inline">\(Y\)</span> suivra alors une loi binomiale négative avec excès de zéros, ou ZINB (pour <em>Zero-Inflated Negative Binomial</em>) <span class="citation">(Xinyan, Himel, &amp; Nengjun, 2016)</span>.</p>
+<p>La somme des comptages des taxons dans un échantillon est appelé <em>profondeur de séquençage</em> et correspond au nombre de lectures produites par le séquenceur pour l’échantillon. La profondeur <em>cible</em> (typiquement <span class="math inline">\(100~000\)</span> lectures par échantillons) est imposée par le scientifique mais la profondeur <em>effective</em> peut varier d’un facteur <span class="math inline">\(4\)</span> pour des échantillons avec la même cible (<span class="math inline">\(50~000\)</span> lectures pour le premier, <span class="math inline">\(200~000\)</span> pour le deuxième).
+Il est d’usage d’utiliser un facteur de normalisation pour prendre en compte ces différences et rendre les comptages comparables entre échantillons.</p>
+</div>
+<div id="données-compositionnelles" class="section level4 unnumbered">
+<h4>Données compositionnelles</h4>
+<p>L’autre grand point de vue considère que les comptages sont contraints par la profondeur de séquençage et ne nous permettent donc d’étudier que les <em>abondances relatives</em> (par opposition aux <em>abondances absolues</em>) des différents taxons dans l’échantillon. En pratique, les comptages des <span class="math inline">\(m\)</span> taxons de chaque échantillon sont divisés par la profondeur de séquençage de l’échantillon pour reconstruire des vecteurs d’abondance relative, à valeurs dans le simplexe <span class="math inline">\(\mathcal{S}^m = \left\{x \in \RR_+^{*,m}, \sum_{i=1}^m x_i = 1 \right\}\)</span> <span class="citation">(Gloor &amp; Reid, 2016)</span>.</p>
+<p>Ces vecteurs de proportion peuvent ensuite être modélisées comme des tirages de lois de Dirichlet. La loi de Dirichlet <span class="math inline">\(\mathcal{D}(\alpha)\)</span> sur <span class="math inline">\(\mathcal{S}^m\)</span> de paramètre <span class="math inline">\(\alpha = (\alpha_1, \ldots, \alpha_m) \in \RR_+^{*,m}\)</span> a pour densité</p>
+<p><span class="math display">\[\begin{equation*}
+f(x_1, \ldots, x_m) = \frac{1}{\text{B}(\alpha)} \prod_{i=1}^m x_i^{\alpha_i-1},
+\end{equation*}\]</span></p>
+<p>où <span class="math inline">\(\text{B} : \alpha \mapsto \frac{\prod_{i=1}^m\Gamma(\alpha_i)}{\Gamma\left(\sum_{i=1}^m \alpha_i\right)}\)</span> est la fonction beta.</p>
+<p>Des approches plus sophistiquées, basées sur des lois hiérarchiques multinomiales Dirichlet, permettent de modéliser en plus le fait que les comptages sont une version bruitée du vecteur de proportion <span class="citation">(Holmes, Harris, &amp; Quince, 2012)</span>.</p>
+<p><span class="math display">\[\begin{equation*}
+\begin{aligned}
+p &amp; \sim \mathcal{D}(\alpha), \\
+\PP{X_1 = n_1, \ldots, X_m = n_m\mid p} &amp; = \frac{n!}{\prod_{i=1}^m n_i!}\prod_{i=1}^m p_i^{n_i}.
+\end{aligned}
+\end{equation*}\]</span></p>
+
+<p>La transformation en proportions préserve certaines propriétés, par exemple le rang d’un taxon au sein d’un échantillon, mais requiert une attention particulière pour d’autres opérations élémentaires, comme le calcul d’une composition moyenne. <span class="citation">Aitchison (1982)</span> est le premier à proposer une géométrie <em>compositionnelle</em> du simplexe, qui diffère de la géométrie euclidienne standard. Dans cette géométrie, le simplexe possède ses propres opérations internes de perturbation <span class="math inline">\(\oplus\)</span> ou de composition <span class="math inline">\(\odot\)</span> ainsi que sa propre distance <span class="math inline">\(d_a\)</span> définie par</p>
+<p><span class="math display">\[\begin{equation*}
+d_a(x, y) = \sqrt{\frac{1}{2m}\sum_{i=1}^m\sum_{i=1}^m\left(\ln\left(\frac{x_i}{x_j}\right)-\ln\left(\frac{y_i}{y_j}\right)\right)^2} \text{ pour } x,y\in\mathcal{S}^m.
+\end{equation*}\]</span></p>
+
+<p>Un point régulièrement évoqué, que la géométrie d’Aitchison corrige, est la présence de corrélations négatives fallacieuses dans le jeu de données normalisé par la somme. Pour s’en convaincre, on peut considérer <span class="math inline">\(2\)</span> variables indépendantes <span class="math inline">\(X\)</span>, <span class="math inline">\(Y\)</span> et constater que <span class="math inline">\(p_1 = \frac{X}{X+Y}\)</span> et <span class="math inline">\(p_2 = \frac{Y}{X+Y} = 1 - p_1\)</span> sont corrélées négativement. Aitchison propose plusieurs transformations, collectivement appelées <em>xlr</em>, pour pour plonger le simplexe dans l’espace euclidien standard et pouvoir ainsi appliquer les méthodes d’analyse multivariée standards aux données compositionnelles <span class="citation">(Pawlowsky-Glahn, Egozcue, &amp; Tolosana Delgado, 2007)</span>.</p>
+<ul>
+<li><strong>Le ratio logarithmique additif</strong> (<em>additive log-ratio</em>) <span class="citation">(Aitchison, 1986)</span></li>
+</ul>
+<p><span class="math display">\[\begin{equation*}
+\text{alr}: x \in \mathcal{S}^m \mapsto \left(\ln\left(\frac{x_1}{x_m}\right), \ldots, \ln\left(\frac{x_{m-1}}{x_m}\right) \right) \in \RR^{m-1}.
+\end{equation*}\]</span></p>
+<p>Cette transformation souffre de deux problèmes : elle ne conserve pas les distances entre le simplexe et <span class="math inline">\(\RR^{m-1}\)</span> et nécessite d’utiliser un taxon de référence <span class="citation">(Albarède, 1996; Pawlowsky-Glahn et al., 2007)</span>.</p>
+<ul>
+<li><strong>Le ratio logarithmique centré</strong> (<em>centered log-ratio</em>) <span class="citation">(Aitchison, 1986)</span></li>
+</ul>
+<p><span class="math display">\[\begin{equation*}
+\text{clr}: x \in \mathcal{S}^m \mapsto \left(\ln\left(\frac{x_1}{g_m(x)}\right), \ldots, \ln\left(\frac{x_{m}}{g_m(x)}\right) \right) \in \RR^{m}
+\end{equation*}\]</span></p>
+<p>où <span class="math inline">\(g:x\mapsto \sqrt[m]{\prod_{i=1}^m x_i}\)</span> est la fonction de moyenne géométrique.
+Bien que cette transformation conserve les distances et ne nécessite plus d’utiliser un taxon de référence, le simplexe est plongé dans un sous-espace vectoriel de dimension <span class="math inline">\(m-1\)</span> de <span class="math inline">\(\RR^m\)</span> défini par <span class="math inline">\(\{y \in \RR^m: y^T 1_m = 0\}\)</span>. Autrement dit, la somme des coordonnées du projeté doit être nulle.</p>
+<ul>
+<li><strong>Le ratio logarithmique isométrique</strong> (<em>isometric log-ratio</em>) <span class="citation">(Egozcue, Pawlowsky-Glahn, Mateu-Figueras, &amp; Barcelo-Vidal, 2003)</span>.</li>
+</ul>
+<p><span class="math display">\[\begin{equation*}
+\text{ilr}: x \in \mathcal{S}^m \mapsto \Psi^T \text{clr}(x) = \left(y_1, \ldots, y_{m-1}\right) \in \RR^{m-1} 
+\end{equation*}\]</span></p>
+<p>où <span class="math inline">\(\Psi\)</span> est une base orthonormée quelconque du sous-espace vectoriel <span class="math inline">\(\text{clr}(S^m) = \{y \in \RR^m: y^T 1_m = 0\}\)</span>. Cette transformation conserve les distances et nécessite une base adaptée. Un choix classique de base est donné par la matrice de Helmert privée de sa première ligne (et représentée ici pour <span class="math inline">\(m = 4\)</span>)</p>
+<p><span class="math display">\[\begin{equation*}
+\Psi^T = 
+\begin{pmatrix}
+1/\sqrt{2} &amp; -1/\sqrt{2} &amp; 0 &amp; 0 \\
+1/\sqrt{6} &amp; 1\sqrt{6}  &amp; -2\sqrt{6} &amp; 0 \\
+1/\sqrt{12} &amp; 1\sqrt{12}  &amp; 1\sqrt{12} &amp; -3\sqrt{12} 
+\end{pmatrix},
+\end{equation*}\]</span></p>
+<p>pour laquelle on obtient</p>
+<p><span class="math display">\[\begin{equation*}
+y_{i-1} = \frac{1}{\sqrt{i(i+1)}} \ln\left(\frac{x_i}{\left(\prod_{j=1}^{i-1} x_j\right)^{\frac{1}{i-1}}}\right) \text{ pour } i \in [\![2,m]\!].
+\end{equation*}\]</span></p>
+<p>Cette base produit des coordonnées <span class="math inline">\(y_i\)</span> facilement interprétable : <span class="math inline">\(y_i\)</span> mesure la balance entre <span class="math inline">\(x_i\)</span> et la moyenne géométrique de <span class="math inline">\(x_1\)</span> à <span class="math inline">\(x_{i-1}\)</span>.</p>
+<p>Si l’on dispose de l’arbre phylogénétique des taxons, d’autres contrastes interprétables peuvent également être utilisés, par exemple la balance entre le sous-arbre gauche et le sous-arbre droit d’un nœud de l’arbre <span class="citation">(Silverman, Washburne, Mukherjee, &amp; David, 2017)</span>.</p>
+<p>Enfin, <span class="citation">Xia, Sun, &amp; Chen (2018)</span> proposent une autre base, qui donne les coordonnées suivantes.</p>
+<p><span class="math display">\[\begin{equation*}
+y_i = \frac{1}{\sqrt{i(i+1)}}\ln \left(\frac{\prod_{j=1}^i x_j}{(x_i + 1)^i}\right) \text{ pour } i \in [\![1,m-1]\!].
+\end{equation*}\]</span></p>
+
+<p>Les transformations xlr ne tolèrent pas des proportions nulles. La solution généralement adoptée consiste à ajouter un pseudo-compte de <span class="math inline">\(1\)</span> (ou <span class="math inline">\(1/2\)</span>) à tous les taxons avant de calculer les proportions. Cette solution, si elle permet en pratique de s’abstraire des zéros lors des calculs, présente néanmoins l’inconvénient majeur d’induire des pics dans la densité des coordonnées transformées sans pour autant permettre de gérer explicitement les zéros structurels.</p>
+</div>
+</div>
+</div>
+<div id="jeuxdonnees" class="section level2">
+<h2><span class="header-section-number">1.3</span> Jeux de données</h2>
+<p>Nous présentons ici les jeux de données utilisés dans ce manuscrit. Chaque jeu de données porte le nom du premier auteur de l’étude dont il est extrait. Tous sont disponibles dans le matériel supplémentaire de l’article d’origine ou dans le <em>package</em> R <code>{curatedMetagenomicData}</code> qui met à disposition de manière homogène des jeux de données de métagénomique <span class="citation">(Pasolli et al., 2017; R Core Team, 2020)</span>.</p>
+<div id="brito" class="section level4 unnumbered">
+<h4>Brito</h4>
+<p><span class="citation">Brito et al. (2016)</span> comparent une cohorte de <span class="math inline">\(81\)</span> Nord-Américains urbains avec une cohorte de <span class="math inline">\(171\)</span> Fidjiens ruraux en utilisant à la fois du séquençage 16S (que nous utiliserons) et du séquençage non ciblé. Leurs travaux ont montré que la variation du régime alimentaire se reflète dans la variation du potentiel fonctionnel des gènes du microbiote, les Fidjiens ayant par exemple plus de gènes spécialisés dans la dégradation de l’amidon. En ne gardant que les <span class="math inline">\(112\)</span> adultes fidjiens de cette cohorte pour former un groupe d’échantillons homogènes, il reste <span class="math inline">\(77\)</span> OTUs.</p>
+</div>
+<div id="chaillou" class="section level4 unnumbered">
+<h4>Chaillou</h4>
+<p>L’étude de <span class="citation">Chaillou et al. (2015)</span> s’intéresse au microbiote alimentaire de produit carnés (bœuf haché, veau haché, merguez de volaille et dés de lardons) et de produits issus de la mer (filet de cabillaud, crevette, filet saumon et saumon fumé) pour étudier le rôle du microbiote dans l’altération de l’aliment. Les <span class="math inline">\(64\)</span> échantillons, répartis uniformément entre les différents aliments, ont mis en évidence une perte de diversité microbienne concomitante à l’altération et ont permis d’identifier des espèces associées à une altération précoce. En ne conservant que les taxons ayant une prévalence supérieure à <span class="math inline">\(5~\%\)</span> de prévalence, on conserve <span class="math inline">\(499\)</span> OTUs dont <span class="math inline">\(97\)</span> assignées à l’embranchement des <em>Bacteroidetes</em>.</p>
+</div>
+<div id="chlamydiae" class="section level4 unnumbered">
+<h4>Chlamydiae</h4>
+<p>Seul exception à la règle de nommage, le jeu de donnée Chlamydiae constitue une sous-partie du jeu de données construit par <span class="citation">Caporaso et al. (2011)</span>. Ce dernier contient <span class="math inline">\(26\)</span> échantillons répartis au sein de <span class="math inline">\(8\)</span> environnements très différents (selles, bouche, eau, sol, sédiments, océan, eau douce calme et eau douce vive) pour étudier la diversité microbienne globale et calibrer l’effort de séquençage nécessaire à une bonne caractérisation. Le sous-jeu de données est restreint aux <span class="math inline">\(21\)</span> OTUs assignées à l’ordre des <em>Chlamydiales</em> et a servi d’exemple pour <code>{StructSSI}</code> dans <span class="citation">Sankaran &amp; Holmes (2014)</span>.</p>
+</div>
+<div id="ravel" class="section level4 unnumbered">
+<h4>Ravel</h4>
+<p>Le jeu de données présenté dans <span class="citation">Ravel et al. (2011)</span> concerne le microbiote vaginal de <span class="math inline">\(396\)</span> femmes nord-américaines, n’ayant pas atteint la ménopause, issues de différents groupes ethniques et sujettes ou non à des vaginoses. Le séquençage par gène marqueur 16S a permis d’identifier cinq <em>archétypes</em> de communautés microbiennes: quatre d’entre eux sont dominés par une espèce de <em>Lactobacillus</em> qui acidifie le milieu et empêche le développement de bactéries responsables de vaginose, le dernier correspond à une diversité bactérienne élevée et est associé à des risques accrus de vaginose. <span class="math inline">\(40\)</span> genres différents, de prévalence supérieure à <span class="math inline">\(5~\%\)</span> sont présents dans ce jeu de données.</p>
+</div>
+<div id="wu" class="section level4 unnumbered">
+<h4>Wu</h4>
+<p><span class="citation">Wu et al. (2011)</span> se sont intéressé aux relations entre microbiote et régime alimentaire, parmi lesquels l’importance de la consommation d’alcool. Bien qu’un changement de régime alimentaire pendant une courte durée (<span class="math inline">\(10\)</span> jours) ait un impact significatif sur le microbiote, son ampleur reste modeste. Ce jeu de données, qui comprend <span class="math inline">\(98\)</span> échantillons répartis à égalité entre sujets à faible et forte consommation d’alcool, contient <span class="math inline">\(400\)</span> OTUs.</p>
+</div>
+<div id="zeller" class="section level4 unnumbered">
+<h4>Zeller</h4>
+<p>Le jeu de données issu de <span class="citation">Zeller et al. (2014)</span> contient <span class="math inline">\(42\)</span> patients ayant un adénome, <span class="math inline">\(91\)</span> patients ayant un cancer colorectal et <span class="math inline">\(66\)</span> volontaires sains. Le but de l’étude est d’étudier les associations entre la composition du microbiote et le statut du patient, notamment pour trouver des biomarqueurs de la maladie. Tous les échantillons ont été caractérisés par l’approche gène marqueur (à l’aide du gène 16S) et par l’approche non-ciblée. En ne conservant que les taxons ayant une prévalence supérieure à <span class="math inline">\(~5\%\)</span>, l’approche gène marqueur a permis d’identifier <span class="math inline">\(119\)</span> genres différents tandis que l’approche non-ciblée a identifié <span class="math inline">\(878\)</span> MSPs –une autre entité métagénomique <span class="citation">(Plaza Oñate et al., 2018)</span>.</p>
+<div style="page-break-after: always;"></div>
+<table>
+<caption><span id="tab:datasets">Table 1.2: </span> Jeux de données utilisés dans ce manuscrit.</caption>
+<colgroup>
+<col width="34%" />
+<col width="21%" />
+<col width="11%" />
+<col width="14%" />
+<col width="18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Jeu de données</th>
+<th align="center">Microbiote</th>
+<th align="center">Rang</th>
+<th align="center">Taxons</th>
+<th align="center">Échantillons</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="citation">Brito et al. (2016)</span></td>
+<td align="center">Intestinal</td>
+<td align="center">OTU</td>
+<td align="center">77</td>
+<td align="center">112</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="citation">Chaillou et al. (2015)</span></td>
+<td align="center">Alimentaire</td>
+<td align="center">OTU</td>
+<td align="center">499/97</td>
+<td align="center">64</td>
+</tr>
+<tr class="odd">
+<td align="center">Chlamydiae
+<br>
+<span class="citation">(Caporaso et al., 2011)</span></td>
+<td align="center">Varié</td>
+<td align="center">OTU</td>
+<td align="center">21</td>
+<td align="center">26</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="citation">Ravel et al. (2011)</span></td>
+<td align="center">Vaginal</td>
+<td align="center">Genre</td>
+<td align="center">40</td>
+<td align="center">396</td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="citation">Wu et al. (2011)</span></td>
+<td align="center">Intestinal</td>
+<td align="center">OTU</td>
+<td align="center">400</td>
+<td align="center">98</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="citation">Zeller et al. (2014)</span></td>
+<td align="center">Intestinal</td>
+<td align="center">Genre</td>
+<td align="center">119</td>
+<td align="center">199</td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="citation">Zeller et al. (2014)</span></td>
+<td align="center">Intestinal</td>
+<td align="center">MSP</td>
+<td align="center">878</td>
+<td align="center">199</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="2-anadiff.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["twitter", "linkedin", "facebook", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "night",
+"family": "serif",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["thesis.pdf", "PDF"]],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

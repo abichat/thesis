@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapitre 5 Problèmes d’analyse numérique | Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles</title>
+  <meta name="description" content="Thèse de mathématiques appliquées par Antoine Bichat. Statistique – Apprentissage – Métagénomique – Arbre phylogénétique – Tests multiples – Processus stochastiques" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapitre 5 Problèmes d’analyse numérique | Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://abichat.github.io/thesis/" />
+  <meta property="og:image" content="https://abichat.github.io/thesis/img/tree_ou.png" />
+  <meta property="og:description" content="Thèse de mathématiques appliquées par Antoine Bichat. Statistique – Apprentissage – Métagénomique – Arbre phylogénétique – Tests multiples – Processus stochastiques" />
+  <meta name="github-repo" content="abichat/thesis" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapitre 5 Problèmes d’analyse numérique | Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles" />
+  
+  <meta name="twitter:description" content="Thèse de mathématiques appliquées par Antoine Bichat. Statistique – Apprentissage – Métagénomique – Arbre phylogénétique – Tests multiples – Processus stochastiques" />
+  <meta name="twitter:image" content="https://abichat.github.io/thesis/img/tree_ou.png" />
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="4-nouvelleapproche.html"/>
+<link rel="next" href="conclusion-et-perspectives.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-131161788-01', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<br><br><br>
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="1-metagenomique.html"><a href="1-metagenomique.html"><i class="fa fa-check"></i><b>1</b> Métagénomique</a><ul>
+<li class="chapter" data-level="1.1" data-path="1-metagenomique.html"><a href="1-metagenomique.html#microbiote"><i class="fa fa-check"></i><b>1.1</b> Le microbiote intestinal humain</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="1-metagenomique.html"><a href="1-metagenomique.html#description"><i class="fa fa-check"></i><b>1.1.1</b> Description</a></li>
+<li class="chapter" data-level="1.1.2" data-path="1-metagenomique.html"><a href="1-metagenomique.html#rôle"><i class="fa fa-check"></i><b>1.1.2</b> Rôle</a></li>
+<li class="chapter" data-level="1.1.3" data-path="1-metagenomique.html"><a href="1-metagenomique.html#dysbioses"><i class="fa fa-check"></i><b>1.1.3</b> Dysbioses</a></li>
+<li class="chapter" data-level="1.1.4" data-path="1-metagenomique.html"><a href="1-metagenomique.html#utilisations"><i class="fa fa-check"></i><b>1.1.4</b> Utilisations</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="1-metagenomique.html"><a href="1-metagenomique.html#caracterisation"><i class="fa fa-check"></i><b>1.2</b> Caractérisation du microbiote</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="1-metagenomique.html"><a href="1-metagenomique.html#collecte-des-échantillons"><i class="fa fa-check"></i><b>1.2.1</b> Collecte des échantillons</a></li>
+<li class="chapter" data-level="1.2.2" data-path="1-metagenomique.html"><a href="1-metagenomique.html#séquençage-par-gène-marqueur"><i class="fa fa-check"></i><b>1.2.2</b> Séquençage par gène marqueur</a></li>
+<li class="chapter" data-level="1.2.3" data-path="1-metagenomique.html"><a href="1-metagenomique.html#séquençage-non-ciblé"><i class="fa fa-check"></i><b>1.2.3</b> Séquençage non ciblé</a></li>
+<li class="chapter" data-level="1.2.4" data-path="1-metagenomique.html"><a href="1-metagenomique.html#donneesmetagenomiques"><i class="fa fa-check"></i><b>1.2.4</b> Données métagénomiques</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="1-metagenomique.html"><a href="1-metagenomique.html#jeuxdonnees"><i class="fa fa-check"></i><b>1.3</b> Jeux de données</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-anadiff.html"><a href="2-anadiff.html"><i class="fa fa-check"></i><b>2</b> Études d’analyse différentielle</a><ul>
+<li class="chapter" data-level="2.1" data-path="2-anadiff.html"><a href="2-anadiff.html#tests-statistiques"><i class="fa fa-check"></i><b>2.1</b> Tests statistiques</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="2-anadiff.html"><a href="2-anadiff.html#analyse-de-la-variance-à-un-facteur"><i class="fa fa-check"></i><b>2.1.1</b> Analyse de la variance à un facteur</a></li>
+<li class="chapter" data-level="2.1.2" data-path="2-anadiff.html"><a href="2-anadiff.html#test-de-wilcoxon"><i class="fa fa-check"></i><b>2.1.2</b> Test de Wilcoxon</a></li>
+<li class="chapter" data-level="2.1.3" data-path="2-anadiff.html"><a href="2-anadiff.html#test-de-kruskall-wallis"><i class="fa fa-check"></i><b>2.1.3</b> Test de Kruskall-Wallis</a></li>
+<li class="chapter" data-level="2.1.4" data-path="2-anadiff.html"><a href="2-anadiff.html#autres-methodes"><i class="fa fa-check"></i><b>2.1.4</b> Autres méthodes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="2-anadiff.html"><a href="2-anadiff.html#problématique-des-tests-multiples"><i class="fa fa-check"></i><b>2.2</b> Problématique des tests multiples</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="2-anadiff.html"><a href="2-anadiff.html#évaluation-des-performances"><i class="fa fa-check"></i><b>2.2.1</b> Évaluation des performances</a></li>
+<li class="chapter" data-level="2.2.2" data-path="2-anadiff.html"><a href="2-anadiff.html#correction-de-bonferroni"><i class="fa fa-check"></i><b>2.2.2</b> Correction de Bonferroni</a></li>
+<li class="chapter" data-level="2.2.3" data-path="2-anadiff.html"><a href="2-anadiff.html#correction-de-benjamini-hochberg"><i class="fa fa-check"></i><b>2.2.3</b> Correction de Benjamini-Hochberg</a></li>
+<li class="chapter" data-level="2.2.4" data-path="2-anadiff.html"><a href="2-anadiff.html#correction-de-benjamini-yekutieli"><i class="fa fa-check"></i><b>2.2.4</b> Correction de Benjamini-Yekutieli</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="2-anadiff.html"><a href="2-anadiff.html#procédures-hiérarchiques-pour-tests-multiples"><i class="fa fa-check"></i><b>2.3</b> Procédures hiérarchiques pour tests multiples</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="2-anadiff.html"><a href="2-anadiff.html#treefdr"><i class="fa fa-check"></i><b>2.3.1</b> <em>TreeFDR</em></a></li>
+<li class="chapter" data-level="2.3.2" data-path="2-anadiff.html"><a href="2-anadiff.html#fdr-hiérarchique"><i class="fa fa-check"></i><b>2.3.2</b> FDR hiérarchique</a></li>
+<li class="chapter" data-level="2.3.3" data-path="2-anadiff.html"><a href="2-anadiff.html#treeclimbr"><i class="fa fa-check"></i><b>2.3.3</b> <em>treeclimbR</em></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="3-arbres.html"><a href="3-arbres.html"><i class="fa fa-check"></i><b>3</b> Arbres</a><ul>
+<li class="chapter" data-level="3.1" data-path="3-arbres.html"><a href="3-arbres.html#définitions"><i class="fa fa-check"></i><b>3.1</b> Définitions</a></li>
+<li class="chapter" data-level="3.2" data-path="3-arbres.html"><a href="3-arbres.html#distances"><i class="fa fa-check"></i><b>3.2</b> Distances</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="3-arbres.html"><a href="3-arbres.html#distance-de-robinson-foulds"><i class="fa fa-check"></i><b>3.2.1</b> Distance de Robinson-Foulds</a></li>
+<li class="chapter" data-level="3.2.2" data-path="3-arbres.html"><a href="3-arbres.html#distance-cophénétique"><i class="fa fa-check"></i><b>3.2.2</b> Distance cophénétique</a></li>
+<li class="chapter" data-level="3.2.3" data-path="3-arbres.html"><a href="3-arbres.html#distance-de-billera-holmes-vogtmann-bhv"><i class="fa fa-check"></i><b>3.2.3</b> Distance de Billera-Holmes-Vogtmann (BHV)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="3-arbres.html"><a href="3-arbres.html#arbres-dintérêt"><i class="fa fa-check"></i><b>3.3</b> Arbres d’intérêt</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="3-arbres.html"><a href="3-arbres.html#phylogénie"><i class="fa fa-check"></i><b>3.3.1</b> Phylogénie</a></li>
+<li class="chapter" data-level="3.3.2" data-path="3-arbres.html"><a href="3-arbres.html#taxonomie"><i class="fa fa-check"></i><b>3.3.2</b> Taxonomie</a></li>
+<li class="chapter" data-level="3.3.3" data-path="3-arbres.html"><a href="3-arbres.html#cortree"><i class="fa fa-check"></i><b>3.3.3</b> Arbre des corrélations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="3-arbres.html"><a href="3-arbres.html#comparaison-entre-les-arbres"><i class="fa fa-check"></i><b>3.4</b> Comparaison entre les arbres</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="3-arbres.html"><a href="3-arbres.html#forêt-darbres"><i class="fa fa-check"></i><b>3.4.1</b> Forêt d’arbres</a></li>
+<li class="chapter" data-level="3.4.2" data-path="3-arbres.html"><a href="3-arbres.html#distance-entre-les-arbres"><i class="fa fa-check"></i><b>3.4.2</b> Distance entre les arbres</a></li>
+<li class="chapter" data-level="3.4.3" data-path="3-arbres.html"><a href="3-arbres.html#checktreefdr"><i class="fa fa-check"></i><b>3.4.3</b> Choix de l’arbre et lissage de z-score</a></li>
+<li class="chapter" data-level="3.4.4" data-path="3-arbres.html"><a href="3-arbres.html#choix-de-larbre-et-fdr-hiérarchique"><i class="fa fa-check"></i><b>3.4.4</b> Choix de l’arbre et FDR hiérarchique</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html"><i class="fa fa-check"></i><b>4</b> <em>zazou</em> : une nouvelle approche</a><ul>
+<li class="chapter" data-level="4.1" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#ou"><i class="fa fa-check"></i><b>4.1</b> Processus d’Ornstein-Uhlenbeck</a></li>
+<li class="chapter" data-level="4.2" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#zazousection"><i class="fa fa-check"></i><b>4.2</b> Zazou</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#modèle"><i class="fa fa-check"></i><b>4.2.1</b> Modèle</a></li>
+<li class="chapter" data-level="4.2.2" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#estimation-ponctuelle"><i class="fa fa-check"></i><b>4.2.2</b> Estimation ponctuelle</a></li>
+<li class="chapter" data-level="4.2.3" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#débiaisage-et-intervalles-de-confiance"><i class="fa fa-check"></i><b>4.2.3</b> Débiaisage et intervalles de confiance</a></li>
+<li class="chapter" data-level="4.2.4" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#correction-pour-tests-multiples"><i class="fa fa-check"></i><b>4.2.4</b> Correction pour tests multiples</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#evaluation"><i class="fa fa-check"></i><b>4.3</b> Évaluation de la méthode</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#simuzazou"><i class="fa fa-check"></i><b>4.3.1</b> Données simulées</a></li>
+<li class="chapter" data-level="4.3.2" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#influence-de-lâge"><i class="fa fa-check"></i><b>4.3.2</b> Influence de l’âge</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-ananum.html"><a href="5-ananum.html"><i class="fa fa-check"></i><b>5</b> Problèmes d’analyse numérique</a><ul>
+<li class="chapter" data-level="5.1" data-path="5-ananum.html"><a href="5-ananum.html#shooting"><i class="fa fa-check"></i><b>5.1</b> Algorithme du <em>shooting</em></a></li>
+<li class="chapter" data-level="5.2" data-path="5-ananum.html"><a href="5-ananum.html#mam"><i class="fa fa-check"></i><b>5.2</b> Minimisation sous contrainte de <span class="math inline">\(x^TAx\)</span></a></li>
+<li class="chapter" data-level="5.3" data-path="5-ananum.html"><a href="5-ananum.html#proj"><i class="fa fa-check"></i><b>5.3</b> Projection sur un ensemble de faisabilité</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html"><i class="fa fa-check"></i>Conclusion et perspectives</a><ul>
+<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#détection-versus-prédiction"><i class="fa fa-check"></i>Détection versus prédiction</a></li>
+<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#autres-procédures-hiérarchiques"><i class="fa fa-check"></i>Autres procédures hiérarchiques</a></li>
+<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#amélioration-de-zazou"><i class="fa fa-check"></i>Amélioration de zazou</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html"><i class="fa fa-check"></i>Digest</a><ul>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-i"><i class="fa fa-check"></i>Chapter I</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-ii"><i class="fa fa-check"></i>Chapter II</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-iii"><i class="fa fa-check"></i>Chapter III</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-iv"><i class="fa fa-check"></i>Chapter IV</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-v"><i class="fa fa-check"></i>Chapter V</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#conclusions-and-outlooks"><i class="fa fa-check"></i>Conclusions and outlooks</a></li>
+</ul></li>
+<li class="appendix"><span><b>Annexes</b></span></li>
+<li class="chapter" data-level="A" data-path="A-notations.html"><a href="A-notations.html"><i class="fa fa-check"></i><b>A</b> Notations</a></li>
+<li class="chapter" data-level="B" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html"><i class="fa fa-check"></i><b>B</b> Productions scientifiques</a><ul>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#quantifying-the-impact-of-tree-choice-in-metagenomics-differential-abundance-studies-with-r"><i class="fa fa-check"></i>Quantifying the impact of tree choice in metagenomics differential abundance studies with R</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#incorporating-phylogenetic-information-in-microbiome-differential-abundance-studies-has-no-effect-on-detection-power-and-fdr-control"><i class="fa fa-check"></i>Incorporating Phylogenetic Information in Microbiome Differential Abundance Studies Has No Effect on Detection Power and FDR Control</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#hierarchical-correction-of-p-values-via-a-tree-running-ornstein-uhlenbeck-process"><i class="fa fa-check"></i>Hierarchical correction of p-values via a tree running Ornstein-Uhlenbeck process</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#packages-r"><i class="fa fa-check"></i>Packages R</a><ul>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#yatah"><i class="fa fa-check"></i>yatah</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#evabic"><i class="fa fa-check"></i>evabic</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#correlationtree"><i class="fa fa-check"></i>correlationtree</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#zazou"><i class="fa fa-check"></i>zazou</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="C-vignette.html"><a href="C-vignette.html"><i class="fa fa-check"></i><b>C</b> Vignette de zazou</a></li>
+<li class="chapter" data-level="" data-path="références.html"><a href="références.html"><i class="fa fa-check"></i>Références</a></li>
+<li class="chapter" data-level="" data-path="mentions-légales.html"><a href="mentions-légales.html"><i class="fa fa-check"></i>Mentions légales</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+      NN: "{\\mathbb{N}}",
+      ZZ: "{\\mathbb{Z}}",
+      QQ: "{\\mathbb{Q}}",
+      RR: "{\\mathbb{R}}",
+      shiftset: "{\\mathcal{D}}",
+      dx: ["{\\mathrm{d}^{#1}\\mspace{-1mu}\\mathord{#2}}", 2, ""],
+      indic: "{\\unicode{x1D7D9}}",
+      prob: "\\mathop{\\mathbb{P}}",
+      esp: "\\mathop{\\mathbb{E}}",
+      var: "\\mathop{\\mathbb{V}\\text{ar}}",
+      cov: "\\mathop{\\mathbb{C}\\text{ov}}",
+      PP: ["{\\prob\\left({#1}\\right)}", 1],
+      EE: ["{\\esp\\left[{#1}\\right]}", 1],
+      VV: ["{\\var\\left[{#1}\\right]}", 1],
+      CC: ["{\\cov\\left[{#1}\\right]}", 1],
+      normal: ["{\\mathcal{N}\\left({#1},{#2}\\right)}", 2],
+      ou: ["{#1}_{\\text{ou}}", 1],
+      oui: ["{#1}_{\\text{ou},#2}", 2],
+      pv: "{\\mathfrak{p}}",
+      qv: "{\\mathfrak{q}}",
+      zs: "{\\mathfrak{z}}",
+      ts: "{\\mathfrak{t}}",
+      sign: "{\\mathfrak{s}}",
+      shifts: "{\\delta}",
+      optim: "{\\beta}",
+      param: "{\\theta}",
+      unif: ["{\\mathcal{U}\\left({#1}\\right)}", 1],
+      argmin: "\\mathop{\\mathrm{argmin}}",
+      diag: "\\mathop{\\mathrm{Diag}}",
+      rang: "\\mathop{\\mathrm{rang}}",
+      pa: "\\mathop{\\mathrm{pa}}",
+      mrca: "\\mathop{\\mathrm{mrca}}",
+      desc: "\\mathop{\\mathrm{desc}}",
+      warning: ["\\color{red}{{#1}}", 1]
+    }
+  }
+});
+</script>
+<div id="ananum" class="section level1">
+<h1><span class="header-section-number">Chapitre 5</span> Problèmes d’analyse numérique</h1>
+<p>Ce chapitre présente trois résolutions que nous avons apportées aux problèmes d’analyses numériques rencontrés lors de l’élaboration de l’algorithme <em>zazou</em>, présenté dans la section <a href="4-nouvelleapproche.html#zazousection">4.2</a>.</p>
+<p>Ce sont des algorithmes itératifs qui permettent de converger jusqu’à une approximation raisonnable de la solution.</p>
+<div id="shooting" class="section level2">
+<h2><span class="header-section-number">5.1</span> Algorithme du <em>shooting</em></h2>
+<p>L’algorithme du <em>shooting</em> est une méthode de résolution numérique du lasso proposée par <span class="citation">Fu (1998)</span>. Nous allons ici décrire la variante que nous avons développée lorsque l’espace d’existence du paramètre est contraint.</p>
+<p>Le problème <a href="4-nouvelleapproche.html#eq:lasso">(4.2)</a> peut-être réécrit dans sa forme générale</p>
+<p><span class="math display" id="eq:shooting">\[\begin{equation}
+\tag{5.1}
+\param^\star = \argmin_{\param \in \RR^p,U\param \in \RR^q_{-}} \left\|y - X\param\right\|_2^2 + \lambda \|\param\|_1,
+\end{equation}\]</span></p>
+<p>où <span class="math inline">\(y \in \RR^n\)</span>, <span class="math inline">\(X \in \RR^{n\times p}\)</span> et <span class="math inline">\(U \in \RR^{q \times p}\)</span>. Il s’agit d’un problème convexe et donc nous pouvons facilement adapter l’algorithme initial pour résoudre itérativement un problème unidirectionnel sur chaque coordonnée.</p>
+<p>Pour isoler la <span class="math inline">\(j^{\text{ème}}\)</span> coordonnée <span class="math inline">\(\param_j\)</span>, nous décomposons les termes du problème en<br />
+<span class="math display">\[\begin{equation*}
+\left\|y - X\param\right\|_2^2 + \lambda \|\param\|_1 = \left\|y - X_{-j}\param_{-j} - \param_j x_j\right\|_2^2 + \lambda |\param_j| + \lambda \|\param_{-j}\|_1
+\end{equation*}\]</span></p>
+<p>et</p>
+<p><span class="math display">\[\begin{equation*}
+U\param = U_{-j}\param_{-j} + \param_j u_j.
+\end{equation*}\]</span></p>
+<p>Ainsi, le problème unidirectionnel associé à la <span class="math inline">\(j^{\text{ème}}\)</span> coordonnée du problème <a href="5-ananum.html#eq:shooting">(5.1)</a> est</p>
+<p><span class="math display" id="eq:unidirectionnel">\[\begin{equation}
+\tag{5.2}
+\left\{
+  \begin{aligned}
+    \argmin_{\param \in \RR} h(\param) &amp; = \frac{1}{2} \|y - z - x\param\|^2_2 + \lambda |\param| \\
+    &amp; \text{t.q. } u + v\param \leq 0
+  \end{aligned}
+\right.
+\end{equation}\]</span></p>
+<p>Notons <span class="math inline">\(I_+ = \left\{ i : v_i &gt; 0 \right\}\)</span> et <span class="math inline">\(I_- = \left\{i : v_i &lt; 0 \right\}\)</span> puis <span class="math inline">\(\param_{\min} = \max_{i \in I_+} -\frac{u_i}{v_i}\)</span> et <span class="math inline">\(\param_{\max} = \min_{i \in I_-} -\frac{u_i}{v_i}\)</span>.</p>
+<p>Le problème <a href="5-ananum.html#eq:unidirectionnel">(5.2)</a> est faisable si et seulement si</p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(\param_{\min} \leq \param_{\max}\)</span>,</p></li>
+<li><p>pour chaque <span class="math inline">\(i\)</span>, <span class="math inline">\(v_i = 0\)</span> entraîne <span class="math inline">\(u_i \leq 0\)</span>.</p></li>
+</ol>
+<p>Sous ces deux conditions, la région de faisabilité est <span class="math inline">\(\mathcal{I} = \mathopen[\param_{\min}, \param_{\max}\mathclose]\)</span>.</p>
+<p>Le sous-gradient de <span class="math inline">\(h\)</span> est</p>
+<p><span class="math display">\[\begin{equation*}
+\partial h(\param) = 
+\begin{cases} 
+-(y-z)^Tx + x^Tx\param - \lambda &amp; \text{si } \param &lt; 0, \\ 
+-(y-z)^Tx + x^Tx\param + \lambda &amp; \text{si } \param &gt; 0, \\
+ -(y-z)^Tx + \lambda [-1, 1]          &amp; \text{si } \param = 0,
+\end{cases}
+\end{equation*}\]</span></p>
+<p>et les potentiels minimiseurs de <span class="math inline">\(h\)</span>, tels que <span class="math inline">\(0\in \partial h(\param)\)</span>, sont alors</p>
+<p><span class="math display" id="eq:solutionsanscontrainte">\[\begin{equation}
+\tag{5.3}
+\begin{cases} 
+\frac{(y-z)^Tx+\lambda}{x^Tx} &amp; \text{si } (y-z)^Tx &lt; -\lambda, \\ 
+\frac{(y-z)^Tx-\lambda}{x^Tx} &amp; \text{si } (y-z)^Tx &gt; \lambda, \\ 
+0                             &amp; \text{si } | (y-z)^Tx | \leq \lambda.
+\end{cases}
+\end{equation}\]</span></p>
+<p>Si le problème <a href="5-ananum.html#eq:unidirectionnel">(5.2)</a> est faisable, par convexité de <span class="math inline">\(h\)</span>, sa solution est obtenue en projetant <a href="5-ananum.html#eq:solutionsanscontrainte">(5.3)</a> sur l’ensemble de faisabilité <span class="math inline">\(\mathcal{I}\)</span> :</p>
+<p><span class="math display">\[\begin{equation*}
+\param^\star = \begin{cases} 
+P_{\mathcal{I}}\left(\frac{(y-z)^Tx+\lambda}{x^Tx}\right) &amp; \text{si } (y-z)^Tx &lt; -\lambda, \\ 
+P_{\mathcal{I}}\left(\frac{(y-z)^Tx-\lambda}{x^Tx}\right) &amp; \text{si } (y-z)^Tx &gt; \lambda, \\ 
+P_{\mathcal{I}}(0)                             &amp; \text{si } | (y-z)^Tx | \leq \lambda,
+\end{cases}
+\end{equation*}\]</span></p>
+<p>où <span class="math inline">\(P_{\mathcal{I}} : x \mapsto \max\left({\param_{\min}}, \min\left(x, \param_{\max}\right)\right)\)</span> est la projection sur <span class="math inline">\(\mathcal{I}\)</span>.</p>
+</div>
+<div id="mam" class="section level2">
+<h2><span class="header-section-number">5.2</span> Minimisation sous contrainte de <span class="math inline">\(x^TAx\)</span></h2>
+<p>Soit <span class="math inline">\(A \in \RR^{n\times n}\)</span> une matrice définie positive, <span class="math inline">\(e\)</span> un vecteur de <span class="math inline">\(\RR^n\)</span> et <span class="math inline">\(\gamma\)</span> un réel strictement positif. Nous avons mis en place un algorithme de résolution au problème de minimisation suivant :</p>
+<p><span class="math display" id="eq:xax">\[\begin{equation}
+\tag{5.4}
+\left\{
+  \begin{aligned}
+    x^\star &amp; = \argmin_{x \in \mathbb{R}^{n}} \ x^TAx \\
+    &amp;\text{t.q. }\|Ax - e\|_{\infty} \leq \gamma.
+  \end{aligned}
+\right.
+\end{equation}\]</span></p>
+<p>D’après le théorème spectral, il existe <span class="math inline">\(U, D \in \RR^{n\times n}\)</span> et <span class="math inline">\(\lambda \in \RR_+^n\)</span> tels que</p>
+<ul>
+<li><p><span class="math inline">\(A = UDU^T\)</span>,</p></li>
+<li><p><span class="math inline">\(U^TU = \mathbf{I}_n\)</span>,</p></li>
+<li><p><span class="math inline">\(D = \diag\left(\lambda_1, \ldots, \lambda_n\right)\)</span>,</p></li>
+<li><p><span class="math inline">\(\lambda_1 \geq \dots ... \lambda_r &gt; 0 = \lambda_{r+1} = \dots = \lambda_{n}\)</span> avec <span class="math inline">\(r = \rang(A)\)</span>.</p></li>
+</ul>
+<p>La solution <span class="math inline">\(x^{\star}\)</span> du problème initial <a href="5-ananum.html#eq:xax">(5.4)</a> est liée à la solution <span class="math inline">\(x^{\diamond}\)</span> du problème complémentaire</p>
+<p><span class="math display" id="eq:xaxcomp">\[\begin{equation}
+\tag{5.5}
+\left\{
+  \begin{aligned}
+    x^\diamond &amp; = \argmin_{x \in \mathbb{R}^{n}} \ x^TDx \\
+    &amp;\text{t.q.}\  \|Bx - e\|_{\infty} \leq \gamma
+  \end{aligned}
+\right.
+\end{equation}\]</span></p>
+<p>par <span class="math inline">\(x^\star = Ux^\diamond\)</span>, avec <span class="math inline">\(B = UD\)</span>.</p>
+<p>La résolution du problème complémentaire <a href="5-ananum.html#eq:xaxcomp">(5.5)</a> se fait en trouvant d’abord un <span class="math inline">\(x\)</span> dans l’ensemble de faisabilité, par exemple avec la méthode proposée dans la section <a href="5-ananum.html#proj">5.3</a>, puis en mettant à jour coordonnée par coordonné jusqu’à convergence.</p>
+<p>Pour <span class="math inline">\(j \in [\![1,n]\!]\)</span>, le problème de minimisation de <span class="math inline">\(x^TDx\)</span> en <span class="math inline">\(x_j\)</span> peut s’écrire</p>
+<p><span class="math display">\[\begin{equation*}
+\argmin_{x_j \in \RR} \lambda x_j^2 + \sum_{k\neq j}x_k^2\lambda_k,
+\end{equation*}\]</span></p>
+<p>dont la solution non contrainte évidente est <span class="math inline">\(0\)</span>, qu’il faudra projeter sur l’ensemble de faisabilité.</p>
+<p>Explicitons la contrainte en <span class="math inline">\(x_j\)</span> donnée dans le problème <a href="5-ananum.html#eq:xaxcomp">(5.5)</a>. Écrivons d’abord la décomposition de <span class="math inline">\(Bx\)</span> en <span class="math inline">\(Bx = B_{-j}x_{-j} + x_jb_j = c + x_jb_j\)</span> avec <span class="math inline">\(c = B_{-j}x_{-j}\in\RR^n\)</span>.</p>
+<p>On a alors</p>
+<p><span class="math display">\[\begin{equation*}
+\begin{aligned}
+&amp; \|Bx - e\|_\infty \leq \gamma \\
+\iff  &amp; \|c + x_jb_j - e\|_\infty \leq \gamma \\
+\iff  &amp; |c_k + x_jb_{k,j} - e_k| \leq \gamma &amp; \forall k \\
+\iff  &amp; -\gamma \leq c_k + x_jb_{k,j} - e_k \leq \gamma &amp; \forall k \\
+\iff  &amp; -\gamma + e_k - c_k \leq x_jb_{k,j} \leq \gamma + e_k - c_k  &amp; \forall k\\
+\iff  &amp; x_j \in \mathopen[l_k, u_k\mathclose] = \mathcal{I}_k &amp; \forall k\\
+\iff  &amp; x_j \in \mathopen[\max((l_k)_k) , \min((u_k)_k)\mathclose] = \bigcap_k \mathcal{I}_k = \mathcal{I} \\
+\end{aligned}
+\end{equation*}\]</span></p>
+<p>où</p>
+<p><span class="math display">\[\begin{equation*}
+l_k = \left\{
+  \begin{aligned}
+    &amp; \frac{-\gamma + e_k - c_k}{b_{k,j}} &amp; \text{si } b_{k,j} &gt; 0 \\
+    &amp; \frac{\gamma + e_k - c_k}{-b_{k,j}} &amp; \text{si } b_{k,j} &lt; 0 \\
+    &amp; \left\{  
+    \begin{aligned}
+      &amp; -\infty &amp; \text{si }|c_k - e_k| \leq \gamma \\
+      &amp; +\infty &amp; \text{sinon} \\
+    \end{aligned}
+    \right. &amp; \text{si } b_{k,j} = 0
+  \end{aligned}
+\right.
+\end{equation*}\]</span></p>
+<p>et</p>
+<p><span class="math display">\[\begin{equation*}
+u_k = \left\{
+  \begin{aligned}
+      &amp; \frac{\gamma + e_k - c_k}{b_{k,j}} &amp; \text{si } b_{k,j} &gt; 0 \\
+      &amp; \frac{-\gamma + e_k - c_k}{-b_{k,j}} &amp; \text{si } b_{k,j} &lt; 0 \\
+    &amp; \left\{  
+    \begin{aligned}
+      &amp; +\infty &amp; \text{si }|c_k - e_k| \leq \gamma \\
+      &amp; -\infty &amp; \text{sinon} \\
+    \end{aligned}
+    \right. &amp; \text{si } b_{k,j} = 0
+  \end{aligned}
+\right.
+\end{equation*}\]</span></p>
+<p>Le problème <a href="5-ananum.html#eq:xaxcomp">(5.5)</a> est faisable si et seulement si <span class="math inline">\(\mathcal{I} \neq \emptyset\)</span> si et seulement si <span class="math inline">\(\max((l_k)_k) \leq \min((u_k)_k)\)</span>. Dans ce cas, le minimum sous contrainte est atteint en <span class="math inline">\(P_\mathcal{I}(0)\)</span>, la projection de <span class="math inline">\(0\)</span> sur <span class="math inline">\(\mathcal{I}\)</span>.</p>
+
+<div class="remark">
+ <span class="remark"><em>Remarque. </em></span> S’il existe un <span class="math inline">\(k\)</span> tel que <span class="math inline">\(b_{k,j} = 0\)</span> et <span class="math inline">\(\left|c_k-e_k\right| &gt; \gamma\)</span> alors <span class="math inline">\(\mathcal{I} = \mathcal{I}_k = \emptyset\)</span> et le problème n’est pas faisable. À l’inverse, si pour tout <span class="math inline">\(k\)</span>, <span class="math inline">\(b_{k,j} = 0\)</span> et <span class="math inline">\(\left|c_k-e_k\right| \leq \gamma\)</span> alors <span class="math inline">\(\mathcal{I} = \RR\)</span> et la solution est <span class="math inline">\(0\)</span>.
+</div>
+
+<p>L’algorithme de résolution avance en mettant à jour la <span class="math inline">\(j^{\text{ème}}\)</span> coordonnée de <span class="math inline">\(x^\diamond\)</span> à <span class="math inline">\(P_\mathcal{I}(0)\)</span> et continue d’itérer sur les coordonnées jusqu’à convergence.</p>
+</div>
+<div id="proj" class="section level2">
+<h2><span class="header-section-number">5.3</span> Projection sur un ensemble de faisabilité</h2>
+<p>Nous appliquons ici le problème de projection sur une intersection d’ensembles convexes au cas rencontré dans le problème <a href="5-ananum.html#eq:xaxcomp">(5.5)</a>, c’est à dire quand l’ensemble est de la forme <span class="math inline">\(\|Mx-e\|_{\infty} &lt; \gamma\)</span>.</p>
+<p>Formellement, si <span class="math inline">\(M \in \RR^{m\times n}\)</span>, <span class="math inline">\(e \in \RR^m\)</span> et <span class="math inline">\(\gamma &gt; 0\)</span>, nous cherchons à obtenir un point dans <span class="math inline">\(\mathcal{C} = \left\{x \in \RR^n, \|Mx-e\|_{\infty} &lt; \gamma \right\}\)</span>, que nous supposons non vide.</p>
+<p>Définissons <span class="math inline">\(f:x\mapsto \max\left(f_1(x), \ldots, f_m(x), -\varepsilon\right)\)</span>, où <span class="math inline">\(f_j: x\mapsto \left|m_j^Tx - e_j\right| - \gamma\)</span> et <span class="math inline">\(\varepsilon &gt; 0\)</span>. Comme <span class="math inline">\(\mathcal{C}\neq\emptyset\)</span>, <span class="math inline">\(\argmin f \subset \mathcal{C}\)</span> et <span class="math inline">\(\min f = -\varepsilon\)</span>.</p>
+<p>Nous utilisons une descente du gradient dont les itérations successives sont donnés par <span class="math inline">\(x^{(0)} \in \RR^n\)</span> et</p>
+<p><span class="math display">\[\begin{equation*}
+x^{(k+1)} = x^{(k)} - \alpha_kg_k
+\end{equation*}\]</span></p>
+<p>où <span class="math inline">\(\alpha_k\)</span> est le pas et <span class="math inline">\(g_k = \partial f\left(x^{(k)}\right)\)</span>.</p>
+<p>Comme <span class="math inline">\(\min f = -\varepsilon\)</span> est connu, nous pouvons utiliser la longueur de pas de Polyak <span class="citation">(Polyak, 1987)</span></p>
+<p><span class="math display">\[\begin{equation*}
+\alpha_k = \frac{f\left(x^{(k)}\right) + \varepsilon}{\|g_k\|_2^2},
+\end{equation*}\]</span></p>
+<p>qui est optimale en un certain sens.</p>
+<p>Il nous reste maintenant à expliciter <span class="math inline">\(g_k\)</span>.</p>
+<p>Si pour chaque <span class="math inline">\(i \in [\![1,m]\!]\)</span>, <span class="math inline">\(f_i\left(x^{(k)}\right) &lt; -\varepsilon\)</span> alors <span class="math inline">\(x^{(k)} \in \mathcal{C}\)</span> et l’algorithme peut s’arrêter.</p>
+<p>Dans le cas contraire, il existe <span class="math inline">\(j\in [\![1,m]\!]\)</span> tel que <span class="math inline">\(f\left(x^{(k)}\right) = f_j\left(x^{(k)}\right)\)</span> et alors</p>
+<p><span class="math display">\[\begin{equation*}
+\begin{aligned}
+g_k &amp; = \partial f_j\left(x^{(k)}\right) \\
+&amp; = 
+  \begin{cases}
+  m_j &amp; \text{si}\ m_j^Tx^{(k)} - e_j &gt; 0,\\
+  \mathopen[-m_j, m_j\mathclose] &amp; \text{si}\ m_j^Tx^{(k)} - e_j = 0,\\
+  -m_j &amp; \text{si}\ m_j^Tx^{(k)} - e_j &lt; 0,
+  \end{cases}
+\end{aligned}
+\end{equation*}\]</span></p>
+<p>puis <span class="math inline">\(\|g_k\|_2^2 = m_j^Tm_j\)</span>.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="4-nouvelleapproche.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="conclusion-et-perspectives.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["twitter", "linkedin", "facebook", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "night",
+"family": "serif",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["thesis.pdf", "PDF"]],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

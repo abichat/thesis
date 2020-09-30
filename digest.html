@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Digest | Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles</title>
+  <meta name="description" content="Thèse de mathématiques appliquées par Antoine Bichat. Statistique – Apprentissage – Métagénomique – Arbre phylogénétique – Tests multiples – Processus stochastiques" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Digest | Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://abichat.github.io/thesis/" />
+  <meta property="og:image" content="https://abichat.github.io/thesis/img/tree_ou.png" />
+  <meta property="og:description" content="Thèse de mathématiques appliquées par Antoine Bichat. Statistique – Apprentissage – Métagénomique – Arbre phylogénétique – Tests multiples – Processus stochastiques" />
+  <meta name="github-repo" content="abichat/thesis" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Digest | Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles" />
+  
+  <meta name="twitter:description" content="Thèse de mathématiques appliquées par Antoine Bichat. Statistique – Apprentissage – Métagénomique – Arbre phylogénétique – Tests multiples – Processus stochastiques" />
+  <meta name="twitter:image" content="https://abichat.github.io/thesis/img/tree_ou.png" />
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="conclusion-et-perspectives.html"/>
+<link rel="next" href="A-notations.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-131161788-01', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<br><br><br>
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="1-metagenomique.html"><a href="1-metagenomique.html"><i class="fa fa-check"></i><b>1</b> Métagénomique</a><ul>
+<li class="chapter" data-level="1.1" data-path="1-metagenomique.html"><a href="1-metagenomique.html#microbiote"><i class="fa fa-check"></i><b>1.1</b> Le microbiote intestinal humain</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="1-metagenomique.html"><a href="1-metagenomique.html#description"><i class="fa fa-check"></i><b>1.1.1</b> Description</a></li>
+<li class="chapter" data-level="1.1.2" data-path="1-metagenomique.html"><a href="1-metagenomique.html#rôle"><i class="fa fa-check"></i><b>1.1.2</b> Rôle</a></li>
+<li class="chapter" data-level="1.1.3" data-path="1-metagenomique.html"><a href="1-metagenomique.html#dysbioses"><i class="fa fa-check"></i><b>1.1.3</b> Dysbioses</a></li>
+<li class="chapter" data-level="1.1.4" data-path="1-metagenomique.html"><a href="1-metagenomique.html#utilisations"><i class="fa fa-check"></i><b>1.1.4</b> Utilisations</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="1-metagenomique.html"><a href="1-metagenomique.html#caracterisation"><i class="fa fa-check"></i><b>1.2</b> Caractérisation du microbiote</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="1-metagenomique.html"><a href="1-metagenomique.html#collecte-des-échantillons"><i class="fa fa-check"></i><b>1.2.1</b> Collecte des échantillons</a></li>
+<li class="chapter" data-level="1.2.2" data-path="1-metagenomique.html"><a href="1-metagenomique.html#séquençage-par-gène-marqueur"><i class="fa fa-check"></i><b>1.2.2</b> Séquençage par gène marqueur</a></li>
+<li class="chapter" data-level="1.2.3" data-path="1-metagenomique.html"><a href="1-metagenomique.html#séquençage-non-ciblé"><i class="fa fa-check"></i><b>1.2.3</b> Séquençage non ciblé</a></li>
+<li class="chapter" data-level="1.2.4" data-path="1-metagenomique.html"><a href="1-metagenomique.html#donneesmetagenomiques"><i class="fa fa-check"></i><b>1.2.4</b> Données métagénomiques</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="1-metagenomique.html"><a href="1-metagenomique.html#jeuxdonnees"><i class="fa fa-check"></i><b>1.3</b> Jeux de données</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-anadiff.html"><a href="2-anadiff.html"><i class="fa fa-check"></i><b>2</b> Études d’analyse différentielle</a><ul>
+<li class="chapter" data-level="2.1" data-path="2-anadiff.html"><a href="2-anadiff.html#tests-statistiques"><i class="fa fa-check"></i><b>2.1</b> Tests statistiques</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="2-anadiff.html"><a href="2-anadiff.html#analyse-de-la-variance-à-un-facteur"><i class="fa fa-check"></i><b>2.1.1</b> Analyse de la variance à un facteur</a></li>
+<li class="chapter" data-level="2.1.2" data-path="2-anadiff.html"><a href="2-anadiff.html#test-de-wilcoxon"><i class="fa fa-check"></i><b>2.1.2</b> Test de Wilcoxon</a></li>
+<li class="chapter" data-level="2.1.3" data-path="2-anadiff.html"><a href="2-anadiff.html#test-de-kruskall-wallis"><i class="fa fa-check"></i><b>2.1.3</b> Test de Kruskall-Wallis</a></li>
+<li class="chapter" data-level="2.1.4" data-path="2-anadiff.html"><a href="2-anadiff.html#autres-methodes"><i class="fa fa-check"></i><b>2.1.4</b> Autres méthodes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="2-anadiff.html"><a href="2-anadiff.html#problématique-des-tests-multiples"><i class="fa fa-check"></i><b>2.2</b> Problématique des tests multiples</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="2-anadiff.html"><a href="2-anadiff.html#évaluation-des-performances"><i class="fa fa-check"></i><b>2.2.1</b> Évaluation des performances</a></li>
+<li class="chapter" data-level="2.2.2" data-path="2-anadiff.html"><a href="2-anadiff.html#correction-de-bonferroni"><i class="fa fa-check"></i><b>2.2.2</b> Correction de Bonferroni</a></li>
+<li class="chapter" data-level="2.2.3" data-path="2-anadiff.html"><a href="2-anadiff.html#correction-de-benjamini-hochberg"><i class="fa fa-check"></i><b>2.2.3</b> Correction de Benjamini-Hochberg</a></li>
+<li class="chapter" data-level="2.2.4" data-path="2-anadiff.html"><a href="2-anadiff.html#correction-de-benjamini-yekutieli"><i class="fa fa-check"></i><b>2.2.4</b> Correction de Benjamini-Yekutieli</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="2-anadiff.html"><a href="2-anadiff.html#procédures-hiérarchiques-pour-tests-multiples"><i class="fa fa-check"></i><b>2.3</b> Procédures hiérarchiques pour tests multiples</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="2-anadiff.html"><a href="2-anadiff.html#treefdr"><i class="fa fa-check"></i><b>2.3.1</b> <em>TreeFDR</em></a></li>
+<li class="chapter" data-level="2.3.2" data-path="2-anadiff.html"><a href="2-anadiff.html#fdr-hiérarchique"><i class="fa fa-check"></i><b>2.3.2</b> FDR hiérarchique</a></li>
+<li class="chapter" data-level="2.3.3" data-path="2-anadiff.html"><a href="2-anadiff.html#treeclimbr"><i class="fa fa-check"></i><b>2.3.3</b> <em>treeclimbR</em></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="3-arbres.html"><a href="3-arbres.html"><i class="fa fa-check"></i><b>3</b> Arbres</a><ul>
+<li class="chapter" data-level="3.1" data-path="3-arbres.html"><a href="3-arbres.html#définitions"><i class="fa fa-check"></i><b>3.1</b> Définitions</a></li>
+<li class="chapter" data-level="3.2" data-path="3-arbres.html"><a href="3-arbres.html#distances"><i class="fa fa-check"></i><b>3.2</b> Distances</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="3-arbres.html"><a href="3-arbres.html#distance-de-robinson-foulds"><i class="fa fa-check"></i><b>3.2.1</b> Distance de Robinson-Foulds</a></li>
+<li class="chapter" data-level="3.2.2" data-path="3-arbres.html"><a href="3-arbres.html#distance-cophénétique"><i class="fa fa-check"></i><b>3.2.2</b> Distance cophénétique</a></li>
+<li class="chapter" data-level="3.2.3" data-path="3-arbres.html"><a href="3-arbres.html#distance-de-billera-holmes-vogtmann-bhv"><i class="fa fa-check"></i><b>3.2.3</b> Distance de Billera-Holmes-Vogtmann (BHV)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="3-arbres.html"><a href="3-arbres.html#arbres-dintérêt"><i class="fa fa-check"></i><b>3.3</b> Arbres d’intérêt</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="3-arbres.html"><a href="3-arbres.html#phylogénie"><i class="fa fa-check"></i><b>3.3.1</b> Phylogénie</a></li>
+<li class="chapter" data-level="3.3.2" data-path="3-arbres.html"><a href="3-arbres.html#taxonomie"><i class="fa fa-check"></i><b>3.3.2</b> Taxonomie</a></li>
+<li class="chapter" data-level="3.3.3" data-path="3-arbres.html"><a href="3-arbres.html#cortree"><i class="fa fa-check"></i><b>3.3.3</b> Arbre des corrélations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="3-arbres.html"><a href="3-arbres.html#comparaison-entre-les-arbres"><i class="fa fa-check"></i><b>3.4</b> Comparaison entre les arbres</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="3-arbres.html"><a href="3-arbres.html#forêt-darbres"><i class="fa fa-check"></i><b>3.4.1</b> Forêt d’arbres</a></li>
+<li class="chapter" data-level="3.4.2" data-path="3-arbres.html"><a href="3-arbres.html#distance-entre-les-arbres"><i class="fa fa-check"></i><b>3.4.2</b> Distance entre les arbres</a></li>
+<li class="chapter" data-level="3.4.3" data-path="3-arbres.html"><a href="3-arbres.html#checktreefdr"><i class="fa fa-check"></i><b>3.4.3</b> Choix de l’arbre et lissage de z-score</a></li>
+<li class="chapter" data-level="3.4.4" data-path="3-arbres.html"><a href="3-arbres.html#choix-de-larbre-et-fdr-hiérarchique"><i class="fa fa-check"></i><b>3.4.4</b> Choix de l’arbre et FDR hiérarchique</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html"><i class="fa fa-check"></i><b>4</b> <em>zazou</em> : une nouvelle approche</a><ul>
+<li class="chapter" data-level="4.1" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#ou"><i class="fa fa-check"></i><b>4.1</b> Processus d’Ornstein-Uhlenbeck</a></li>
+<li class="chapter" data-level="4.2" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#zazousection"><i class="fa fa-check"></i><b>4.2</b> Zazou</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#modèle"><i class="fa fa-check"></i><b>4.2.1</b> Modèle</a></li>
+<li class="chapter" data-level="4.2.2" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#estimation-ponctuelle"><i class="fa fa-check"></i><b>4.2.2</b> Estimation ponctuelle</a></li>
+<li class="chapter" data-level="4.2.3" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#débiaisage-et-intervalles-de-confiance"><i class="fa fa-check"></i><b>4.2.3</b> Débiaisage et intervalles de confiance</a></li>
+<li class="chapter" data-level="4.2.4" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#correction-pour-tests-multiples"><i class="fa fa-check"></i><b>4.2.4</b> Correction pour tests multiples</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#evaluation"><i class="fa fa-check"></i><b>4.3</b> Évaluation de la méthode</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#simuzazou"><i class="fa fa-check"></i><b>4.3.1</b> Données simulées</a></li>
+<li class="chapter" data-level="4.3.2" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#influence-de-lâge"><i class="fa fa-check"></i><b>4.3.2</b> Influence de l’âge</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-ananum.html"><a href="5-ananum.html"><i class="fa fa-check"></i><b>5</b> Problèmes d’analyse numérique</a><ul>
+<li class="chapter" data-level="5.1" data-path="5-ananum.html"><a href="5-ananum.html#shooting"><i class="fa fa-check"></i><b>5.1</b> Algorithme du <em>shooting</em></a></li>
+<li class="chapter" data-level="5.2" data-path="5-ananum.html"><a href="5-ananum.html#mam"><i class="fa fa-check"></i><b>5.2</b> Minimisation sous contrainte de <span class="math inline">\(x^TAx\)</span></a></li>
+<li class="chapter" data-level="5.3" data-path="5-ananum.html"><a href="5-ananum.html#proj"><i class="fa fa-check"></i><b>5.3</b> Projection sur un ensemble de faisabilité</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html"><i class="fa fa-check"></i>Conclusion et perspectives</a><ul>
+<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#détection-versus-prédiction"><i class="fa fa-check"></i>Détection versus prédiction</a></li>
+<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#autres-procédures-hiérarchiques"><i class="fa fa-check"></i>Autres procédures hiérarchiques</a></li>
+<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#amélioration-de-zazou"><i class="fa fa-check"></i>Amélioration de zazou</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html"><i class="fa fa-check"></i>Digest</a><ul>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-i"><i class="fa fa-check"></i>Chapter I</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-ii"><i class="fa fa-check"></i>Chapter II</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-iii"><i class="fa fa-check"></i>Chapter III</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-iv"><i class="fa fa-check"></i>Chapter IV</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-v"><i class="fa fa-check"></i>Chapter V</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#conclusions-and-outlooks"><i class="fa fa-check"></i>Conclusions and outlooks</a></li>
+</ul></li>
+<li class="appendix"><span><b>Annexes</b></span></li>
+<li class="chapter" data-level="A" data-path="A-notations.html"><a href="A-notations.html"><i class="fa fa-check"></i><b>A</b> Notations</a></li>
+<li class="chapter" data-level="B" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html"><i class="fa fa-check"></i><b>B</b> Productions scientifiques</a><ul>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#quantifying-the-impact-of-tree-choice-in-metagenomics-differential-abundance-studies-with-r"><i class="fa fa-check"></i>Quantifying the impact of tree choice in metagenomics differential abundance studies with R</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#incorporating-phylogenetic-information-in-microbiome-differential-abundance-studies-has-no-effect-on-detection-power-and-fdr-control"><i class="fa fa-check"></i>Incorporating Phylogenetic Information in Microbiome Differential Abundance Studies Has No Effect on Detection Power and FDR Control</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#hierarchical-correction-of-p-values-via-a-tree-running-ornstein-uhlenbeck-process"><i class="fa fa-check"></i>Hierarchical correction of p-values via a tree running Ornstein-Uhlenbeck process</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#packages-r"><i class="fa fa-check"></i>Packages R</a><ul>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#yatah"><i class="fa fa-check"></i>yatah</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#evabic"><i class="fa fa-check"></i>evabic</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#correlationtree"><i class="fa fa-check"></i>correlationtree</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#zazou"><i class="fa fa-check"></i>zazou</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="C-vignette.html"><a href="C-vignette.html"><i class="fa fa-check"></i><b>C</b> Vignette de zazou</a></li>
+<li class="chapter" data-level="" data-path="références.html"><a href="références.html"><i class="fa fa-check"></i>Références</a></li>
+<li class="chapter" data-level="" data-path="mentions-légales.html"><a href="mentions-légales.html"><i class="fa fa-check"></i>Mentions légales</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+      NN: "{\\mathbb{N}}",
+      ZZ: "{\\mathbb{Z}}",
+      QQ: "{\\mathbb{Q}}",
+      RR: "{\\mathbb{R}}",
+      shiftset: "{\\mathcal{D}}",
+      dx: ["{\\mathrm{d}^{#1}\\mspace{-1mu}\\mathord{#2}}", 2, ""],
+      indic: "{\\unicode{x1D7D9}}",
+      prob: "\\mathop{\\mathbb{P}}",
+      esp: "\\mathop{\\mathbb{E}}",
+      var: "\\mathop{\\mathbb{V}\\text{ar}}",
+      cov: "\\mathop{\\mathbb{C}\\text{ov}}",
+      PP: ["{\\prob\\left({#1}\\right)}", 1],
+      EE: ["{\\esp\\left[{#1}\\right]}", 1],
+      VV: ["{\\var\\left[{#1}\\right]}", 1],
+      CC: ["{\\cov\\left[{#1}\\right]}", 1],
+      normal: ["{\\mathcal{N}\\left({#1},{#2}\\right)}", 2],
+      ou: ["{#1}_{\\text{ou}}", 1],
+      oui: ["{#1}_{\\text{ou},#2}", 2],
+      pv: "{\\mathfrak{p}}",
+      qv: "{\\mathfrak{q}}",
+      zs: "{\\mathfrak{z}}",
+      ts: "{\\mathfrak{t}}",
+      sign: "{\\mathfrak{s}}",
+      shifts: "{\\delta}",
+      optim: "{\\beta}",
+      param: "{\\theta}",
+      unif: ["{\\mathcal{U}\\left({#1}\\right)}", 1],
+      argmin: "\\mathop{\\mathrm{argmin}}",
+      diag: "\\mathop{\\mathrm{Diag}}",
+      rang: "\\mathop{\\mathrm{rang}}",
+      pa: "\\mathop{\\mathrm{pa}}",
+      mrca: "\\mathop{\\mathrm{mrca}}",
+      desc: "\\mathop{\\mathrm{desc}}",
+      warning: ["\\color{red}{{#1}}", 1]
+    }
+  }
+});
+</script>
+<div id="digest" class="section level1 unnumbered">
+<h1>Digest</h1>
+<div id="chapter-i" class="section level2 unnumbered">
+<h2>Chapter I</h2>
+<p>Microbiome, defined as the collection of microbes that inhabit a given environment, and metagenome, defined as the collection of their genes, have been the focus of growing attention for over a decade. In the human gut, microbial communities are responsible for carbohydrate degradation <span class="citation">(Flint et al., 2012; Rowland et al., 2018)</span> and help the immune system to regulate inflammation <span class="citation">(Blander et al., 2017)</span>. However, microbiome deregulation can also lead to moderate to severe disease, like Crohn’s disease <span class="citation">(Morgan et al., 2012)</span>, depression <span class="citation">(Foster &amp; Neufeld, 2013)</span>, or necrotizing enterocolitis <span class="citation">(Mai et al., 2011)</span>. Food and pharmaceutical industries saw the tremendous potential of the gut microbiome began developing product to take advantage of it. Among a lot of different methods, probiotics to lower depressive symptoms <span class="citation">(Pinto-Sanchez et al., 2017)</span>, prebiotics to enhance specific bacteria and lower obesity’s risk <span class="citation">(Sakwinska et al., 2017)</span> or fecal transplant to fight against lethal forms of diarrhea <span class="citation">(Van Nood et al., 2013)</span> have been tested and proved to be highly efficient.</p>
+<p>Several techniques are available to establish the composition of the microbiome. The marker gene sequencing approach, also called metabarcoding, aims at targeting a universal but rapidly evolving gene (usually the 16S rRNA gene when studying bacteria) whose sequence acts as a barcode to identify the species it originates from <span class="citation">(Morgan &amp; Huttenhower, 2012)</span>. However, it suffers form several drawbacks like the restriction to bacteria and archaea or the impossibility to obtain any information on the biological functions present in or expressed by the community. To bypass those limitations, the whole genome shotgun (WGS) sequencing approach amplifies all the genetic material to reconstruct a functional and more complete view of of the sample. It comes however with added complexity: the sequences must be mapped to preconstructed reference catalogues <span class="citation">(Quince et al., 2017)</span>.</p>
+<p>By construction, metagenomics data consist of counts (number of reads per species or per genes) and can be modeled as such. Several models try to take into account overdispersion by using negative binomial models <span class="citation">(Zhang et al., 2017)</span> or overrepresentation of zeros by using zero-inflated models <span class="citation">(Xinyan et al., 2016)</span>. However, several authors also suggest that the counts are misleading and that metagenomics data are compositional in essence and should be analyzed using an appropriate framework <span class="citation">(Gloor &amp; Reid, 2016)</span>.</p>
+</div>
+<div id="chapter-ii" class="section level2 unnumbered">
+<h2>Chapter II</h2>
+<p>In order to detect taxa that are differentially abundant between groups, several procedures have been developed. Among them, Wilcoxon-Mann-Whitney <span class="citation">(Mann &amp; Whitney, 1947; Wilcoxon, 1992)</span> and Kruskall-Wallis <span class="citation">(Kruskal &amp; Wallis, 1952)</span> tests are generic rank-based tests whose null hypothesis is a common count distribution in all groups. There also are specific tests tailored to the count or compositional aspect of sequencing-based omics data like <em>edgeR</em> <span class="citation">(Robinson et al., 2010)</span>, <em>DESeq2</em> <span class="citation">(Love et al., 2014)</span>, <em>mbzinb</em> <span class="citation">(Chen et al., 2018)</span> or <em>ALDEx2</em> <span class="citation">(Fernandes et al., 2014)</span>. The former two were first designed for transcriptomics data and then imported to microbiome data whereas the latter two were designed from the ground up for microbiome data.</p>
+<p>All the previously mentioned tests are univariate: they test one taxon at the time for differential abundance and require a subsequent step of multiple testing correction to avoid a high number of false discoveries. The Benjamini-Hochberg procedure <span class="citation">(Benjamini &amp; Hochberg, 1995)</span> is the best known and most popular of those correction procedures: it control the expected proportion of false discoveries <span class="math inline">\(\EE{\frac{FP}{TP + FP}}\)</span> at a certain level, defined <em>a priori</em>.</p>
+<p>Recently, new procedures have been proposed to take a hierarchical structure (mainly phylogeny) into account during differential abundance analyses. <em>TreeFDR</em> <span class="citation">(Xiao et al., 2017)</span> is a two-steps procedure based on smoothing of <span class="math inline">\(z\)</span>-scores followed by a permutational correction technique. The smoothing is based on a hierarchical model whose hyperparameters control the level of smoothing. Hierarchical FDR, theorized by <span class="citation">Yekutieli (2008)</span> and implemented by <span class="citation">Sankaran &amp; Holmes (2014)</span>, considers instead a top-down approach: it progresses down the tree, from the root to the leaves, and tests increasingly smaller groups of taxons until it can not reject the null hypothesis anymore. Finally, <span class="citation">Huang et al. (2020)</span> developed <em>treeclimbR</em>, which select differentially abundant clades based on a composite score computed for each internal node of the tree.</p>
+</div>
+<div id="chapter-iii" class="section level2 unnumbered">
+<h2>Chapter III</h2>
+<p>This chapter addresses the questions of which tree to consider in hierarchical approaches. Phylogeny reflects the evolution history between taxa and is created from nucleotidic sequences from the dataset. Taxonomy is a highly polytomic tree of nested ranks that is available in reference databases <span class="citation">(Geer et al., 2010)</span>. We introduce the correlation tree, a tree built from the pairwise correlation matrix of abundance data using a hierarchical clustering procedure.</p>
+<p>To compare those trees, we consider several distances. Formally, rooted trees are directed acyclic networks: they can be compared using the Robison-Foulds distance <span class="citation">(Robinson &amp; Foulds, 1981)</span> which focuses solely on topologies (trees without branches lengths), the cophenetic distance <span class="citation">(Sokal &amp; Rohlf, 1962)</span> which focuses on path lengths in the tree, or the Billera-Holmes-Vogtmann distance <span class="citation">(Billera et al., 2001)</span> which embeds trees in a geometric space and consider shortest paths in that space.</p>
+<p>We first investigate whether the phylogeny (or the taxonomy) is close to the correlation tree. We perform pairwise BHV distance computation on forest of trees covering the phylogeny, the correlation tree, bootstrapped versions of correlation tree and the random trees followed by a PCoA. It appears that the phylogeny is neither in the confidence region of the correlation tree, nor closer to the correlation tree than a random tree.</p>
+<p>We then apply hierarchical procedures with the different trees. The correlation tree performs better than the phylogeny, as it naturally captures similarity of abundance profiles and thus groups taxons in a relevant way. However, the classical BH procedure outperforms the hierarchical procedure, no matter what tree is used.</p>
+</div>
+<div id="chapter-iv" class="section level2 unnumbered">
+<h2>Chapter IV</h2>
+<p>The Ornstein-Uhlenbeck process with optimal value <span class="math inline">\(\ou{\optim}\)</span> is defined as the solution of the stochastic differential equation:</p>
+<p><span class="math display">\[\begin{equation*}
+\dx{W_t} = - \ou{\alpha} (W_t - \ou{\optim}) \dx{t} + \ou{\sigma}\dx{B_t}.
+\end{equation*}\]</span></p>
+<p>It is a well suited framework to model evolution of continuous phylogenetic traits <span class="citation">(Freckleton et al., 2003)</span>, especially because of its <span class="math inline">\(\ou{\optim}\)</span> centered Gaussian limit law. It has been used as a basic block to build more complex models, by considering OU processes on a tree and by considering piecewise linear functions for <span class="math inline">\(\ou{\optim}\)</span> <span class="citation">(Bastide et al., 2017)</span>.</p>
+<p>We proposed a new model, <em>zazou</em>, where the <span class="math inline">\(z\)</span>-scores arise from an OU process on a tree with shifts on its optimal values. Moreover, we assume that under <span class="math inline">\(\mathcal{H}_1\)</span>, <span class="math inline">\(\zs_i \sim \normal{\mu_i}{1}\)</span> with <span class="math inline">\(\mu_i &lt; 0\)</span> <span class="citation">(McLachlan &amp; Peel, 2004)</span> : finding the alternative hypotheses is equivalent to finding the non-zero components of <span class="math inline">\(\mu\)</span>. This can be reframed as a constrained version of the well-known lasso <span class="citation">(Tibshirani, 1996)</span> to have a point estimator of the <span class="math inline">\(\mu_i\)</span>. We then enhance this estimator using two desparsifications procedures from <span class="citation">Zhang &amp; Zhang (2014)</span> and <span class="citation">Javanmard &amp; Montanari (2014)</span> to debias the lasso estimate and build confidence intervals and in turn compute <span class="math inline">\(p\)</span>-values for each of the components of <span class="math inline">\(\mu\)</span>. Those <span class="math inline">\(p\)</span>-values act as tree-smoothed <span class="math inline">\(p\)</span>-values. The last part of <em>zazou</em> is the application of a multiple testing correction designed for desparsified lasso <span class="citation">(Javanmard et al., 2019)</span> on the computed <span class="math inline">\(p\)</span>-values.</p>
+<p>We evaluate our procedure on both synthetic and real data. When the tree is informative in the simulations, <em>zazou</em> outperforms BH and <em>TreeFDR</em> in terms of TPR but does not control the FDR at the correct level. Using a threshold independent approach, we show that <em>zazou</em> also outperforms competing methods in terms of ROC curves and AUC values. However, when the tree is not informative, forcing an irrelevant constraint leads to a significant loss of AUC.</p>
+</div>
+<div id="chapter-v" class="section level2 unnumbered">
+<h2>Chapter V</h2>
+<p>In this last chapter, we resolved three numerical analysis problems. The proposed algorithms are iterative and converge to a reasonable approximation of the solution.</p>
+<p>The first one is a variation of the lasso with a linear constraint :</p>
+<p><span class="math display">\[\begin{equation*}
+\left\{
+  \begin{aligned}
+  \param^\star &amp; = \argmin_{\param \in \RR^p} \left\|y - X\param\right\|_2^2 + \lambda \|\param\|_1 \\
+        &amp; \text{s.t. } U\param \in \RR^q_{-}
+  \end{aligned}
+\right.
+\end{equation*}\]</span></p>
+<p>where <span class="math inline">\(y \in \RR^n\)</span>, <span class="math inline">\(X \in \RR^{n\times p}\)</span> and <span class="math inline">\(U \in \RR^{q \times p}\)</span>.</p>
+<p>The second one is a minimization problem of a quadratic form subject to an infinite norm constraint :</p>
+<p><span class="math display">\[\begin{equation*}
+\left\{
+  \begin{aligned}
+    x^\star &amp; = \argmin_{x \in \mathbb{R}^{n}} \ x^TAx, \\
+    &amp;\text{s.t. }\|Ax - e\|_{\infty} \leq \gamma,
+  \end{aligned}
+\right.
+\end{equation*}\]</span></p>
+<p>where <span class="math inline">\(A \in \RR^{n\times n}\)</span> is a positive semidefinite matrix, <span class="math inline">\(e\in \RR^n\)</span> and <span class="math inline">\(\gamma &gt; 0\)</span>.</p>
+<p>The final one is a feasibility problem, where the goal is to find an element <span class="math inline">\(x\)</span> that satisfies:</p>
+<p><span class="math display">\[\begin{equation*}
+\left\{x \in \RR^m : \|Mx-e\|_{\infty} &lt; \gamma\right\},
+\end{equation*}\]</span></p>
+<p>with <span class="math inline">\(M \in \RR^{m\times n}\)</span>, <span class="math inline">\(e \in \RR^m\)</span> and <span class="math inline">\(\gamma &gt; 0\)</span> sufficiently large.</p>
+</div>
+<div id="conclusions-and-outlooks" class="section level2 unnumbered">
+<h2>Conclusions and outlooks</h2>
+<p>The issue considered in this manuscript is the detection of differentially abundant taxa among several groups. The inverse problem is a prediction problem where one wants to predict the groups from the taxa. Including hierarchical information for prediction has already been done in a weak manner for linear regression by <span class="citation">Park et al. (2007)</span>. The hierarchical information was the partition of variables in groups with high covariance among them. They proved that it is more interesting to estimate one coefficient per group than one per variable.</p>
+<p>Existing hierarchical procedures take precomputed <span class="math inline">\(p\)</span>-values or <span class="math inline">\(z\)</span>-scores as input. Saying that, hierarchical information always come as a second step, for smoothing or correction. To our knowledge, there is no test that use this information.</p>
+<p><em>zazou</em> suffers from a minor problem during model selection. Sometimes, the BIC selected model has no shifts. Alternative model selection procedures <span class="citation">(Baudry et al., 2012; Khabbazian et al., 2016)</span> have been tested but without success. The optimal model selection procedure would select a model with too many shifts, the useless one will be removed by the other steps.</p>
+<p>Some theoretical work is still requires. During the desparsification step to constraint shifts on branches such that their sum on the leafs are non-positive, and to check if the hypothesis of the several combined methods are respected.</p>
+
+</div>
+</div>
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="conclusion-et-perspectives.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="A-notations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["twitter", "linkedin", "facebook", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "night",
+"family": "serif",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["thesis.pdf", "PDF"]],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

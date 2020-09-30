@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapitre 4 zazou : une nouvelle approche | Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles</title>
+  <meta name="description" content="Thèse de mathématiques appliquées par Antoine Bichat. Statistique – Apprentissage – Métagénomique – Arbre phylogénétique – Tests multiples – Processus stochastiques" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapitre 4 zazou : une nouvelle approche | Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://abichat.github.io/thesis/" />
+  <meta property="og:image" content="https://abichat.github.io/thesis/img/tree_ou.png" />
+  <meta property="og:description" content="Thèse de mathématiques appliquées par Antoine Bichat. Statistique – Apprentissage – Métagénomique – Arbre phylogénétique – Tests multiples – Processus stochastiques" />
+  <meta name="github-repo" content="abichat/thesis" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapitre 4 zazou : une nouvelle approche | Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles" />
+  
+  <meta name="twitter:description" content="Thèse de mathématiques appliquées par Antoine Bichat. Statistique – Apprentissage – Métagénomique – Arbre phylogénétique – Tests multiples – Processus stochastiques" />
+  <meta name="twitter:image" content="https://abichat.github.io/thesis/img/tree_ou.png" />
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="3-arbres.html"/>
+<link rel="next" href="5-ananum.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-131161788-01', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<br><br><br>
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="1-metagenomique.html"><a href="1-metagenomique.html"><i class="fa fa-check"></i><b>1</b> Métagénomique</a><ul>
+<li class="chapter" data-level="1.1" data-path="1-metagenomique.html"><a href="1-metagenomique.html#microbiote"><i class="fa fa-check"></i><b>1.1</b> Le microbiote intestinal humain</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="1-metagenomique.html"><a href="1-metagenomique.html#description"><i class="fa fa-check"></i><b>1.1.1</b> Description</a></li>
+<li class="chapter" data-level="1.1.2" data-path="1-metagenomique.html"><a href="1-metagenomique.html#rôle"><i class="fa fa-check"></i><b>1.1.2</b> Rôle</a></li>
+<li class="chapter" data-level="1.1.3" data-path="1-metagenomique.html"><a href="1-metagenomique.html#dysbioses"><i class="fa fa-check"></i><b>1.1.3</b> Dysbioses</a></li>
+<li class="chapter" data-level="1.1.4" data-path="1-metagenomique.html"><a href="1-metagenomique.html#utilisations"><i class="fa fa-check"></i><b>1.1.4</b> Utilisations</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="1-metagenomique.html"><a href="1-metagenomique.html#caracterisation"><i class="fa fa-check"></i><b>1.2</b> Caractérisation du microbiote</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="1-metagenomique.html"><a href="1-metagenomique.html#collecte-des-échantillons"><i class="fa fa-check"></i><b>1.2.1</b> Collecte des échantillons</a></li>
+<li class="chapter" data-level="1.2.2" data-path="1-metagenomique.html"><a href="1-metagenomique.html#séquençage-par-gène-marqueur"><i class="fa fa-check"></i><b>1.2.2</b> Séquençage par gène marqueur</a></li>
+<li class="chapter" data-level="1.2.3" data-path="1-metagenomique.html"><a href="1-metagenomique.html#séquençage-non-ciblé"><i class="fa fa-check"></i><b>1.2.3</b> Séquençage non ciblé</a></li>
+<li class="chapter" data-level="1.2.4" data-path="1-metagenomique.html"><a href="1-metagenomique.html#donneesmetagenomiques"><i class="fa fa-check"></i><b>1.2.4</b> Données métagénomiques</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="1-metagenomique.html"><a href="1-metagenomique.html#jeuxdonnees"><i class="fa fa-check"></i><b>1.3</b> Jeux de données</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-anadiff.html"><a href="2-anadiff.html"><i class="fa fa-check"></i><b>2</b> Études d’analyse différentielle</a><ul>
+<li class="chapter" data-level="2.1" data-path="2-anadiff.html"><a href="2-anadiff.html#tests-statistiques"><i class="fa fa-check"></i><b>2.1</b> Tests statistiques</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="2-anadiff.html"><a href="2-anadiff.html#analyse-de-la-variance-à-un-facteur"><i class="fa fa-check"></i><b>2.1.1</b> Analyse de la variance à un facteur</a></li>
+<li class="chapter" data-level="2.1.2" data-path="2-anadiff.html"><a href="2-anadiff.html#test-de-wilcoxon"><i class="fa fa-check"></i><b>2.1.2</b> Test de Wilcoxon</a></li>
+<li class="chapter" data-level="2.1.3" data-path="2-anadiff.html"><a href="2-anadiff.html#test-de-kruskall-wallis"><i class="fa fa-check"></i><b>2.1.3</b> Test de Kruskall-Wallis</a></li>
+<li class="chapter" data-level="2.1.4" data-path="2-anadiff.html"><a href="2-anadiff.html#autres-methodes"><i class="fa fa-check"></i><b>2.1.4</b> Autres méthodes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="2-anadiff.html"><a href="2-anadiff.html#problématique-des-tests-multiples"><i class="fa fa-check"></i><b>2.2</b> Problématique des tests multiples</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="2-anadiff.html"><a href="2-anadiff.html#évaluation-des-performances"><i class="fa fa-check"></i><b>2.2.1</b> Évaluation des performances</a></li>
+<li class="chapter" data-level="2.2.2" data-path="2-anadiff.html"><a href="2-anadiff.html#correction-de-bonferroni"><i class="fa fa-check"></i><b>2.2.2</b> Correction de Bonferroni</a></li>
+<li class="chapter" data-level="2.2.3" data-path="2-anadiff.html"><a href="2-anadiff.html#correction-de-benjamini-hochberg"><i class="fa fa-check"></i><b>2.2.3</b> Correction de Benjamini-Hochberg</a></li>
+<li class="chapter" data-level="2.2.4" data-path="2-anadiff.html"><a href="2-anadiff.html#correction-de-benjamini-yekutieli"><i class="fa fa-check"></i><b>2.2.4</b> Correction de Benjamini-Yekutieli</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="2-anadiff.html"><a href="2-anadiff.html#procédures-hiérarchiques-pour-tests-multiples"><i class="fa fa-check"></i><b>2.3</b> Procédures hiérarchiques pour tests multiples</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="2-anadiff.html"><a href="2-anadiff.html#treefdr"><i class="fa fa-check"></i><b>2.3.1</b> <em>TreeFDR</em></a></li>
+<li class="chapter" data-level="2.3.2" data-path="2-anadiff.html"><a href="2-anadiff.html#fdr-hiérarchique"><i class="fa fa-check"></i><b>2.3.2</b> FDR hiérarchique</a></li>
+<li class="chapter" data-level="2.3.3" data-path="2-anadiff.html"><a href="2-anadiff.html#treeclimbr"><i class="fa fa-check"></i><b>2.3.3</b> <em>treeclimbR</em></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="3-arbres.html"><a href="3-arbres.html"><i class="fa fa-check"></i><b>3</b> Arbres</a><ul>
+<li class="chapter" data-level="3.1" data-path="3-arbres.html"><a href="3-arbres.html#définitions"><i class="fa fa-check"></i><b>3.1</b> Définitions</a></li>
+<li class="chapter" data-level="3.2" data-path="3-arbres.html"><a href="3-arbres.html#distances"><i class="fa fa-check"></i><b>3.2</b> Distances</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="3-arbres.html"><a href="3-arbres.html#distance-de-robinson-foulds"><i class="fa fa-check"></i><b>3.2.1</b> Distance de Robinson-Foulds</a></li>
+<li class="chapter" data-level="3.2.2" data-path="3-arbres.html"><a href="3-arbres.html#distance-cophénétique"><i class="fa fa-check"></i><b>3.2.2</b> Distance cophénétique</a></li>
+<li class="chapter" data-level="3.2.3" data-path="3-arbres.html"><a href="3-arbres.html#distance-de-billera-holmes-vogtmann-bhv"><i class="fa fa-check"></i><b>3.2.3</b> Distance de Billera-Holmes-Vogtmann (BHV)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="3-arbres.html"><a href="3-arbres.html#arbres-dintérêt"><i class="fa fa-check"></i><b>3.3</b> Arbres d’intérêt</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="3-arbres.html"><a href="3-arbres.html#phylogénie"><i class="fa fa-check"></i><b>3.3.1</b> Phylogénie</a></li>
+<li class="chapter" data-level="3.3.2" data-path="3-arbres.html"><a href="3-arbres.html#taxonomie"><i class="fa fa-check"></i><b>3.3.2</b> Taxonomie</a></li>
+<li class="chapter" data-level="3.3.3" data-path="3-arbres.html"><a href="3-arbres.html#cortree"><i class="fa fa-check"></i><b>3.3.3</b> Arbre des corrélations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="3-arbres.html"><a href="3-arbres.html#comparaison-entre-les-arbres"><i class="fa fa-check"></i><b>3.4</b> Comparaison entre les arbres</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="3-arbres.html"><a href="3-arbres.html#forêt-darbres"><i class="fa fa-check"></i><b>3.4.1</b> Forêt d’arbres</a></li>
+<li class="chapter" data-level="3.4.2" data-path="3-arbres.html"><a href="3-arbres.html#distance-entre-les-arbres"><i class="fa fa-check"></i><b>3.4.2</b> Distance entre les arbres</a></li>
+<li class="chapter" data-level="3.4.3" data-path="3-arbres.html"><a href="3-arbres.html#checktreefdr"><i class="fa fa-check"></i><b>3.4.3</b> Choix de l’arbre et lissage de z-score</a></li>
+<li class="chapter" data-level="3.4.4" data-path="3-arbres.html"><a href="3-arbres.html#choix-de-larbre-et-fdr-hiérarchique"><i class="fa fa-check"></i><b>3.4.4</b> Choix de l’arbre et FDR hiérarchique</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html"><i class="fa fa-check"></i><b>4</b> <em>zazou</em> : une nouvelle approche</a><ul>
+<li class="chapter" data-level="4.1" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#ou"><i class="fa fa-check"></i><b>4.1</b> Processus d’Ornstein-Uhlenbeck</a></li>
+<li class="chapter" data-level="4.2" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#zazousection"><i class="fa fa-check"></i><b>4.2</b> Zazou</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#modèle"><i class="fa fa-check"></i><b>4.2.1</b> Modèle</a></li>
+<li class="chapter" data-level="4.2.2" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#estimation-ponctuelle"><i class="fa fa-check"></i><b>4.2.2</b> Estimation ponctuelle</a></li>
+<li class="chapter" data-level="4.2.3" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#débiaisage-et-intervalles-de-confiance"><i class="fa fa-check"></i><b>4.2.3</b> Débiaisage et intervalles de confiance</a></li>
+<li class="chapter" data-level="4.2.4" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#correction-pour-tests-multiples"><i class="fa fa-check"></i><b>4.2.4</b> Correction pour tests multiples</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#evaluation"><i class="fa fa-check"></i><b>4.3</b> Évaluation de la méthode</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#simuzazou"><i class="fa fa-check"></i><b>4.3.1</b> Données simulées</a></li>
+<li class="chapter" data-level="4.3.2" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#influence-de-lâge"><i class="fa fa-check"></i><b>4.3.2</b> Influence de l’âge</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-ananum.html"><a href="5-ananum.html"><i class="fa fa-check"></i><b>5</b> Problèmes d’analyse numérique</a><ul>
+<li class="chapter" data-level="5.1" data-path="5-ananum.html"><a href="5-ananum.html#shooting"><i class="fa fa-check"></i><b>5.1</b> Algorithme du <em>shooting</em></a></li>
+<li class="chapter" data-level="5.2" data-path="5-ananum.html"><a href="5-ananum.html#mam"><i class="fa fa-check"></i><b>5.2</b> Minimisation sous contrainte de <span class="math inline">\(x^TAx\)</span></a></li>
+<li class="chapter" data-level="5.3" data-path="5-ananum.html"><a href="5-ananum.html#proj"><i class="fa fa-check"></i><b>5.3</b> Projection sur un ensemble de faisabilité</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html"><i class="fa fa-check"></i>Conclusion et perspectives</a><ul>
+<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#détection-versus-prédiction"><i class="fa fa-check"></i>Détection versus prédiction</a></li>
+<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#autres-procédures-hiérarchiques"><i class="fa fa-check"></i>Autres procédures hiérarchiques</a></li>
+<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#amélioration-de-zazou"><i class="fa fa-check"></i>Amélioration de zazou</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html"><i class="fa fa-check"></i>Digest</a><ul>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-i"><i class="fa fa-check"></i>Chapter I</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-ii"><i class="fa fa-check"></i>Chapter II</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-iii"><i class="fa fa-check"></i>Chapter III</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-iv"><i class="fa fa-check"></i>Chapter IV</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-v"><i class="fa fa-check"></i>Chapter V</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#conclusions-and-outlooks"><i class="fa fa-check"></i>Conclusions and outlooks</a></li>
+</ul></li>
+<li class="appendix"><span><b>Annexes</b></span></li>
+<li class="chapter" data-level="A" data-path="A-notations.html"><a href="A-notations.html"><i class="fa fa-check"></i><b>A</b> Notations</a></li>
+<li class="chapter" data-level="B" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html"><i class="fa fa-check"></i><b>B</b> Productions scientifiques</a><ul>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#quantifying-the-impact-of-tree-choice-in-metagenomics-differential-abundance-studies-with-r"><i class="fa fa-check"></i>Quantifying the impact of tree choice in metagenomics differential abundance studies with R</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#incorporating-phylogenetic-information-in-microbiome-differential-abundance-studies-has-no-effect-on-detection-power-and-fdr-control"><i class="fa fa-check"></i>Incorporating Phylogenetic Information in Microbiome Differential Abundance Studies Has No Effect on Detection Power and FDR Control</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#hierarchical-correction-of-p-values-via-a-tree-running-ornstein-uhlenbeck-process"><i class="fa fa-check"></i>Hierarchical correction of p-values via a tree running Ornstein-Uhlenbeck process</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#packages-r"><i class="fa fa-check"></i>Packages R</a><ul>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#yatah"><i class="fa fa-check"></i>yatah</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#evabic"><i class="fa fa-check"></i>evabic</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#correlationtree"><i class="fa fa-check"></i>correlationtree</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#zazou"><i class="fa fa-check"></i>zazou</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="C-vignette.html"><a href="C-vignette.html"><i class="fa fa-check"></i><b>C</b> Vignette de zazou</a></li>
+<li class="chapter" data-level="" data-path="références.html"><a href="références.html"><i class="fa fa-check"></i>Références</a></li>
+<li class="chapter" data-level="" data-path="mentions-légales.html"><a href="mentions-légales.html"><i class="fa fa-check"></i>Mentions légales</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+      NN: "{\\mathbb{N}}",
+      ZZ: "{\\mathbb{Z}}",
+      QQ: "{\\mathbb{Q}}",
+      RR: "{\\mathbb{R}}",
+      shiftset: "{\\mathcal{D}}",
+      dx: ["{\\mathrm{d}^{#1}\\mspace{-1mu}\\mathord{#2}}", 2, ""],
+      indic: "{\\unicode{x1D7D9}}",
+      prob: "\\mathop{\\mathbb{P}}",
+      esp: "\\mathop{\\mathbb{E}}",
+      var: "\\mathop{\\mathbb{V}\\text{ar}}",
+      cov: "\\mathop{\\mathbb{C}\\text{ov}}",
+      PP: ["{\\prob\\left({#1}\\right)}", 1],
+      EE: ["{\\esp\\left[{#1}\\right]}", 1],
+      VV: ["{\\var\\left[{#1}\\right]}", 1],
+      CC: ["{\\cov\\left[{#1}\\right]}", 1],
+      normal: ["{\\mathcal{N}\\left({#1},{#2}\\right)}", 2],
+      ou: ["{#1}_{\\text{ou}}", 1],
+      oui: ["{#1}_{\\text{ou},#2}", 2],
+      pv: "{\\mathfrak{p}}",
+      qv: "{\\mathfrak{q}}",
+      zs: "{\\mathfrak{z}}",
+      ts: "{\\mathfrak{t}}",
+      sign: "{\\mathfrak{s}}",
+      shifts: "{\\delta}",
+      optim: "{\\beta}",
+      param: "{\\theta}",
+      unif: ["{\\mathcal{U}\\left({#1}\\right)}", 1],
+      argmin: "\\mathop{\\mathrm{argmin}}",
+      diag: "\\mathop{\\mathrm{Diag}}",
+      rang: "\\mathop{\\mathrm{rang}}",
+      pa: "\\mathop{\\mathrm{pa}}",
+      mrca: "\\mathop{\\mathrm{mrca}}",
+      desc: "\\mathop{\\mathrm{desc}}",
+      warning: ["\\color{red}{{#1}}", 1]
+    }
+  }
+});
+</script>
+<div id="nouvelleapproche" class="section level1">
+<h1><span class="header-section-number">Chapitre 4</span> <em>zazou</em> : une nouvelle approche</h1>
+<div id="ou" class="section level2">
+<h2><span class="header-section-number">4.1</span> Processus d’Ornstein-Uhlenbeck</h2>
+<p>Un processus d’Ornstein-Uhlenbeck (OU) de force de rappel <span class="math inline">\(\ou{\alpha}\)</span>, de valeur optimale <span class="math inline">\(\ou{\optim}\)</span>, et d’écart-type <span class="math inline">\(\ou{\sigma}\)</span> est un processus gaussien qui satisfait l’équation différentielle stochastique suivante :</p>
+<p><span class="math display">\[\begin{equation*}
+\dx{W_t} = - \ou{\alpha} (W_t - \ou{\optim}) \dx{t} + \ou{\sigma}\dx{B_t}.
+\end{equation*}\]</span></p>
+<p>Si <span class="math inline">\(W_0\)</span> est connu et fixé, l’espérance du processus vaut <span class="math inline">\(\EE{W_t} = W_0 e^{-\ou{\alpha} t} + \ou{\optim}\left(1 - e^{-\ou{\alpha} t}\right)\)</span> et la covariance du processus est donnée par</p>
+<p><span class="math display">\[\CC{W_t, W_s} = \frac{\ou{\sigma}^2}{2\ou{\alpha}}\left(e^{-\ou{\alpha} \left|t-s\right|} - e^{-\ou{\alpha} \left(t+s\right)}\right).\]</span></p>
+<p>Le processus est gaussien et il admet pour loi limite <span class="math inline">\(\normal{\ou{\optim}}{\frac{\ou{\sigma}^2}{2\ou{\alpha}}}\)</span>, dont la variance est finie.</p>
+<p>De par leurs propriétés, les processus d’Ornstein-Uhlenbeck sont devenus populaires pour modéliser l’évolution de traits biologiques continus, comme la masse corporelle des mammifères <span class="citation">(Freckleton, Harvey, &amp; Pagel, 2003)</span>.</p>
+<p>Il est également possible de faire évoluer un processus d’Ornstein-Uhlenbeck sur un
+arbre <span class="citation">(Bastide, Mariadassou, &amp; Robin, 2017)</span>. Le long d’une branche, les paramètres du processus sont fixes. À chaque nœud, une branche se divise (en deux dans le cas d’un arbre binaire) et le processus donne naissance à deux copies indépendantes ayant la même valeur initiale au point de branchement. Cela induit notamment une dépendance statistique entre tous les descendants d’un même ancêtre. Cette dépendance est d’autant plus forte que l’ancêtre est récent. Sur la figure <a href="4-nouvelleapproche.html#fig:treeou">4.1</a>, le processus vert partant de <span class="math inline">\(N_1\)</span> jusqu’à <span class="math inline">\(N_2\)</span> donne naissance à deux processus <span class="math inline">\(T_4\)</span> et <span class="math inline">\(T_5\)</span>, jaune et bleu, lorsqu’il arrive au nœud <span class="math inline">\(N_2\)</span>.</p>
+<p>De plus, à chaque branchement, un changement dans les paramètres du processus est susceptible de se produire. Dans ce cas, le processus garde la même valeur au nœud mais continue sa trajectoire avec les nouveaux paramètres. C’est le cas en <span class="math inline">\(N_3\)</span> dans la figure <a href="4-nouvelleapproche.html#fig:treeou">4.1</a> où le processus orange a subi un changement dans sa valeur optimale <span class="math inline">\(\ou{\optim}\)</span> par rapport au processus rouge : la trajectoire est continue et le processus dérive vers la nouvelle valeur optimale.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:treeou"></span>
+<img src="img/tree_ou.png" alt="Exemple d’un processus d’Ornstein-Uhlenbeck sur un arbre à 5 feuilles. À chaque branchement, le processus se scinde en deux processus indépendants ayant la même valeur initiale. Les paramètres sont conservés sauf lors d’un saut dans la valeur optimale, comme sur la branche conduisant à \(N_4\)." width="90%" />
+<p class="caption">
+Figure 4.1: Exemple d’un processus d’Ornstein-Uhlenbeck sur un arbre à 5 feuilles. À chaque branchement, le processus se scinde en deux processus indépendants ayant la même valeur initiale. Les paramètres sont conservés sauf lors d’un saut dans la valeur optimale, comme sur la branche conduisant à <span class="math inline">\(N_4\)</span>.
+</p>
+</div>
+<p>Le produit matriciel de la matrice d’incidence <span class="math inline">\(T\)</span> par le vecteur de sauts <span class="math inline">\(\shifts\)</span> permet d’effectuer la somme cumulée des sauts le long des branches pour obtenir la valeur optimale du processus aux feuilles. Dans l’exemple de la figure <a href="4-nouvelleapproche.html#fig:treeou">4.1</a>,</p>
+<p><span class="math display">\[\begin{equation*}
+\oui{\optim}{\{\text{feuilles}\}} = T \shifts = 
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 1 \\
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 1 \\
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 1 &amp; 1 &amp; 0 &amp; 0 \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+0 \\
+0 \\
+0 \\
+0 \\
+0 \\
+0 \\
+0 \\
+0 \\
+4 \\
+\end{bmatrix} 
+= 
+\begin{bmatrix}
+4 \\
+4 \\
+0 \\
+0 \\
+0 \\
+\end{bmatrix}.
+\end{equation*}\]</span></p>
+
+<p>En notant <span class="math inline">\(\oui{\optim}{i}\)</span> la valeur optimale du processus sur la branche descendant au nœud <span class="math inline">\(i\)</span>, la loi à ce nœud conditionnellement à son parent est</p>
+<p><span class="math display">\[\begin{equation*}
+X_i|X_{\text{pa}(i)} \sim \mathcal{N}\left( X_{\text{pa}(i)} e^{-\ou{\alpha} \ell_i } + \oui{\optim}{i} \left(1-e^{-\ou{\alpha} \ell_i}\right), \frac{\ou{\sigma}^2}{2\ou{\alpha}} \left(1 - e^{-2\ou{\alpha} \ell_i}\right) \right).
+\end{equation*}\]</span></p>
+<p>Ceci permet d’avoir une expression pour la covariance entre les nœuds <span class="math inline">\(i\)</span> et <span class="math inline">\(j\)</span>. Dans le cas où <span class="math inline">\(P = \pa(i)=\pa(j)\)</span>, on a</p>
+<p><span class="math display">\[\begin{equation*}
+\begin{aligned}
+\CC{X_i, X_j} &amp; = \EE{X_iX_j} - \EE{X_i} \EE{X_j} \\
+&amp; = \EE{\EE{X_iX_j\mid P}} - \EE{\EE{X_i\mid P}} \EE{\EE{X_j \mid P }} \\
+&amp; = \EE{\left(P e^{-\ou{\alpha}\ell_i} + \oui{\optim}{i} \left(1-e^{-\ou{\alpha}\ell_i}\right)\right) \left(P e^{-\ou{\alpha}\ell_j} + \oui{\optim}{j} \left(1-e^{-\ou{\alpha}\ell_j}\right)\right)} \\
+&amp; \qquad - \EE{P e^{-\ou{\alpha}\ell_i} + \oui{\optim}{i} \left(1-e^{-\ou{\alpha}\ell_i}\right)} \EE{P e^{-\ou{\alpha}\ell_j} + \oui{\optim}{j} \left(1-e^{-\ou{\alpha}\ell_j}\right)} \\
+&amp; = e^{-\ou{\alpha}(\ell_i + \ell_j)} \EE{P^2} - e^{-\ou{\alpha}(\ell_i + \ell_j)} \EE{P}^2 \\
+&amp; = e^{-\ou{\alpha} d_{i,j}} \VV{P} \\
+&amp; = \frac{\ou{\sigma}^2}{2\ou{\alpha}}\left(1 - e^{-2\ou{\alpha} t_{i,j} }\right) \times e^{-\ou{\alpha} d_{i,j}}.
+\end{aligned}
+\end{equation*}\]</span></p>
+<p>Cette expression reste valable quelque soit le niveau de parenté entre <span class="math inline">\(i\)</span> et <span class="math inline">\(j\)</span>. Ainsi, pour un arbre ultramétrique de longueur <span class="math inline">\(h\)</span>, la matrice de variance-covariance du vecteur gaussien des feuilles (numérotées de 1 à <span class="math inline">\(m\)</span>) est composée des éléments</p>
+<p><span class="math display" id="eq:covariance">\[\begin{equation}
+\tag{4.1}
+\frac{\ou{\sigma}^2}{2\ou{\alpha}}\left(e^{-\ou{\alpha} d_{i,j}} - e^{-2\ou{\alpha} h}\right).
+\end{equation}\]</span></p>
+<p>En particulier, la variance à toutes les feuilles est <span class="math inline">\(\frac{\ou{\sigma}^2}{2\ou{\alpha}}\left(1 - e^{-2\ou{\alpha} h}\right)\)</span>.</p>
+</div>
+<div id="zazousection" class="section level2">
+<h2><span class="header-section-number">4.2</span> Zazou</h2>
+<div id="modèle" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Modèle</h3>
+<p>L’approche que nous avons développée s’appuie sur les <span class="math inline">\(z\)</span>-scores aux feuilles et fait deux hypothèses :</p>
+<ol style="list-style-type: decimal">
+<li>les <span class="math inline">\(z\)</span>-scores sont la réalisation d’un processus d’Ornstein-Uhlenbeck avec sauts sur l’arbre phylogénétique,</li>
+<li>sous <span class="math inline">\(\mathcal{H}_1\)</span>, <span class="math inline">\(\zs_i \sim \normal{\mu_i}{1}\)</span> avec <span class="math inline">\(\mu_i &lt; 0\)</span>.</li>
+</ol>
+<p>La première hypothèse nous permet de définir la distribution jointe des <span class="math inline">\(z\)</span>-scores comme</p>
+<p><span class="math display">\[\begin{equation*}
+\zs \sim \mathcal{N}_{m}\left(\mu,\Sigma\right)
+\end{equation*}\]</span></p>
+<p>où <span class="math inline">\(\mu\)</span> dépend de <span class="math inline">\(\shifts\)</span>, le vecteur des sauts du processus, via la relation <span class="math inline">\(\mu = T\delta\)</span> et <span class="math inline">\(\Sigma\)</span> dépend de <span class="math inline">\(\ou{\alpha}\)</span> et <span class="math inline">\(\ou{\sigma}\)</span> via l’équation <a href="4-nouvelleapproche.html#eq:covariance">(4.1)</a>.</p>
+<p>La seconde hypothèse est classique lorsqu’on travaille sur les <span class="math inline">\(z\)</span>-scores <span class="citation">(McLachlan &amp; Peel, 2004)</span> et suppose l’équivalence entre trouver les hypothèses alternatives et déterminer les composantes non-nulles du vecteur <span class="math inline">\(\mu\)</span>. Sous <span class="math inline">\(\mathcal{H}_0\)</span> et <span class="math inline">\(\mathcal{H}_1\)</span>, la variance aux feuilles doit valoir <span class="math inline">\(1\)</span>, ce qui impose
+<span class="math display">\[\begin{equation*}
+\ou{\hat{\sigma}}=\frac{2\ou{\hat{\alpha}}}{1 - e^{-2\ou{\hat{\alpha}}h}},
+\end{equation*}\]</span></p>
+<p>de sorte que <span class="math inline">\(\widehat{\Sigma}\)</span> dépend uniquement de <span class="math inline">\(\ou{\hat{\alpha}}\)</span>.</p>
+</div>
+<div id="estimation-ponctuelle" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Estimation ponctuelle</h3>
+<p>En supposant <span class="math inline">\(\ou{\hat{\alpha}}\)</span> (et donc <span class="math inline">\(\widehat{\Sigma}\)</span>) connue, une application naïve du maximum de vraisemblance donnerait</p>
+<p><span class="math display">\[\begin{equation*}
+\hat{\mu} = \argmin_{\mu\in\mathbb{R}_-^m} \|\zs - \mu\|_{\Sigma^{-1}, 2}^2
+\end{equation*}\]</span></p>
+<p>comme estimateur de <span class="math inline">\(\mu\)</span>. En réalité, c’est la position des sauts qui nous intéresse et nous souhaitons donc plutôt avoir un estimateur de <span class="math inline">\(\shifts\)</span>. En utilisant la relation <span class="math inline">\(\mu = T\shifts\)</span>, celui-ci est donné par</p>
+<p><span class="math display">\[\begin{equation*}
+\hat{\delta} = \argmin_{\shifts \in \shiftset} \left\|\zs - T\shifts\right\|_{\Sigma^{-1},2}^2,
+\end{equation*}\]</span></p>
+<p>où <span class="math inline">\(\shiftset = \left\{\shifts\in \mathbb{R}^{n} / T\shifts \in\mathbb{R}_-^m\right\}\)</span> est l’ensemble de faisabilité pour les sauts qui induisent des composantes négatives aux feuilles. Bien que le problème soit convexe (la fonction objective est convexe, tout comme l’ensemble de faisabilité), la matrice <span class="math inline">\(T\)</span> n’est pas plein rang et l’estimateur <span class="math inline">\(\hat{\mu}\)</span> n’est donc pas unique.</p>
+<p>Nous lui préférons donc un estimateur parcimonieux, obtenu en rajoutant une contrainte <span class="math inline">\(\ell_1\)</span> <span class="citation">(Tibshirani, 1996)</span> à la fonction objectif :</p>
+<p><span class="math display">\[\begin{equation*}
+\hat{\shifts} = \argmin_{\shifts \in \shiftset} \left\|\zs - T\shifts\right\|_{\Sigma^{-1},2}^2 + \lambda \|\shifts\|_1.
+\end{equation*}\]</span></p>
+
+<p>En utilisant la décomposition de Cholesky <span class="math inline">\(\Sigma^{-1} = R^TR\)</span>, ce nouveau problème peut se ramener au problème bien connu du lasso, avec une contrainte convexe sur <span class="math inline">\(\shifts\)</span> :</p>
+<p><span class="math display" id="eq:lasso">\[\begin{equation}
+\tag{4.2}
+\hat{\shifts} = \argmin_{\shifts \in \shiftset} \left\|y - X\shifts\right\|_2^2 + \lambda \|\shifts\|_1,
+\end{equation}\]</span></p>
+<p>où <span class="math inline">\(y = R\zs \in \RR^m\)</span> et <span class="math inline">\(X = RT \in \RR^{m \times n}\)</span>.</p>
+<p>Le problème <a href="4-nouvelleapproche.html#eq:lasso">(4.2)</a> est convexe en <span class="math inline">\(\shifts\)</span> et sa résolution est possible avec l’algorithme détaillé dans la section <a href="5-ananum.html#shooting">5.1</a>, qui est une modification de l’algorithme du <em>shooting</em> <span class="citation">(Fu, 1998)</span>.</p>
+<p>Il reste maintenant à déterminer <span class="math inline">\(\alpha\)</span> et <span class="math inline">\(\lambda\)</span>. Ceux-ci ne pouvant être obtenus directement à partir des données, nous allons sélectionner le couple qui minimise le critère BIC suivant :</p>
+<p><span class="math display">\[\begin{equation*}
+\left(\ou{\hat{\alpha}}, \hat{\lambda}\right) = \argmin_{\alpha &gt; 0, \lambda \geq 0} \left\|\zs - T\shifts_{\alpha, \lambda}\right\|_{\Sigma(\alpha)^{-1},2}^2 + \log|\Sigma(\alpha)| + \|\shifts_{\alpha, \lambda}\|_0 \log{m},
+\end{equation*}\]</span></p>
+<p>où <span class="math inline">\(\shifts_{\alpha, \lambda}\)</span> est la solution du problème <a href="4-nouvelleapproche.html#eq:lasso">(4.2)</a> pour <span class="math inline">\(\alpha\)</span> et <span class="math inline">\(\lambda\)</span>. En pratique, une grille bidimensionnelle donne les valeurs du couple à tester. Cette approche a été préférée à l’alternative usuelle de la validation croisée pour ne pas avoir à gérer la dépendance entre les <span class="math inline">\(z\)</span>-scores.</p>
+</div>
+<div id="débiaisage-et-intervalles-de-confiance" class="section level3">
+<h3><span class="header-section-number">4.2.3</span> Débiaisage et intervalles de confiance</h3>
+<p>L’estimateur lasso est connu pour être biaisé <span class="citation">(Javanmard &amp; Montanari, 2013)</span> et ne produit pas d’intervalles de confiance pour les <span class="math inline">\(\hat{\shifts}_i\)</span>. Nous utilisons donc une procédure de débiaisage, comme celles proposées dans <span class="citation">Zhang &amp; Zhang (2014)</span> ou <span class="citation">Javanmard &amp; Montanari (2013)</span> et <span class="citation">Javanmard &amp; Montanari (2014)</span>. Ces deux procédures fonctionnent suivant le même principe. Tout d’abord, au lieu d’avoir un estimateur initial de <span class="math inline">\(\shifts\)</span> comme dans <a href="4-nouvelleapproche.html#eq:lasso">(4.2)</a>, nous avons besoin d’un estimateur couplé de <span class="math inline">\(\shifts\)</span> et de sa variance <span class="math inline">\(\sigma\)</span>, qui peut être obtenu par un <em>scaled lasso</em> <span class="citation">(Sun &amp; Zhang, 2012)</span> et qui sera notre estimateur initial :</p>
+<p><span class="math display">\[\begin{equation*}
+\left(\hat{\shifts}^{\text{(init)}},\ \hat{\sigma}\right) = \argmin_{\shifts \in \shiftset, \sigma &gt; 0}  \frac{\|y - X \shifts\|_2^2}{2\sigma m} + \frac{\sigma}{2} + \lambda \|\shifts\|_1.
+\end{equation*}\]</span></p>
+
+<p>L’estimation jointe est faite de façon itérative en alternant des étapes de mise à jour de
+<span class="math inline">\(\hat{\shifts}^{\text{(init)}}\)</span> par lasso et de mise à jour de <span class="math inline">\(\hat{\sigma}\)</span> par résolution exacte, via l’expression <span class="math inline">\(\hat{\sigma} = \frac{\left\|y - X \hat{\shifts}^{\text{(init)}}\right\|_2}{\sqrt{m}}\)</span>. Une fois cette estimation initiale obtenue, <span class="citation">Zhang &amp; Zhang (2014)</span> proposent de calculer un système de score <span class="math inline">\(S\)</span>, qu’on peut comprendre comme une orthogonalisation faible de <span class="math inline">\(X\)</span>, pour corriger <span class="math inline">\(\hat{\shifts}^{\text{(init)}}\)</span>. La colonne <span class="math inline">\(s_j\)</span> de <span class="math inline">\(S\)</span> s’obtient comme étant le résidu de la régression lasso de <span class="math inline">\(x_j\)</span> contre <span class="math inline">\(X_{-j}\)</span>, le reste des colonnes de <span class="math inline">\(X\)</span>.</p>
+<p>Puis, l’estimateur débiaisé s’obtient alors en en corrigeant <span class="math inline">\(\hat{\shifts}_j^{\text{(init)}}\)</span> comme suit :</p>
+<p><span class="math display">\[\begin{equation*}
+\hat{\shifts}_j = \hat{\shifts}_j^{\text{(init)}} + \frac{\langle s_j,y-X\hat{\shifts}^{(\text{init})}\rangle}{\langle s_j,x_j\rangle}.
+\end{equation*}\]</span></p>
+
+<p><span class="citation">Javanmard &amp; Montanari (2013)</span> et <span class="citation">Javanmard &amp; Montanari (2014)</span> proposent une correction alternative</p>
+<p><span class="math display">\[\begin{equation*}
+\hat{\shifts} = \hat{\shifts}^{(\text{init})} + \frac{1}{m}SX^T \left(Y-X\hat{\shifts}^{(\text{init})}\right),
+\end{equation*}\]</span></p>
+<p>basée sur un système de score différent. La matrice <span class="math inline">\(S\)</span> est cette fois-ci un inverse généralisé de <span class="math inline">\(M = \frac{X^TX}{m}\)</span>, construit colonne par colonne en résolvant les problèmes suivants :</p>
+<p><span class="math display">\[\begin{equation*}
+\left\{
+  \begin{aligned}
+    s_j &amp; = \argmin_{s \in \mathbb{R}^{n}} \ s^TMs \\
+    &amp;\text{t.q.}\  \|Ms - e_j\|_{\infty} \leq \gamma
+  \end{aligned}
+\right.
+\end{equation*}\]</span></p>
+<p>où <span class="math inline">\(e_j \in \RR^n\)</span> est le <span class="math inline">\(j^{\text{ème}}\)</span> vecteur de la base canonique définie par <span class="math inline">\(e_{ij} = \delta_{i,j}\)</span>. Dans chacune des deux méthodes, sous des hypothèses standard en régression en grande dimension, <span class="math inline">\(\hat{\shifts}\sim \mathcal{N}_n\left(\shifts,V\right)\)</span> ce qui permet d’obtenir un intervalle de confiance bilatéral au niveau <span class="math inline">\(\alpha\)</span> pour <span class="math inline">\(\shifts_j\)</span> :</p>
+<p><span class="math display">\[\begin{equation*}
+\left[ \hat{\shifts}_j \pm \phi^{-1}\left(1-\frac{\alpha}{2}\right) \sqrt{v_{j,j}} \right].
+\end{equation*}\]</span></p>
+
+<p>Avec le premier système de score, <span class="math inline">\(V\)</span> se calcule élément par élément :</p>
+<p><span class="math display">\[\begin{equation*}
+v_{i,j} = \hat{\sigma}^2 \frac{\langle s_i,s_j\rangle}{\langle s_i,x_i\rangle\langle s_j,x_j\rangle},
+\end{equation*}\]</span></p>
+<p>tandis qu’avec le second, <span class="math inline">\(V = \frac{S M S^T }{m}\)</span>. En exprimant la <span class="math inline">\(i^{\text{ème}}\)</span> composante de <span class="math inline">\(\mu\)</span> à l’aide de <span class="math inline">\(\optim\)</span> comme étant <span class="math inline">\(\mu_i = t_{i.}^T\shifts\)</span> où <span class="math inline">\(t_{i.}\)</span> est la <span class="math inline">\(i^{\text{ème}}\)</span> ligne de <span class="math inline">\(T\)</span>, on obtient également un intervalle de confiance unilatéral au niveau <span class="math inline">\(\alpha\)</span> pour <span class="math inline">\(\hat{\mu}_i\)</span> :</p>
+<p><span class="math display">\[\begin{equation*}
+\left[-\infty, \hat{\mu}_i + \sqrt{t_{i.}^T V t_{i.}} \phi^{-1}\left(1-\alpha\right)\right],
+\end{equation*}\]</span></p>
+<p>et la <span class="math inline">\(p\)</span>-valeur associée à cet intervalle, qui teste <span class="math inline">\(\mathcal{H}_0 = \left\{\mu_i = 0\right\}\)</span> contre <span class="math inline">\(\mathcal{H}_1 = \left\{\mu_i &lt; 0\right\}\)</span>, est donc</p>
+<p><span class="math display">\[\begin{equation*}
+\pv^\text{h}_i = \Phi\left(\frac{t_{i.}^T\hat{\shifts}}{\left(t_{i.}^TVt_{i.}\right)^{1/2}}\right),
+\end{equation*}\]</span></p>
+<p>qui est la <span class="math inline">\(p\)</span>-valeur lissée hiérarchiquement.</p>
+</div>
+<div id="correction-pour-tests-multiples" class="section level3">
+<h3><span class="header-section-number">4.2.4</span> Correction pour tests multiples</h3>
+<p>Une fois ces <span class="math inline">\(p\)</span>-valeurs lissées obtenues, <span class="citation">Javanmard, Javadi, &amp; others (2019)</span> proposent une méthode de correction pour tests multiples conçue spécialement pour le lasso débiaisé et qui repose sur les <span class="math inline">\(t\)</span>-scores
+<span class="math inline">\(\ts_i = \frac{t_{i.}^T\hat{\shifts}}{\left(t_{i.}^TVt_{i.}\right)^{1/2}}\)</span>.</p>
+<p>Définissons <span class="math inline">\(t_{\text{max}} = \sqrt{2 \log m - 2 \log \log m}\)</span> puis</p>
+<p><span class="math display" id="eq:tstar">\[\begin{equation}
+\tag{4.3}
+t^{\star} = \inf \left\{ 0 \leq t \leq t_{\max} : \frac{2m(1 - \Phi(t))}{R(t) \vee 1} \leq \alpha \right\},
+\end{equation}\]</span></p>
+<p>où <span class="math inline">\(R(t)= \sum_{i = 1}^m \indic_{\{\ts_i \leq -t\}}\)</span> est le nombre d’hypothèses nulles rejetées au niveau <span class="math inline">\(t\)</span>. Si l’infimum en <a href="4-nouvelleapproche.html#eq:tstar">(4.3)</a> est <span class="math inline">\(+\infty\)</span>, on pose <span class="math inline">\(t^{\star} = \sqrt{2 \log m}\)</span>.</p>
+<p>On rejette <span class="math inline">\(\mathcal{H}_0\)</span> si <span class="math inline">\(\ts_i \leq -t^{\star}\)</span> ce qui amène à définir les <span class="math inline">\(q\)</span>-valeurs hiérarchiques
+<span class="math display">\[\begin{equation*}
+\qv^{\text{h}}_i = \frac{\pv^{\text{h}}_i \alpha}{\Phi(-t^{\star})},
+\end{equation*}\]</span>
+et l’hypothèse nulle associée est rejetée si <span class="math inline">\(\qv^{\text{h}}_i &lt; \alpha\)</span>. Cette procédure contrôle le FDR au niveau <span class="math inline">\(\alpha\)</span> <span class="citation">(Javanmard et al., 2019)</span>.</p>
+
+<div class="remark">
+ <span class="remark"><em>Remarque. </em></span> Comme <span class="math inline">\(t^{\star}\)</span> dépend de <span class="math inline">\(\alpha\)</span>, les <span class="math inline">\(q\)</span>-valeurs dépendent aussi de <span class="math inline">\(\alpha\)</span> et doivent être calculées pour chaque niveau de FDR cible, contrairement à la procédure BH(<span class="math inline">\(\alpha\)</span>) standard.
+</div>
+
+</div>
+</div>
+<div id="evaluation" class="section level2">
+<h2><span class="header-section-number">4.3</span> Évaluation de la méthode</h2>
+<div id="simuzazou" class="section level3">
+<h3><span class="header-section-number">4.3.1</span> Données simulées</h3>
+<p>Afin d’évaluer la qualité de notre procédure, nous avons simulé des données de manière non-paramétrique, comme présenté dans la section <a href="3-arbres.html#checktreefdr">3.4.3</a> et dans la figure <a href="3-arbres.html#fig:abdiff">3.7</a> : à partir d’un jeu de données homogènes, on sélectionne des taxons différentiellement abondants, on assigne un groupe <span class="math inline">\(A\)</span> ou <span class="math inline">\(B\)</span> à chacun des échantillon et on multiplie les abondances de chaque taxon différentiellement abondant dans le groupe <span class="math inline">\(B\)</span> par un <em>fold-change</em> prédéterminé.</p>
+<p>Trois déclinaisons de simulations ont été adoptées. Dans la première, dite positive, les taxons sont sélectionnés pour former des groupes dans la phylogénie et un <em>fold-change</em> de <span class="math inline">\(3\)</span>, <span class="math inline">\(5\)</span> ou <span class="math inline">\(10\)</span> est ensuite appliqué. Ceci permet de créer des simulations pour lesquelles l’arbre est réellement informatif. Plus précisément, pour sélectionner les taxons différentiellement abondants, on applique un algorithme des <span class="math inline">\(k\)</span>-médoïdes <span class="citation">(Reynolds, Richards, Iglesia, &amp; Rayward-Smith, 2006)</span> à la matrice des distances patristiques <span class="citation">(Sneath, Sokal, &amp; others, 1973)</span>, ce qui donne des groupes de taxons à faible distance patristique les uns des autres, qui correspondent généralement à un sous-arbre de la phylogénie. Un ou plusieurs groupes sont alors sélectionnés aléatoirement et leurs taxons sont déclarés différentiellement abondants.</p>
+<p>Les deux autres déclinaisons de la procédure de simulation de jeux de données sont dites négatives. Pour l’une, les taxons sont sélectionnées uniformément dans l’arbre puis un <em>fold-change</em> de <span class="math inline">\(5\)</span> est appliqué, pour créer des simulations dans lesquelles le modèle est mal spécifié. Pour l’autre le <em>fold-change</em> appliqué vaut <span class="math inline">\(1\)</span>, ce qui permet de voir comment réagit l’algorithme lorsqu’aucun taxon n’est différentiellement abondant.</p>
+<p>La figure <a href="4-nouvelleapproche.html#fig:tprfdrzazou">4.2</a> présente les résultats dans le cas des simulations positives. Si les procédures de corrections classiques (BH et BY) contrôlent bien le FDR à <span class="math inline">\(5~\%\)</span>, ce n’est pas le cas pour les procédures hiérarchiques. Dans la majorité des cas, le FDR des procédures hiérarchiques reste en dessous de <span class="math inline">\(6~\%\)</span> mais pour la procédure à système de score (ss) avec un fold-change de <span class="math inline">\(5\)</span> et pour celle avec l’inverse généralisé par colonne (ci) avec in fold-change de <span class="math inline">\(3\)</span>, il passe à <span class="math inline">\(8\)</span> et <span class="math inline">\(9~\%\)</span> respectivement. Dans toutes les configurations, BY a le TPR le plus faible, BH et <em>TreeFDR</em> (tf) se comportent de manière semblable, conformément aux résultats présentés dans <span class="citation">Bichat et al. (2020)</span>, et les deux variantes de <em>zazou</em> obtiennent le meilleur TPR.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:tprfdrzazou"></span>
+<img src="img/tprfdr_zazou.png" alt="TPR (haut) et FDR (bas) pour les différentes procédures et différents fold-changes (en colonnes) dans le cadre des simulations positives." width="90%" />
+<p class="caption">
+Figure 4.2: TPR (haut) et FDR (bas) pour les différentes procédures et différents <em>fold-changes</em> (en colonnes) dans le cadre des simulations positives.
+</p>
+</div>
+<p>Le taux de faux positif plus élevé qu’attendu pour les résultats de <em>zazou</em> suggère que le choix du seuil de détection proposé dans <span class="citation">Javanmard et al. (2019)</span> n’est pas complètement adapté. Nous comparons donc les performances des différentes méthodes à l’aide de l’AUC, qui est une mesure indépendante du seuil. La figure <a href="4-nouvelleapproche.html#fig:aucroczazou">4.3</a> met en évidence les meilleures performances de <em>zazou</em>, dans ses deux variantes. En regardant la partie gauche des courbes ROC, on s’aperçoit que <em>zazou</em> est plus performant dès les premières découvertes et que cela n’est pas un effet compensatoire des seuils plus élevés. Comme mentionné précédemment, BH et <em>TreeFDR</em> obtiennent des performances similaires et moins bonnes que celles de <em>zazou</em>. BY est la méthode la moins satisfaisante.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:aucroczazou"></span>
+<img src="img/aucroc_zazou.png" alt="Distribution des AUC (haut) et courbes ROC (bas) pour les différentes procédures et fold-changes (en colonnes) dans le cadre des simulations positives." width="90%" />
+<p class="caption">
+Figure 4.3: Distribution des AUC (haut) et courbes ROC (bas) pour les différentes procédures et <em>fold-changes</em> (en colonnes) dans le cadre des simulations positives.
+</p>
+</div>
+<p>Dans le cas des simulations négatives (figure <a href="4-nouvelleapproche.html#fig:aucnegzazou">4.4</a>), l’imposition d’une contrainte hiérarchique inadaptée fait perdre <span class="math inline">\(15\)</span> à <span class="math inline">\(20\)</span> points d’AUC à <em>zazou</em> par rapport à BH. Ce phénomène ne se retrouve pas dans les résultats de <em>TreeFDR</em>, qui est pourtant également une procédure hiérarchique, grâce à une astuce d’implémentation. En effet, <em>TreeFDR</em> effectue une correction de BH en parallèle de la procédure de lissage, et si cette dernière détecte bien moins de taxons que BH, les résultats de BH sont renvoyés à la place de ceux obtenus par lissage <span class="citation">(Bichat et al., 2020; Xiao et al., 2017)</span>.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:aucnegzazou"></span>
+<img src="img/aucneg_zazou.png" alt="Distribution des AUC pour les différentes procédures lorsque les taxons différentiellement abondants sont sélectionnés uniformément." width="40%" />
+<p class="caption">
+Figure 4.4: Distribution des AUC pour les différentes procédures lorsque les taxons différentiellement abondants sont sélectionnés uniformément.
+</p>
+</div>
+<p>Enfin, pour les simulations où aucun taxon n’est différentiellement abondant (<span class="math inline">\(\text{fc} = 1\)</span>), les procédures ne détectent aucun faux positif, comme attendu.</p>
+</div>
+<div id="influence-de-lâge" class="section level3">
+<h3><span class="header-section-number">4.3.2</span> Influence de l’âge</h3>
+<p>Nous avons comparé l’effet des différentes procédures de correction lors d’une analyse d’abondance différentielle entre des <span class="math inline">\(112\)</span> adultes et <span class="math inline">\(34\)</span> enfants au sein du jeu de données de <span class="citation">Brito et al. (2016)</span> des populations insulaires. Des tests de Wilcoxon ont été effectués sur les 387 espèces présentes et 21 espèces ont été détectées à <span class="math inline">\(5~\%\)</span> sans correction. Après correction par BH, BY, <em>TreeFDR</em> ou <em>treeclimbR</em>, aucune espèce n’est détectée. En revanche, <em>zazou</em> en détecte certaines avec ses deux variantes : 17 pour ss et 6 pour ci.</p>
+<p>La figure <a href="4-nouvelleapproche.html#fig:heattree">4.5</a> montre que les espèces détectées par <em>zazou</em> ne forment pas un sous-ensemble de celles obtenues sans correction. Au contraire, <em>zazou</em> identifie des espèces proches de certaines détectées sans correction, majoritairement dans la zone mise en évidence par le bandeau rouge.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:heattree"></span>
+<img src="img/heattree.png" alt="Phylogénie des \(387\) espèces du jeu de données des Fidjiens. Les cercles intérieur, central et extérieur représentent respectivement les \(z\)-scores bruts, les évidences corrigées et les statuts détecté ou non associé aux espèces pour différentes procédures (sans correction et les deux variantes de zazou)." width="90%" />
+<p class="caption">
+Figure 4.5: Phylogénie des <span class="math inline">\(387\)</span> espèces du jeu de données des Fidjiens. Les cercles intérieur, central et extérieur représentent respectivement les <span class="math inline">\(z\)</span>-scores bruts, les évidences corrigées et les statuts détecté ou non associé aux espèces pour différentes procédures (sans correction et les deux variantes de <em>zazou</em>).
+</p>
+</div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="3-arbres.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="5-ananum.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["twitter", "linkedin", "facebook", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "night",
+"family": "serif",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["thesis.pdf", "PDF"]],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

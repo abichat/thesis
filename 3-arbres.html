@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapitre 3 Arbres | Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles</title>
+  <meta name="description" content="Thèse de mathématiques appliquées par Antoine Bichat. Statistique – Apprentissage – Métagénomique – Arbre phylogénétique – Tests multiples – Processus stochastiques" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapitre 3 Arbres | Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://abichat.github.io/thesis/" />
+  <meta property="og:image" content="https://abichat.github.io/thesis/img/tree_ou.png" />
+  <meta property="og:description" content="Thèse de mathématiques appliquées par Antoine Bichat. Statistique – Apprentissage – Métagénomique – Arbre phylogénétique – Tests multiples – Processus stochastiques" />
+  <meta name="github-repo" content="abichat/thesis" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapitre 3 Arbres | Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles" />
+  
+  <meta name="twitter:description" content="Thèse de mathématiques appliquées par Antoine Bichat. Statistique – Apprentissage – Métagénomique – Arbre phylogénétique – Tests multiples – Processus stochastiques" />
+  <meta name="twitter:image" content="https://abichat.github.io/thesis/img/tree_ou.png" />
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="2-anadiff.html"/>
+<link rel="next" href="4-nouvelleapproche.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-131161788-01', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<br><br><br>
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="1-metagenomique.html"><a href="1-metagenomique.html"><i class="fa fa-check"></i><b>1</b> Métagénomique</a><ul>
+<li class="chapter" data-level="1.1" data-path="1-metagenomique.html"><a href="1-metagenomique.html#microbiote"><i class="fa fa-check"></i><b>1.1</b> Le microbiote intestinal humain</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="1-metagenomique.html"><a href="1-metagenomique.html#description"><i class="fa fa-check"></i><b>1.1.1</b> Description</a></li>
+<li class="chapter" data-level="1.1.2" data-path="1-metagenomique.html"><a href="1-metagenomique.html#rôle"><i class="fa fa-check"></i><b>1.1.2</b> Rôle</a></li>
+<li class="chapter" data-level="1.1.3" data-path="1-metagenomique.html"><a href="1-metagenomique.html#dysbioses"><i class="fa fa-check"></i><b>1.1.3</b> Dysbioses</a></li>
+<li class="chapter" data-level="1.1.4" data-path="1-metagenomique.html"><a href="1-metagenomique.html#utilisations"><i class="fa fa-check"></i><b>1.1.4</b> Utilisations</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="1-metagenomique.html"><a href="1-metagenomique.html#caracterisation"><i class="fa fa-check"></i><b>1.2</b> Caractérisation du microbiote</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="1-metagenomique.html"><a href="1-metagenomique.html#collecte-des-échantillons"><i class="fa fa-check"></i><b>1.2.1</b> Collecte des échantillons</a></li>
+<li class="chapter" data-level="1.2.2" data-path="1-metagenomique.html"><a href="1-metagenomique.html#séquençage-par-gène-marqueur"><i class="fa fa-check"></i><b>1.2.2</b> Séquençage par gène marqueur</a></li>
+<li class="chapter" data-level="1.2.3" data-path="1-metagenomique.html"><a href="1-metagenomique.html#séquençage-non-ciblé"><i class="fa fa-check"></i><b>1.2.3</b> Séquençage non ciblé</a></li>
+<li class="chapter" data-level="1.2.4" data-path="1-metagenomique.html"><a href="1-metagenomique.html#donneesmetagenomiques"><i class="fa fa-check"></i><b>1.2.4</b> Données métagénomiques</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="1-metagenomique.html"><a href="1-metagenomique.html#jeuxdonnees"><i class="fa fa-check"></i><b>1.3</b> Jeux de données</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-anadiff.html"><a href="2-anadiff.html"><i class="fa fa-check"></i><b>2</b> Études d’analyse différentielle</a><ul>
+<li class="chapter" data-level="2.1" data-path="2-anadiff.html"><a href="2-anadiff.html#tests-statistiques"><i class="fa fa-check"></i><b>2.1</b> Tests statistiques</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="2-anadiff.html"><a href="2-anadiff.html#analyse-de-la-variance-à-un-facteur"><i class="fa fa-check"></i><b>2.1.1</b> Analyse de la variance à un facteur</a></li>
+<li class="chapter" data-level="2.1.2" data-path="2-anadiff.html"><a href="2-anadiff.html#test-de-wilcoxon"><i class="fa fa-check"></i><b>2.1.2</b> Test de Wilcoxon</a></li>
+<li class="chapter" data-level="2.1.3" data-path="2-anadiff.html"><a href="2-anadiff.html#test-de-kruskall-wallis"><i class="fa fa-check"></i><b>2.1.3</b> Test de Kruskall-Wallis</a></li>
+<li class="chapter" data-level="2.1.4" data-path="2-anadiff.html"><a href="2-anadiff.html#autres-methodes"><i class="fa fa-check"></i><b>2.1.4</b> Autres méthodes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="2-anadiff.html"><a href="2-anadiff.html#problématique-des-tests-multiples"><i class="fa fa-check"></i><b>2.2</b> Problématique des tests multiples</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="2-anadiff.html"><a href="2-anadiff.html#évaluation-des-performances"><i class="fa fa-check"></i><b>2.2.1</b> Évaluation des performances</a></li>
+<li class="chapter" data-level="2.2.2" data-path="2-anadiff.html"><a href="2-anadiff.html#correction-de-bonferroni"><i class="fa fa-check"></i><b>2.2.2</b> Correction de Bonferroni</a></li>
+<li class="chapter" data-level="2.2.3" data-path="2-anadiff.html"><a href="2-anadiff.html#correction-de-benjamini-hochberg"><i class="fa fa-check"></i><b>2.2.3</b> Correction de Benjamini-Hochberg</a></li>
+<li class="chapter" data-level="2.2.4" data-path="2-anadiff.html"><a href="2-anadiff.html#correction-de-benjamini-yekutieli"><i class="fa fa-check"></i><b>2.2.4</b> Correction de Benjamini-Yekutieli</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="2-anadiff.html"><a href="2-anadiff.html#procédures-hiérarchiques-pour-tests-multiples"><i class="fa fa-check"></i><b>2.3</b> Procédures hiérarchiques pour tests multiples</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="2-anadiff.html"><a href="2-anadiff.html#treefdr"><i class="fa fa-check"></i><b>2.3.1</b> <em>TreeFDR</em></a></li>
+<li class="chapter" data-level="2.3.2" data-path="2-anadiff.html"><a href="2-anadiff.html#fdr-hiérarchique"><i class="fa fa-check"></i><b>2.3.2</b> FDR hiérarchique</a></li>
+<li class="chapter" data-level="2.3.3" data-path="2-anadiff.html"><a href="2-anadiff.html#treeclimbr"><i class="fa fa-check"></i><b>2.3.3</b> <em>treeclimbR</em></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="3-arbres.html"><a href="3-arbres.html"><i class="fa fa-check"></i><b>3</b> Arbres</a><ul>
+<li class="chapter" data-level="3.1" data-path="3-arbres.html"><a href="3-arbres.html#définitions"><i class="fa fa-check"></i><b>3.1</b> Définitions</a></li>
+<li class="chapter" data-level="3.2" data-path="3-arbres.html"><a href="3-arbres.html#distances"><i class="fa fa-check"></i><b>3.2</b> Distances</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="3-arbres.html"><a href="3-arbres.html#distance-de-robinson-foulds"><i class="fa fa-check"></i><b>3.2.1</b> Distance de Robinson-Foulds</a></li>
+<li class="chapter" data-level="3.2.2" data-path="3-arbres.html"><a href="3-arbres.html#distance-cophénétique"><i class="fa fa-check"></i><b>3.2.2</b> Distance cophénétique</a></li>
+<li class="chapter" data-level="3.2.3" data-path="3-arbres.html"><a href="3-arbres.html#distance-de-billera-holmes-vogtmann-bhv"><i class="fa fa-check"></i><b>3.2.3</b> Distance de Billera-Holmes-Vogtmann (BHV)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="3-arbres.html"><a href="3-arbres.html#arbres-dintérêt"><i class="fa fa-check"></i><b>3.3</b> Arbres d’intérêt</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="3-arbres.html"><a href="3-arbres.html#phylogénie"><i class="fa fa-check"></i><b>3.3.1</b> Phylogénie</a></li>
+<li class="chapter" data-level="3.3.2" data-path="3-arbres.html"><a href="3-arbres.html#taxonomie"><i class="fa fa-check"></i><b>3.3.2</b> Taxonomie</a></li>
+<li class="chapter" data-level="3.3.3" data-path="3-arbres.html"><a href="3-arbres.html#cortree"><i class="fa fa-check"></i><b>3.3.3</b> Arbre des corrélations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="3-arbres.html"><a href="3-arbres.html#comparaison-entre-les-arbres"><i class="fa fa-check"></i><b>3.4</b> Comparaison entre les arbres</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="3-arbres.html"><a href="3-arbres.html#forêt-darbres"><i class="fa fa-check"></i><b>3.4.1</b> Forêt d’arbres</a></li>
+<li class="chapter" data-level="3.4.2" data-path="3-arbres.html"><a href="3-arbres.html#distance-entre-les-arbres"><i class="fa fa-check"></i><b>3.4.2</b> Distance entre les arbres</a></li>
+<li class="chapter" data-level="3.4.3" data-path="3-arbres.html"><a href="3-arbres.html#checktreefdr"><i class="fa fa-check"></i><b>3.4.3</b> Choix de l’arbre et lissage de z-score</a></li>
+<li class="chapter" data-level="3.4.4" data-path="3-arbres.html"><a href="3-arbres.html#choix-de-larbre-et-fdr-hiérarchique"><i class="fa fa-check"></i><b>3.4.4</b> Choix de l’arbre et FDR hiérarchique</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html"><i class="fa fa-check"></i><b>4</b> <em>zazou</em> : une nouvelle approche</a><ul>
+<li class="chapter" data-level="4.1" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#ou"><i class="fa fa-check"></i><b>4.1</b> Processus d’Ornstein-Uhlenbeck</a></li>
+<li class="chapter" data-level="4.2" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#zazousection"><i class="fa fa-check"></i><b>4.2</b> Zazou</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#modèle"><i class="fa fa-check"></i><b>4.2.1</b> Modèle</a></li>
+<li class="chapter" data-level="4.2.2" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#estimation-ponctuelle"><i class="fa fa-check"></i><b>4.2.2</b> Estimation ponctuelle</a></li>
+<li class="chapter" data-level="4.2.3" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#débiaisage-et-intervalles-de-confiance"><i class="fa fa-check"></i><b>4.2.3</b> Débiaisage et intervalles de confiance</a></li>
+<li class="chapter" data-level="4.2.4" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#correction-pour-tests-multiples"><i class="fa fa-check"></i><b>4.2.4</b> Correction pour tests multiples</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#evaluation"><i class="fa fa-check"></i><b>4.3</b> Évaluation de la méthode</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#simuzazou"><i class="fa fa-check"></i><b>4.3.1</b> Données simulées</a></li>
+<li class="chapter" data-level="4.3.2" data-path="4-nouvelleapproche.html"><a href="4-nouvelleapproche.html#influence-de-lâge"><i class="fa fa-check"></i><b>4.3.2</b> Influence de l’âge</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-ananum.html"><a href="5-ananum.html"><i class="fa fa-check"></i><b>5</b> Problèmes d’analyse numérique</a><ul>
+<li class="chapter" data-level="5.1" data-path="5-ananum.html"><a href="5-ananum.html#shooting"><i class="fa fa-check"></i><b>5.1</b> Algorithme du <em>shooting</em></a></li>
+<li class="chapter" data-level="5.2" data-path="5-ananum.html"><a href="5-ananum.html#mam"><i class="fa fa-check"></i><b>5.2</b> Minimisation sous contrainte de <span class="math inline">\(x^TAx\)</span></a></li>
+<li class="chapter" data-level="5.3" data-path="5-ananum.html"><a href="5-ananum.html#proj"><i class="fa fa-check"></i><b>5.3</b> Projection sur un ensemble de faisabilité</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html"><i class="fa fa-check"></i>Conclusion et perspectives</a><ul>
+<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#détection-versus-prédiction"><i class="fa fa-check"></i>Détection versus prédiction</a></li>
+<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#autres-procédures-hiérarchiques"><i class="fa fa-check"></i>Autres procédures hiérarchiques</a></li>
+<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#amélioration-de-zazou"><i class="fa fa-check"></i>Amélioration de zazou</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html"><i class="fa fa-check"></i>Digest</a><ul>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-i"><i class="fa fa-check"></i>Chapter I</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-ii"><i class="fa fa-check"></i>Chapter II</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-iii"><i class="fa fa-check"></i>Chapter III</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-iv"><i class="fa fa-check"></i>Chapter IV</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#chapter-v"><i class="fa fa-check"></i>Chapter V</a></li>
+<li class="chapter" data-level="" data-path="digest.html"><a href="digest.html#conclusions-and-outlooks"><i class="fa fa-check"></i>Conclusions and outlooks</a></li>
+</ul></li>
+<li class="appendix"><span><b>Annexes</b></span></li>
+<li class="chapter" data-level="A" data-path="A-notations.html"><a href="A-notations.html"><i class="fa fa-check"></i><b>A</b> Notations</a></li>
+<li class="chapter" data-level="B" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html"><i class="fa fa-check"></i><b>B</b> Productions scientifiques</a><ul>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#quantifying-the-impact-of-tree-choice-in-metagenomics-differential-abundance-studies-with-r"><i class="fa fa-check"></i>Quantifying the impact of tree choice in metagenomics differential abundance studies with R</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#incorporating-phylogenetic-information-in-microbiome-differential-abundance-studies-has-no-effect-on-detection-power-and-fdr-control"><i class="fa fa-check"></i>Incorporating Phylogenetic Information in Microbiome Differential Abundance Studies Has No Effect on Detection Power and FDR Control</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#hierarchical-correction-of-p-values-via-a-tree-running-ornstein-uhlenbeck-process"><i class="fa fa-check"></i>Hierarchical correction of p-values via a tree running Ornstein-Uhlenbeck process</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#packages-r"><i class="fa fa-check"></i>Packages R</a><ul>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#yatah"><i class="fa fa-check"></i>yatah</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#evabic"><i class="fa fa-check"></i>evabic</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#correlationtree"><i class="fa fa-check"></i>correlationtree</a></li>
+<li class="chapter" data-level="" data-path="B-productions-scientifiques.html"><a href="B-productions-scientifiques.html#zazou"><i class="fa fa-check"></i>zazou</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="C-vignette.html"><a href="C-vignette.html"><i class="fa fa-check"></i><b>C</b> Vignette de zazou</a></li>
+<li class="chapter" data-level="" data-path="références.html"><a href="références.html"><i class="fa fa-check"></i>Références</a></li>
+<li class="chapter" data-level="" data-path="mentions-légales.html"><a href="mentions-légales.html"><i class="fa fa-check"></i>Mentions légales</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+      NN: "{\\mathbb{N}}",
+      ZZ: "{\\mathbb{Z}}",
+      QQ: "{\\mathbb{Q}}",
+      RR: "{\\mathbb{R}}",
+      shiftset: "{\\mathcal{D}}",
+      dx: ["{\\mathrm{d}^{#1}\\mspace{-1mu}\\mathord{#2}}", 2, ""],
+      indic: "{\\unicode{x1D7D9}}",
+      prob: "\\mathop{\\mathbb{P}}",
+      esp: "\\mathop{\\mathbb{E}}",
+      var: "\\mathop{\\mathbb{V}\\text{ar}}",
+      cov: "\\mathop{\\mathbb{C}\\text{ov}}",
+      PP: ["{\\prob\\left({#1}\\right)}", 1],
+      EE: ["{\\esp\\left[{#1}\\right]}", 1],
+      VV: ["{\\var\\left[{#1}\\right]}", 1],
+      CC: ["{\\cov\\left[{#1}\\right]}", 1],
+      normal: ["{\\mathcal{N}\\left({#1},{#2}\\right)}", 2],
+      ou: ["{#1}_{\\text{ou}}", 1],
+      oui: ["{#1}_{\\text{ou},#2}", 2],
+      pv: "{\\mathfrak{p}}",
+      qv: "{\\mathfrak{q}}",
+      zs: "{\\mathfrak{z}}",
+      ts: "{\\mathfrak{t}}",
+      sign: "{\\mathfrak{s}}",
+      shifts: "{\\delta}",
+      optim: "{\\beta}",
+      param: "{\\theta}",
+      unif: ["{\\mathcal{U}\\left({#1}\\right)}", 1],
+      argmin: "\\mathop{\\mathrm{argmin}}",
+      diag: "\\mathop{\\mathrm{Diag}}",
+      rang: "\\mathop{\\mathrm{rang}}",
+      pa: "\\mathop{\\mathrm{pa}}",
+      mrca: "\\mathop{\\mathrm{mrca}}",
+      desc: "\\mathop{\\mathrm{desc}}",
+      warning: ["\\color{red}{{#1}}", 1]
+    }
+  }
+});
+</script>
+<div id="arbres" class="section level1">
+<h1><span class="header-section-number">Chapitre 3</span> Arbres</h1>
+<div id="définitions" class="section level2">
+<h2><span class="header-section-number">3.1</span> Définitions</h2>
+<p>Un arbre est un graphe connexe acyclique. Les nœuds de degré <span class="math inline">\(1\)</span> sont appelés feuilles, par oppositions aux nœuds internes.</p>
+<p>Un arbre enraciné est un graphe connexe acyclique dirigé possédant une unique racine. Chaque nœud <span class="math inline">\(i\)</span>, à l’exception de la racine, a un unique parent noté <span class="math inline">\(\pa(i)\)</span>. Les feuilles sont les nœuds n’ayant pas de fils. Il est possible d’enraciner un arbre non-raciné en choisissant un nœud quelconque et en orientant les arêtes de la racine vers les feuilles. La branche menant au nœud <span class="math inline">\(i\)</span> est dénotée <span class="math inline">\(b_i\)</span> et a pour longueur <span class="math inline">\(\ell_i\)</span>. On parle de topologie d’un arbre lorsqu’on fait abstraction des ses longueurs de branche.</p>
+<p>On note <span class="math inline">\(\mrca(i,j)\)</span> l’ancêtre commun le plus récent (<em>most recent common ancestor</em>) aux nœuds <span class="math inline">\(i\)</span> et <span class="math inline">\(j\)</span> : <span class="math inline">\(\mrca(i,j) = \pa^k(i)\)</span> avec <span class="math inline">\(k = \argmin_{p\in \NN}\left\{\exists q \in \NN : \pa^p(i) = \pa^q(j)\right\}\)</span>, et <span class="math inline">\(\desc(i)\)</span> les descendants de <span class="math inline">\(i\)</span>, soit l’ensemble des nœuds ayant <span class="math inline">\(i\)</span> pour ancêtre, <span class="math inline">\(i\)</span> inclus : <span class="math inline">\(\desc(i) = \left\{j : \exists k \in \NN : \pa^k(j)=i\right\}\)</span>.</p>
+<p>Le nœud <span class="math inline">\(i\)</span> est à distance <span class="math inline">\(t_i\)</span> de la racine et on note <span class="math inline">\(t_{i,j} = t_{\mrca(i,j)}\)</span>.</p>
+<p>La distance, dite patristique, entre les nœuds <span class="math inline">\(i\)</span> et <span class="math inline">\(j\)</span> est notée <span class="math inline">\(d_{i,j} = t_i + t_j - 2 t_{i,j}\)</span>.</p>
+<p><span class="math inline">\(\tilde{\ell}_{i,j} = t_i - t_{i,j}\)</span> est la distance entre le nœud <span class="math inline">\(i\)</span> et l’ancêtre commun le plus récent à <span class="math inline">\(i\)</span> et <span class="math inline">\(j\)</span>.</p>
+<p>Un arbre enraciné est <strong>binaire</strong> si tous ses nœuds internes ont exactement deux fils. En particulier, un arbre binaire à <span class="math inline">\(m\)</span> feuilles possède <span class="math inline">\(n = 2m-2\)</span> branches.</p>
+<p>Un nœud est <strong>polytomique</strong> s’il a plus de deux fils.</p>
+<p>Un arbre est <strong>ultramétrique</strong> s’il est raciné et si toutes les feuilles sont à la même distance de la racine.</p>
+<p>Pour un arbre enraciné, la <strong>matrice d’incidence</strong> <span class="math inline">\(T = (t_{i,j}) \in\{0,1\}^{m \times n}\)</span> encode les relations de descendance entre nœuds au sein de l’arbre. Pour une feuille <span class="math inline">\(i\)</span> et un nœud quelconque <span class="math inline">\(j\)</span>, le coefficient <span class="math inline">\(t_{i,j}\)</span> vaut <span class="math inline">\(1\)</span> si <span class="math inline">\(i \in \desc(j)\)</span>. En particulier, la colonne <span class="math inline">\(t_j\)</span> est l’indicatrice des feuilles issues du nœud <span class="math inline">\(j\)</span> tandis que la ligne <span class="math inline">\(t_{i.}\)</span> est l’indicatrice des ancêtres de la feuille <span class="math inline">\(i\)</span>.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:treeraw"></span>
+<img src="img/tree_raw.png" alt="Exemple d’un arbre enraciné binaire non ultramétrique à \(m = 5\) feuilles et \(n = 8\) branches." width="90%" />
+<p class="caption">
+Figure 3.1: Exemple d’un arbre enraciné binaire non ultramétrique à <span class="math inline">\(m = 5\)</span> feuilles et <span class="math inline">\(n = 8\)</span> branches.
+</p>
+</div>
+<p>Illustrons les notations de cette section à l’aide de la figure <a href="3-arbres.html#fig:treeraw">3.1</a>. On a alors <span class="math inline">\(\pa(1) = \pa(2) = 7\)</span>, <span class="math inline">\(\desc(8) = \{3, 4, 5, 8, 9\}\)</span>, <span class="math inline">\(\mrca(5, 3) = 8\)</span>, <span class="math inline">\(\ell_1 = 2.79\)</span>, <span class="math inline">\(t_{3,4} = t_9 = \ell_8 + \ell_9 = 5.51\)</span>, <span class="math inline">\(t_{1,2} = t_7 = 2.02\)</span>, <span class="math inline">\(d_{3,5} = t_3 + t_5 - t_{3,5} = \ell_5 + \ell_9 + \ell_3 = 8.21\)</span>, <span class="math inline">\(\tilde{\ell}_{3,5} = t_3 - t_{3,5} = \ell_9 + \ell_3 = 5.29\)</span> et</p>
+<p><span class="math display">\[\begin{equation*}
+T = 
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 1 \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 1 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 1 &amp; 0 \\
+\end{bmatrix}.
+\end{equation*}\]</span></p>
+</div>
+<div id="distances" class="section level2">
+<h2><span class="header-section-number">3.2</span> Distances</h2>
+<p>Les arbres sont des objets compliqués et plusieurs distances entre arbres ont été proposées dans la littérature. Nous en décrivons brièvement trois, qui mettent l’accent sur des aspects différents de l’arbre: topologie, longueurs de branche, combinaison des deux.</p>
+<div id="distance-de-robinson-foulds" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> Distance de Robinson-Foulds</h3>
+<p>La distance de Robinson-Foulds <span class="citation">(Robinson &amp; Foulds, 1981)</span> entre deux arbres racinés <span class="math inline">\(T\)</span> et <span class="math inline">\(T&#39;\)</span> correspond intuitivement au nombre de branches spécifiques à un des deux arbres. Formellement, chaque nœud interne <span class="math inline">\(j\)</span> définit une bipartition des feuilles et peut être associé à l’ensemble <span class="math inline">\(C_j \subset [\![1,m]\!]\)</span> des feuilles issues du nœud <span class="math inline">\(j\)</span>. La colonne <span class="math inline">\(j\)</span> de la matrice d’incidence précédemment introduite correspond en particulier à un codage binaire de <span class="math inline">\(C_j\)</span>. L’arbre <span class="math inline">\(T\)</span> est ensuite recodé comme l’ensemble <span class="math inline">\(\mathcal{C}^T = \{C_j: j \in \text{nœud interne de } T\}\)</span> de ses bipartitions. La distance de Robinson-Foulds entre <span class="math inline">\(T\)</span> et <span class="math inline">\(T&#39;\)</span> est définie comme le cardinal de la différence symétrique entre <span class="math inline">\(\mathcal{C}^T\)</span> et <span class="math inline">\(\mathcal{C}^{T&#39;}\)</span> :</p>
+<p><span class="math display">\[\begin{equation*}
+d(T, T&#39;) = | \mathcal{C}^T \setminus \mathcal{C}^{T&#39;} | + | \mathcal{C}^{T&#39;} \setminus \mathcal{C}^{T} |.
+\end{equation*}\]</span></p>
+</div>
+<div id="distance-cophénétique" class="section level3">
+<h3><span class="header-section-number">3.2.2</span> Distance cophénétique</h3>
+<p>La distance cophénétique entre deux arbres enracinés, introduite par <span class="citation">Sokal &amp; Rohlf (1962)</span>, est basée sur les matrice des distances patristiques <span class="math inline">\(D^T = \left(d^T_{i,j}\right)_{i,j}\)</span> entre paires de feuilles dans l’arbre <span class="math inline">\(T\)</span>, en particulier sur la vectorisation <span class="math inline">\(v^T\)</span> de la partie triangulaire supérieure de <span class="math inline">\(D^T\)</span>, de longueur <span class="math inline">\(\frac{m(m-1)}{2}\)</span>. La distance cophénétique <span class="math inline">\(d(T, T&#39;)\)</span> entre arbres <span class="math inline">\(T\)</span> et <span class="math inline">\(T&#39;\)</span> est définie comme le complémentaire du coefficient de corrélation de Pearson entre <span class="math inline">\(v^{T_1}\)</span> et <span class="math inline">\(v^{T_2}\)</span>:</p>
+<p><span class="math display">\[\begin{equation*}
+d(T, T&#39;) = 1 - \frac{ \frac{2\sum_{i &lt; j} (d^{T}_{i,j} - \bar{d}^{T})(d^{T&#39;}_{i,j} - \bar{d}^{T&#39;})}{m(m-1)}}{\sqrt{\frac{2\sum_{i &lt; j} (d^{T}_{i,j} - \bar{d}^{T})^2}{m(m-1)}} \sqrt{\frac{2\sum_{i &lt; j} (d^{T&#39;}_{i,j} - \bar{d}^{T&#39;})^2}{m(m-1)}}} = 1 - \text{cor}(v^T, v^{T&#39;})
+\end{equation*}\]</span></p>
+<p>où <span class="math inline">\(\bar{d}^{T} = \frac{2}{m(m-1)} \sum_{1 \leq i &lt; j \leq m} d^{T}_{i,j}\)</span>. Cette distance ne prend en compte que la topologie de l’arbre.</p>
+</div>
+<div id="distance-de-billera-holmes-vogtmann-bhv" class="section level3">
+<h3><span class="header-section-number">3.2.3</span> Distance de Billera-Holmes-Vogtmann (BHV)</h3>
+<p>La distance BHV <span class="citation">(Billera, Holmes, &amp; Vogtmann, 2001)</span> est construite en plongeant l’espace <span class="math inline">\(\mathscr{T}_m\)</span> des arbres à <span class="math inline">\(m\)</span> feuilles dans <span class="math inline">\(\RR^m \times \RR^{2^{m}-m-1}\)</span> puis en considérant la distance des plus courts chemins dans le sous-espace induit.</p>
+<p>Formellement, un arbre binaire est définie par (i) sa topologie et (ii) ses longueurs de branches. Il existe <span class="math inline">\(m\)</span> branches terminales (menant à une feuille) et <span class="math inline">\(2^{m} - m - 1\)</span> branches internes distinctes, caractérisées chacune par l’ensemble des feuilles issues de cette feuille. Toutes ces branches ont une longueur positive. L’espace <span class="math inline">\(\mathscr{T}_m\)</span> est donc naturellement plongé dans <span class="math inline">\(\RR_+^m \times \RR_+^{2^{m}-m-1}\)</span>. Le produit cartésien distingue les longueurs des branches externes (celles qui mènent aux feuilles, partagées par tous les arbres) de celle des branches internes, caractéristique d’une topologie donnée. Mais il n’en constitue qu’une sous-variété. En effet, à topologie <span class="math inline">\(T\)</span> fixée, chaque longueur de branche peut varier dans <span class="math inline">\(\RR_+\)</span>. L’ensemble des arbres binaires de topologie <span class="math inline">\(T\)</span>, branches terminales omises, est donc identifiable à l’orthant ouvert <span class="math inline">\(\RR_+^{*, m-2}\)</span>. Si on fait tendre la longueur d’une branche interne vers <span class="math inline">\(0\)</span>, on se ramène à une topologie non-binaire <span class="math inline">\(\tilde{T}\)</span>, dans laquelle un unique nœud a exactement trois fils. Cette topologie peut également s’obtenir par contraction de branche interne à partir de deux autres topologies binaires <span class="math inline">\(T&#39;\)</span> et <span class="math inline">\(T&#39;&#39;\)</span>. La topologie non-binaire <span class="math inline">\(\tilde{T}\)</span> correspond à une , un sous-orthant de dimension <span class="math inline">\(m-3\)</span> inclus dans chacun des trois orthants de dimension <span class="math inline">\(m-2\)</span> caractérisant <span class="math inline">\(T\)</span>, <span class="math inline">\(T&#39;\)</span> et <span class="math inline">\(T&#39;&#39;\)</span>. De façon générale, les sous-orthants de dimension <span class="math inline">\(m - 2 - k\)</span> peuvent être identifiées à des topologies dégénérées, obtenues en contractant <span class="math inline">\(k\)</span> branches internes d’un arbre binaire.</p>
+<p>Il existe <span class="math inline">\((2m-3)!! = (2m-3)\times(2m-5)\times\dots\times5 \times 3 \times 1 = \prod_{i = 0}^{m-2} 2i+1\)</span> topologies binaires <span class="citation">(Cavalli-Sforza &amp; Edwards, 1967)</span> qui correspondent à autant d’orthants de dimension <span class="math inline">\(m-2\)</span>. <span class="math inline">\(\mathscr{T}_m\)</span> est donc constitué de <span class="math inline">\((2m-3)!!\)</span> orthants (un par topologie) de dimension <span class="math inline">\(m-2\)</span>,  entre eux par des sous-orthants de dimension inférieure et correspondant à des topologies non-binaires. La figure <a href="3-arbres.html#fig:bhvorthants">3.2</a> montre une jonction de tels orthants dans le cas où <span class="math inline">\(m=4\)</span>.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:bhvorthants"></span>
+<img src="img/bhv_orthants.png" alt="Une partie de \(\mathscr{T}_4\), où cinq orthants se rejoignent, tiré de Billera et al. (2001)." width="90%" />
+<p class="caption">
+Figure 3.2: Une partie de <span class="math inline">\(\mathscr{T}_4\)</span>, où cinq orthants se rejoignent, tiré de <span class="citation">Billera et al. (2001)</span>.
+</p>
+</div>
+<p><span class="citation">Billera et al. (2001)</span> montrent que <span class="math inline">\(\mathscr{T}_m\)</span> est connexe et possède une courbure négative. En particulier, pour toute paire d’arbre <span class="math inline">\(T\)</span> et <span class="math inline">\(T&#39;\)</span>, il existe un plus court chemin dans <span class="math inline">\(\mathscr{T}_m\)</span> entre <span class="math inline">\(T\)</span> et <span class="math inline">\(T&#39;\)</span>. La distance BHV est la distance géodésique dans <span class="math inline">\(\mathscr{T}_m\)</span>, c’est à dire la distance du plus court chemin. Lorsque <span class="math inline">\(T\)</span> et <span class="math inline">\(T&#39;\)</span> appartiennent au même orthant (c’est à dire partagent la même topologie), la distance géodésique coïncide avec la distance euclidienne dans l’orthant.</p>
+<p>La figure <a href="3-arbres.html#fig:bhvdist">3.3</a> illustre un exemple plus complexe dans lequel le plus court chemin traverse plusieurs orthants. Dans cet exemple, la distance géodésique est la somme des distances euclidiennes du chemin parcouru dans chaque orthant. La distance BHV prend en compte la topologie, les longueurs de branche et la géométrie de <span class="math inline">\(\mathscr{T}_m\)</span> mais son calcul effectif est nettement plus coûteux que celui des distances cophénétiques et de Robinson-Foulds <span class="citation">(Owen &amp; Provan, 2010)</span>.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:bhvdist"></span>
+<img src="img/bhv_dist.png" alt="Des chemins traversant plusieurs orthants dans \(\mathscr{T}_4\), tiré de Billera et al. (2001)." width="90%" />
+<p class="caption">
+Figure 3.3: Des chemins traversant plusieurs orthants dans <span class="math inline">\(\mathscr{T}_4\)</span>, tiré de <span class="citation">Billera et al. (2001)</span>.
+</p>
+</div>
+</div>
+</div>
+<div id="arbres-dintérêt" class="section level2">
+<h2><span class="header-section-number">3.3</span> Arbres d’intérêt</h2>
+<p>Dans nos analyses, nous considérons trois types d’arbre : taxonomique, phylogénétique ou de corrélation. Les deux premiers représentent l’histoire évolutive des taxons et sont reconstruits à partir de données phénotypiques et moléculaires. Le dernier est reconstruit à partir des tableaux d’abondance et représente les similarités en terme de profils d’abondance.</p>
+<div id="phylogénie" class="section level3">
+<h3><span class="header-section-number">3.3.1</span> Phylogénie</h3>
+<p>L’arbre phylogénétique, ou phylogénie, traduit les relations de parenté entre organismes. Pour un séquençage avec gène marqueur, l’arbre est reconstruit à partir des séquences représentatives <span class="citation">(Price, Dehal, &amp; Arkin, 2010)</span>. Intuitivement, la longueur d’une branche reflète la distance évolutive entre une séquence et sa séquence parentale, mesuré par le nombre moyen de substitutions par paire de bases sur la branche.</p>
+</div>
+<div id="taxonomie" class="section level3">
+<h3><span class="header-section-number">3.3.2</span> Taxonomie</h3>
+<p>La classification linnéenne du vivant regroupe les espèces au sein de groupes cohérents de plus en plus larges : genres, familles, ordres, classes, embranchements et règnes. Cette hiérarchie peut être représentée sous la forme d’un arbre, dit taxonomie, et est disponible dans des bases de données comme celle du NCBI <span class="citation">(Geer et al., 2010)</span>. Cette taxonomie est construite à partir de données phénotypiques ou moléculaires mais est indépendante des données d’abondance. De plus, l’étiquetage des espèces et des rangs supérieurs permet d’avoir un cadre conceptuel unifié entre différentes études. En revanche, l’arbre n’est pas binaire mais au contraire fortement polytomique et les branches n’ont pas de longueur naturelle. Elles seront arbitrairement fixées à <span class="math inline">\(1\)</span> dans la suite des analyses.</p>
+</div>
+<div id="cortree" class="section level3">
+<h3><span class="header-section-number">3.3.3</span> Arbre des corrélations</h3>
+<p>Afin de rendre compte de la structure observée des données, nous avons défini un arbre, dit <em>arbre des corrélations</em>, construit à partir des tables d’abondances. Dans un premier temps, la table d’abondance est utilisée pour construire une matrice de dissimilarité <span class="math inline">\(D = (d_{i,j})\)</span> entre espèces, définie par :
+<span class="math display">\[\begin{equation*}
+d_{i,j} = 1 - \frac{\text{cov}(\text{rg}_{\tilde{X}_i}, \text{rg}_{\tilde{X}_j})}{\sigma_{\text{rg}_{\tilde{X}_i}} \sigma_{\text{rg}_{\tilde{X}_j}}}
+\end{equation*}\]</span>
+où <span class="math inline">\(\text{rg}_X\)</span> désigne les variables de rang du vecteur <span class="math inline">\(X\)</span> et <span class="math inline">\(\tilde{X}_{i} = \{X_i: X_i + X_j &gt; 0\}\)</span>, <span class="math inline">\(\tilde{X}_{j} = \{X_i: X_i + X_j &gt; 0\}\)</span> sont les profils d’abondances de <span class="math inline">\(X_i\)</span> et <span class="math inline">\(X_j\)</span> privés des coordonnées simultanément nulles. Le deuxième terme du membre de droite correspond à la correlation de Spearman entre <span class="math inline">\(\tilde{X}_{i}\)</span> et <span class="math inline">\(\tilde{X}_{j}\)</span>. La matrice <span class="math inline">\(D\)</span> est utilisée pour construire une classification ascendante hiérarchique avec la méthode de Ward. L’arbre des corrélations correspond au dendrogramme de la classification. Par construction, les taxons au profil d’abondance similaire sont regroupés ensemble et la longueur des branches correspond au coût de fusion entre deux sous-arbres.</p>
+<p>Contrairement aux arbres taxonomiques et phylogénétiques, l’arbre des corrélations est construit à partir des abondances et il est toujours possible de le calculer, y compris lorsque les « taxons » ne sont pas sont des espèces mais d’autres entités (gènes, MSPs, etc) pour lesquelles ni la phylogénie, ni la taxonomie ne sont définies.</p>
+<p>Cependant, l’arbre des corrélations étant estimé à partir des données, il est sensible à la variabilité de celles-ci. C’est d’autant plus le cas que pour les couples d’espèces rares où il y a beaucoup de zéros partagés et l’estimation de leur corrélation est très imprécise. Ce problème peut être résolu en filtrant les espèces à faible abondance ou prévalence mais ce sont souvent ces espèces rares qui jouent un rôle crucial dans le fonctionnement des écosystèmes <span class="citation">(Jousset et al., 2017)</span>.</p>
+<p>Enfin, si les données servent à la fois à construire l’arbre des corrélations et à effectuer les tests, il faut faire attention à ne pas surapprendre de celles-ci.</p>
+</div>
+</div>
+<div id="comparaison-entre-les-arbres" class="section level2">
+<h2><span class="header-section-number">3.4</span> Comparaison entre les arbres</h2>
+<p>Notre objectif est de comparer l’arbre des corrélations à l’arbre taxonomique (ou phylogénétique). Nous nous intéressons plus précisément aux trois questions suivantes :</p>
+<ul>
+<li><p>L’arbre des corrélations est-il significativement différent de l’arbre taxonomique ?</p></li>
+<li><p>L’arbre des corrélations est-il plus proche de l’arbre taxonomique qu’un arbre aléatoire ?</p></li>
+<li><p>Quel est l’impact de l’arbre sur les procédures d’abondance différentielle hiérarchiques ?</p></li>
+</ul>
+<p>Pour répondre aux deux premières questions, nous utilisons une forêt d’arbres pour construire une <em>région de confiance</em> autour de l’arbre des corrélations et une <em>distance typique</em> entre arbres aléatoires. Une réponse à la dernière questions sera apportée en testant différents choix d’arbre pour les procédures hiérarchiques sur des jeux de données simulées et réelles.</p>
+<div id="forêt-darbres" class="section level3">
+<h3><span class="header-section-number">3.4.1</span> Forêt d’arbres</h3>
+<p>L’arbre des corrélations étant estimé à partir des données et assez variable, nous déterminons une région de confiance autour de celui-ci à l’aide de la méthode du <em>bootstrap</em> <span class="citation">(Felsenstein, 1985; Wilgenbusch, Huang, &amp; Gallivan, 2017)</span>. Pour ce faire, nous créons <span class="math inline">\(N_B\)</span> nouvelles tables d’abondance par un ré-échantillonnage avec remise sur les échantillons (<em>i.e.</em> les colonnes) puis, pour chaque table ainsi construite, nous calculons un nouvel arbre de corrélation.</p>
+<p>Nous générons également des arbres aléatoires, sous l’hypothèse nulle, en permutant les labels des feuilles d’un arbre de référence. Cette procédure conserve le nombre de branches et la distribution des polytomies. Elle est de ce fait plus adaptée qu’un tirage uniforme dans l’espace des arbres, qui favorise les topologies symétriques binaires et ne génère pas de nœuds polytomiques. <span class="math inline">\(N_T\)</span> arbres aléatoires sont générés de cette manière en partant de la taxonomie et <span class="math inline">\(N_C\)</span> en partant de l’arbre des corrélations.</p>
+<p>Au total, nous avons donc une forêt comprenant <span class="math inline">\(2 + N_B + N_C + N_T\)</span> arbres ayant les mêmes feuilles.</p>
+</div>
+<div id="distance-entre-les-arbres" class="section level3">
+<h3><span class="header-section-number">3.4.2</span> Distance entre les arbres</h3>
+<p>Nous calculons la matrice des distances RF et BHV entre toutes les paires d’arbres de notre forêt, que nous exploitons de deux façons différentes.</p>
+<p>Nous regardons d’abord la distance entre chaque arbre et l’arbre des corrélations. La partie supérieure de la figure <a href="3-arbres.html#fig:foretbhv">3.4</a> représente les boîtes à moustaches ainsi que les diagrammes en violon de ces distances pour trois jeux de données. L’arbre des corrélations est significativement plus proche de ses réplicats <em>bootstrapés</em> que de la taxonomie ou des arbres aléatoires (<span class="math inline">\(\pv&lt;10^{-16}\)</span> avec un test des étendues de Tukey). De plus, la taxonomie est aussi loin de l’arbre des corrélations que peut l’être une taxonomie aléatoire (<span class="math inline">\(\pv &gt; 0.05\)</span>).</p>
+<p>Ensuite, ayant accès à toutes les distances deux à deux nous pouvons également effectuer une analyse en coordonnées principale (PCoA, <em>Principal COmponent Analysis</em>) <span class="citation">(Gower, 1966)</span> sur la forêt d’arbres. La PCoA est une méthode de réduction de dimension des données. Comme l’analyse en composantes principale (ACP), elle cherche à construire des axes décorrélés entre eux qui vont maximiser l’inertie du nuage de points. Mais contrairement à l’ACP, la PCoA s’appuie sur une matrice de distances et non sur un tableau de descripteurs individus <span class="math inline">\(\times\)</span> variables. Dans <span class="math inline">\(\RR^n\)</span>, effectuer une PCoA avec les distances euclidiennes est équivalent à faire une ACP.</p>
+<p>Dans la partie inférieure de la figure <a href="3-arbres.html#fig:foretbhv">3.4</a>, nous avons les deux premiers axes de la PCoA avec la distance BHV pour différents jeux de données, ce que <span class="citation">Jombart, Kendall, Almagro-Garcia, &amp; Colijn (2017)</span> et <span class="citation">Wilgenbusch et al. (2017)</span> appellent des paysages d’arbres (<em>tree landscapes</em>). Nous apercevons deux ou trois îlots <span class="citation">(Jombart et al., 2017)</span> : un pour l’arbre de corrélations et ses réplicats <em>bootstrapés</em>, qui matérialisent sa région de confiance, un pour la taxonomie et les taxonomies aléatoires et un dernier pour les arbres aléatoire construits à partir de l’arbre des corrélations –les deux derniers étant éventuellement confondus, comme c’est le cas pour les données de <span class="citation">Ravel et al. (2011)</span>. Bien que le premier axe ne représente que <span class="math inline">\(5\)</span> à <span class="math inline">\(10~\%\)</span> de l’inertie totale, il exclut systématiquement la taxonomie de la région de confiance de l’arbre des corrélations.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:foretbhv"></span>
+<img src="img/foretbhv.png" alt="Distances BHV au sein de la forêt d’arbres pour trois jeux de données." width="90%" />
+<p class="caption">
+Figure 3.4: Distances BHV au sein de la forêt d’arbres pour trois jeux de données.
+</p>
+</div>
+<p>Ces résultats doivent être mis en regard de ceux obtenus avec le jeu de données <em>Chlamydiae</em> de <span class="citation">Caporaso et al. (2011)</span>, où la phylogénie se positionne au sein de la région de confiance de l’arbre des corrélations (figure <a href="3-arbres.html#fig:foretbhvbis">3.5</a>). Ce jeu de données se caractérise par sa faible taille : seulement <span class="math inline">\(26\)</span> échantillons et beaucoup de taxons peu abondants ou peu prévalents, ce qui produit une région de confiance très large. De plus, il contient des échantillons provenant de <span class="math inline">\(8\)</span> environnements très différents (océan, selles, sol…), et ces niches écologiques se retrouvent à la fois dans la phylogénie <span class="citation">(Philippot et al., 2010)</span> et dans l’arbre des corrélations.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:foretbhvbis"></span>
+<img src="img/foretbhv_ch.png" alt="Distances BHV au sein de la forêt d’arbres pour le jeu de données Chlamydiae." width="90%" />
+<p class="caption">
+Figure 3.5: Distances BHV au sein de la forêt d’arbres pour le jeu de données Chlamydiae.
+</p>
+</div>
+<p>À l’aide de ces résultats, nous pouvons affirmer que l’arbre des corrélations ne capte pas le même signal que la taxonomie ou la phylogénie, en particulier lorsque l’on se concentre sur un seul biome. Les taxons avec un profil d’abondance similaire sont regroupés ensembles dans l’arbre des corrélations, par construction, mais pas dans la taxonomie ou la phylogénie, ce qui ne fait d’aucun de ces deux derniers arbres un bon candidat pour trouver des groupes de taxons différentiellement abondants.</p>
+<p>Nous obtenons les mêmes conclusions en utilisant la distance RF, comme le montre la figure <a href="3-arbres.html#fig:foretrf">3.6</a>.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:foretrf"></span>
+<img src="img/foretrf.png" alt="Distances RF au sein de la forêt d’arbres pour trois jeux de données." width="90%" />
+<p class="caption">
+Figure 3.6: Distances RF au sein de la forêt d’arbres pour trois jeux de données.
+</p>
+</div>
+</div>
+<div id="checktreefdr" class="section level3">
+<h3><span class="header-section-number">3.4.3</span> Choix de l’arbre et lissage de z-score</h3>
+<p>L’arbre des corrélations étant différent de l’arbre taxonomique, nous avons regardé l’impact du choix de l’arbre sur la procédure <em>TreeFDR</em> <span class="citation">(Xiao et al., 2017)</span>, à la fois sur des données simulées et sur un jeu de données réel.</p>
+<p>Afin de simuler un jeu de données métagénomique, nous avons d’abord appris du jeu de données de <span class="citation">Wu et al. (2011)</span> les paramètres d’une loi Dirichlet-multinomiale <span class="math inline">\(\mathcal{D}(\gamma)\)</span>. Nous créons ensuite un jeu de données échantillon par échantillon comme suit : (i) la profondeur de séquençage <span class="math inline">\(N_i\)</span> est tirée une loi binomiale négative de moyenne <span class="math inline">\(10000\)</span> et de dispersion <span class="math inline">\(25\)</span>, (ii) le vecteur de proportion <span class="math inline">\(\alpha_i\)</span> est tirée dans une distribution de Dirichlet de paramètre <span class="math inline">\(\gamma\)</span> puis (iii) les comptages de l’échantillon <span class="math inline">\(i\)</span> sont tirés dans une loi multinomiale de paramètre <span class="math inline">\(N_i\)</span> et <span class="math inline">\(\alpha_i\)</span>.</p>
+<p>Une fois le jeu de données simulées obtenu, il reste à créer des taxons différentiellement abondants. La procédure est illustrée dans la figure <a href="3-arbres.html#fig:abdiff">3.7</a>. Tout d’abord, les échantillons sont aléatoirement assignés à un groupe <span class="math inline">\(A\)</span> ou <span class="math inline">\(B\)</span> (quadrant B). Ensuite, les taxons différentiellement abondants sont sélectionnés uniformément dans l’arbre (quadrant C). Enfin, l’abondance de ces taxons au sein du groupe <span class="math inline">\(B\)</span> est multipliée par un <em>fold-change</em> (quadrant D).</p>
+
+<div class="figure" style="text-align: center"><span id="fig:abdiff"></span>
+<img src="img/abdiff.png" alt="Création de taxons différentiellement abondants au sein d’un jeu de données." width="90%" />
+<p class="caption">
+Figure 3.7: Création de taxons différentiellement abondants au sein d’un jeu de données.
+</p>
+</div>
+<p>On qualifiera ce schéma de simulation de <em>paramétrique</em>.</p>
+<p>Il est également possible d’utiliser directement les comptages d’un jeu de données réel homogène, comme celui des individus sains de <span class="citation">Brito et al. (2016)</span> –au lieu d’en simuler suivant une Dirichlet-multinomiale– puis d’appliquer la procédure de la figure <a href="3-arbres.html#fig:abdiff">3.7</a> pour générer de l’abondance différentielle. On parlera alors d’un schéma <em>non-paramétrique</em> –par opposition à la simulation paramétrique, précédemment décrite.</p>
+<p>Nous avons généré des jeux de données d’abondance différentielle puis évalué la performance des corrections Benjamin-Hochberg et de <em>TreeFDR</em> avec l’arbre des corrélations, la taxonomie, un arbre des corrélations aléatoire et une taxonomie aléatoire.</p>
+<p>Regardons dans un premier temps les simulations non paramétriques (issues d’un jeu de données réelles). Tout d’abord, notons que la procédure échoue dans <span class="math inline">\(4~\%\)</span> des simulations pour l’ensemble des arbres, et jusqu’à <span class="math inline">\(8~\%\)</span> quand on se limite à l’arbre des corrélations. Notons ensuite que les hyperparamètres <span class="math inline">\(k\)</span> et <span class="math inline">\(\rho\)</span> qui contrôlent le niveau de lissage des <span class="math inline">\(z\)</span>-scores sont assez éloignés de <span class="math inline">\(1\)</span> (très bas pour <span class="math inline">\(k\)</span>, très haut pour <span class="math inline">\(\rho\)</span>), ce qui réduit considérablement l’impact du lissage. Les distributions de la figure <a href="3-arbres.html#fig:smoothing">3.8</a> montrent que dans plus de la moitié des simulations, le lissage déplace le <span class="math inline">\(z\)</span>-score de moins de <span class="math inline">\(10^{-2}\)</span>. Dans le cas où l’arbre utilisé est celui des corrélations, un déplacement des <span class="math inline">\(z\)</span>-scores d’amplitude supérieure <span class="math inline">\(10^{-2}\)</span> ne se produit que dans <span class="math inline">\(5~\%\)</span> des simulations.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:smoothing"></span>
+<img src="img/smoothing.png" alt="Distribution des moyennes des valeurs absolues des différences entres les \(z\)-scores avant et après lissage, pour les simulations non paramétriques." width="90%" />
+<p class="caption">
+Figure 3.8: Distribution des moyennes des valeurs absolues des différences entres les <span class="math inline">\(z\)</span>-scores avant et après lissage, pour les simulations non paramétriques.
+</p>
+</div>
+<p>Au niveau du contrôle du FDR, seul BH contrôle systématiquement le taux de faux positifs en deçà de <span class="math inline">\(5~\%\)</span> (figure <a href="3-arbres.html#fig:tprfdrcornp">3.9</a> bas). Les procédures hiérarchiques peuvent dépasser ce seuil, allant jusqu’à <span class="math inline">\(7~\%\)</span> lorsque la proportion réelle d’espèces différentiellement abondantes est faible (<span class="math inline">\(\leq 10~\%\)</span>). Enfin, BH est la méthode qui a le plus important TPR, quelque soit le <em>fold-change</em> ou la proportion d’hypothèses nulles (figure <a href="3-arbres.html#fig:tprfdrcornp">3.9</a> haut). Devant ces résultats, nous pouvons affirmer que l’utilisation d’un arbre dans la procédure de lissage de <em>TreeFDR</em>, même adapté aux données d’abondances comme l’arbre des corrélations, ne permet pas d’avoir des procédures plus puissantes que BH.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:tprfdrcornp"></span>
+<img src="img/tprfdr_cor_np.png" alt="Moyennes et écart-types de la moyenne des TPR et FDR pour les simulations non paramétriques avec différents fold-changes et proportions d’hypothèses nulles." width="90%" />
+<p class="caption">
+Figure 3.9: Moyennes et écart-types de la moyenne des TPR et FDR pour les simulations non paramétriques avec différents fold-changes et proportions d’hypothèses nulles.
+</p>
+</div>
+<p>Les simulations paramétriques donnent des résultats semblables aux simulations non-paramétriques, comme le montre la figure <a href="3-arbres.html#fig:tprfdrcorp">3.10</a>. On note cependant un effondrement du TPR avec ce schéma de simulation.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:tprfdrcorp"></span>
+<img src="img/tprfdr_cor_p.png" alt="Moyennes et écart-types de la moyenne des TPR et FDR pour les simulations paramétriques avec différents fold-changes et proportions d’hypothèses nulles." width="90%" />
+<p class="caption">
+Figure 3.10: Moyennes et écart-types de la moyenne des TPR et FDR pour les simulations paramétriques avec différents fold-changes et proportions d’hypothèses nulles.
+</p>
+</div>
+<p>Nous avons également testé l’influence de l’arbre sur la procédure de lissage avec le jeu de données de <span class="citation">Zeller et al. (2014)</span>. Celui-ci a été analysé à deux niveaux de granularité différents : genre et MSP. La figure montre le nombre de genres (à gauche) ou de MSPs (à droite) détectés pour différents seuils jusqu’à <span class="math inline">\(\alpha = 0.15\)</span>.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:zellerdetected"></span>
+<img src="img/zeller_detect_genus.png" alt="Moyennes et écart-types de la moyenne des TPR et FDR pour les simulations non paramétriques avec différents fold-changes et proportions d’hypothèses nulles." width="40%" /><img src="img/zeller_detect_msp.png" alt="Moyennes et écart-types de la moyenne des TPR et FDR pour les simulations non paramétriques avec différents fold-changes et proportions d’hypothèses nulles." width="40%" />
+<p class="caption">
+Figure 3.11: Moyennes et écart-types de la moyenne des TPR et FDR pour les simulations non paramétriques avec différents fold-changes et proportions d’hypothèses nulles.
+</p>
+</div>
+<p>Dans les deux cas, l’arbre des corrélations détecte pour la majorité des seuils plus de taxons que BH mais la différence est très faible, y compris en comparaison avec les arbres aléatoires. Si l’on regarde au niveau des MSPs à <span class="math inline">\(\alpha = 0.05\)</span>, l’arbre des corrélations permet de détecter 5 taxons de plus que la procédure BH classique. Ces taxons ne sont cependant pas regroupés dans des clades différentiellement abondants. Il semblerait alors que cela soit plutôt la correction de permutation post-lissage, qui a pour objectif de contrôler le <em>FDR discret</em>, plutôt que le lissage lui-même qui produise cet effet. Le FDR discret prend en compte des distributions non continues des <span class="math inline">\(p\)</span>-valeurs sous l’hypothèse nulle et est adapté aux données de comptage. Cette méthode de correction a été déclarée plus performante pour détecter des taxons différentiellement abondants que la procédure BH classique <span class="citation">(Jiang et al., 2017)</span>.</p>
+</div>
+<div id="choix-de-larbre-et-fdr-hiérarchique" class="section level3">
+<h3><span class="header-section-number">3.4.4</span> Choix de l’arbre et FDR hiérarchique</h3>
+<p>Le fait que le FDR hiérarchique ne permette pas de spécifier <em>a priori</em> un niveau de FDR cible mais uniquement de le calculer <em>a posteriori</em> pour une liste d’espèces différentiellement abondantes le rend inadapté à des simulations comme celles de la section <a href="3-arbres.html#checktreefdr">3.4.3</a>. C’est pourquoi nous ne regarderons l’impact du choix de l’arbre sur cette procédure qu’au travers de jeux de données réelles.</p>
+<p>Nous avons d’abord réanalysé le jeu de données Chlamydiae <span class="citation">(Sankaran &amp; Holmes, 2014)</span>, comme dans l’article original, en utilisant un seuil pour la correction au niveau des familles <span class="math inline">\(\alpha = 0.1\)</span>. Avec la phylogénie, <span class="math inline">\(8\)</span> OTUs ont été détectés comme différentiellement abondantes et la procédure garantit un FDR <em>a posteriori</em> de <span class="math inline">\(\alpha&#39;=0.32\)</span>. Si l’on utilise l’arbre des corrélations à la place, on trouve <span class="math inline">\(3\)</span> OTUs supplémentaires pour un FDR <em>a posteriori</em> comparable de <span class="math inline">\(\alpha&#39;=0.324\)</span>. Les boîtes à moustaches des abondances de ces OTUs (figure <a href="3-arbres.html#fig:chlamydiae">3.12</a> E, F) montrent qu’elles sont bien plus abondantes dans les échantillons de sol que dans les autres biomes, ce qui confirme leur statut d’OTU différentiellement abondante.</p>
+<p>La figure <a href="3-arbres.html#fig:chlamydiae">3.12</a> résume cette analyse en indiquant quelles OTUs sont détectées avec l’une ou l’autre des méthodes et en précisant les évidences brutes (<span class="math inline">\(\mathfrak{e} = -\log\pv\)</span>) correspondantes aux feuilles des arbres. Intéressons nous plus particulièrement à l’OTU <span class="math inline">\(547~579\)</span> (marquée d’une étoile rouge) qui a été détectée par l’arbre des corrélations (figure <a href="3-arbres.html#fig:chlamydiae">3.12</a> D) mais pas par la phylogénie (figure <a href="3-arbres.html#fig:chlamydiae">3.12</a> A). Elle n’a pas été testée par la phylogénie car elle est entourée d’espèces non différentiellement abondantes qui masquent le signal (figure <a href="3-arbres.html#fig:chlamydiae">3.12</a> B). À l’inverse, dans l’arbre des corrélations (figure <a href="3-arbres.html#fig:chlamydiae">3.12</a> D), elle se situe dans un clade où toutes les OTUs sont différentiellement abondantes, ce qui permet à la procédure de rejeter tous les sous-arbres contenant <span class="math inline">\(547~579\)</span> jusqu’à la feuille correspondant à <span class="math inline">\(547~579\)</span>, sans s’arrêter au niveau des branches internes.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:chlamydiae"></span>
+<img src="img/chlamydiae.png" alt="Les évidences brutes sont représentées aux feuilles de la phylogénie (A et C) ou de l’arbre des corrélations (B et D). Les OTUs considérées différentiellement abondantes pour la phylogénie (A et B) ou pour l’arbre des corrélations (C et D) sont en violet. Les OTUs testées mais non rejetées sont en jaune." width="90%" />
+<p class="caption">
+Figure 3.12: Les évidences brutes sont représentées aux feuilles de la phylogénie (A et C) ou de l’arbre des corrélations (B et D). Les OTUs considérées différentiellement abondantes pour la phylogénie (A et B) ou pour l’arbre des corrélations (C et D) sont en violet. Les OTUs testées mais non rejetées sont en jaune.
+</p>
+</div>
+<p>On peut remarquer que le FDR <em>a posteriori</em> est assez élevé, à <span class="math inline">\(0.324\)</span>. En effectuant une correction par BH à ce même niveau, on détecte <span class="math inline">\(15\)</span> OTUs différentiellement abondantes, soit quatre de plus que la correction avec l’arbre des corrélations. Ceci peut s’expliquer par le fait que hFDR contrôle le FDR dans le pire des cas tandis que le FDR effectif pourrait être bien plus bas que cette borne pessimiste <span class="citation">(Yekutieli, 2008)</span>.</p>
+<p>Avec cette approche descendante, l’arbre des corrélations est plus adapté que la phylogénie. En regroupant les espèces corrélées et donc potentiellement différentiellement abondantes au sein d’un même sous-arbre, il permet de concentrer les différents signaux dans une portion d’arbre et d’éviter qu’ils ne soient dilués dans tout l’arbre, comme c’est le cas avec la phylogénie.</p>
+<p>Nous avons ensuite analysée le jeu de données Chaillou <span class="citation">(Chaillou et al., 2015)</span> restreint aux <em>Bacteroidetes</em>. L’utilisation d’un seuil <span class="math inline">\(\alpha=0.01\)</span> au niveau des familles a conduit à un contrôle du FDR <em>a posteriori</em> à <span class="math inline">\(\alpha&#39;=0.04\)</span> à la fois pour la phylogénie et l’arbre des corrélations. Le premier arbre a détecté <span class="math inline">\(28\)</span> OTUs différentiellement abondantes contre <span class="math inline">\(34\)</span> pour la phylogénie.</p>
+<p>En observant l’abondance des <span class="math inline">\(22\)</span> OTUs détectées simultanément par les deux procédures ou des <span class="math inline">\(18\)</span> détectées par une seule des deux (figure <a href="3-arbres.html#fig:chailloubp">3.13</a>), on remarque que chacune d’entre elles (i) est absente ou en dessous du seuil de détection dans au moins un des aliments et (ii) a de fortes prévalences et abondances dans au moins un autre aliment. Ceci valide leur caractère différentiellement abondant et permet de les considérer comme des vrais positifs.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:chailloubp"></span>
+<img src="img/chaillou_bp.png" alt="Abondances des OTUs détectées uniquement par l’arbre des corrélations (en bleu) ou par la phylogénie (en rouge)." width="90%" />
+<p class="caption">
+Figure 3.13: Abondances des OTUs détectées uniquement par l’arbre des corrélations (en bleu) ou par la phylogénie (en rouge).
+</p>
+</div>
+<p>Si l’on regarde les OTUs détectées sur leurs arbres respectifs, comme représentées sur la figure <a href="3-arbres.html#fig:chailloutrees">3.14</a>, les OTUs détectées uniquement par l’arbre des corrélations sont éparpillées dans la phylogénie, de manière similaire à ce qu’on a pu observer pour le jeu de données Chlamydiae. À l’inverse, les OTUs différentiellement abondantes uniquement dans la phylogénie sont proches d’OTUs détectées pour l’arbre des corrélations mais ne sont pas détectées à cause de la faible puissance du test de Fisher, pratiqué par défaut dans <code>StructSSI</code> et peu adapté aux données métagénomiques.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:chailloutrees"></span>
+<img src="img/chaillou_trees.png" alt="Évidences des OTUs détectées avec l’arbre des corrélations (à droite) ou la phylogénie (à gauche)." width="90%" />
+<p class="caption">
+Figure 3.14: Évidences des OTUs détectées avec l’arbre des corrélations (à droite) ou la phylogénie (à gauche).
+</p>
+</div>
+<p>Si l’on regarde plus attentivement les cinq OTUs du cadre vert de la figure <a href="3-arbres.html#fig:chailloutrees">3.14</a>, on a trois OTUs qui ont été détectées uniquement par la phylogénie et non par l’arbre des corrélations alors qu’elles appartiennent au même clade de cinq individus dans celui-ci. La figure <a href="3-arbres.html#fig:chaillouzoom">3.15</a> met l’accent sur ces cinq OTUs, qui ne sont présentes quasiment que dans les crevettes. Le test de Fisher couplé au bruit causé par l’agrégation des données fait qu’on ne descend pas dans le sous-arbre en question. L’inaptitude de l’arbre des corrélations à identifier ces taxons est donc imputable à l’utilisation d’un test inadapté : remplacer le test de Fisher par un test non paramétrique de Kruskall-Wallis aurait permis à la procédure hiérarchique sur l’arbre des corrélations d’identifier l’ensemble des OTUs du clade.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:chaillouzoom"></span>
+<img src="img/chaillou_zoom.png" alt="Focus sur les cinq OTUs du cadre vert de la figure 3.14." width="90%" />
+<p class="caption">
+Figure 3.15: Focus sur les cinq OTUs du cadre vert de la figure <a href="3-arbres.html#fig:chailloutrees">3.14</a>.
+</p>
+</div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="2-anadiff.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="4-nouvelleapproche.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["twitter", "linkedin", "facebook", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "night",
+"family": "serif",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["thesis.pdf", "PDF"]],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
