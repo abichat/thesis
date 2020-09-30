@@ -1,0 +1,347 @@
+# Métagénomique {#metagenomique}
+
+Quel est le point commun entre une poignée de terre, du camembert et votre intestin ? Tous hébergent une communauté de micro-organismes —bactéries, virus, champignons...— collectivement appelés le microbiote. Aussi extrêmes soient-ils, tous les environnements hébergent des communautés microbiennes. Comme l'on pourrait s'y attendre, les bactéries présentes dans le tube digestif d'escargots sous-marins [@aronson2017specific] ne sont pas les mêmes que celles présentes dans le désert d'Atacama [@araya2020microbiome], mais même au sein d'environnements comparables, il existe une grande variabilité tant au niveau des espèces présentes que de leurs abondances.
+
+Depuis la fin des années 2000, le développement des techniques de séquençage haut-débit et la baisse de leurs coûts (voir figure \@ref(fig:couts)) ont rendu accessible l'ensemble des génomes du microbiote, aussi appelé microbiome ou métagénome. 
+
+(ref:txtcouts) Évolution du coût de séquençage (en dollar) d'une mégabase d'ADN, en échelle logarithmique, tiré de [www.genome.gov](www.genome.gov).
+
+```{r couts, fig.cap="(ref:txtcouts)", echo=FALSE, fig.pos = "t"}
+knitr::include_graphics(path = "img/couts.png")
+```
+
+## Le microbiote intestinal humain {#microbiote}
+
+Même si les développements méthodologiques présentés dans cette thèse ont une portée générale et ne sont pas limités à un type de microbiote en particulier, ils ont effectués avec le microbiote intestinal humain en ligne de mire. Nous présentons ici quelques propriétés de ce microbiote afin que le lecteur prenne conscience de son importance et ai un exemple concret auquel se raccrocher par la suite.
+
+### Description
+
+Le tractus gastro-intestinal, ou tube digestif, abrite une communauté microbienne composée d'environ cent mille milliards de micro-organismes pour un poids d'environ $2~\text{kg}$ [@ley2006ecological]. Par abus de langage, on l'appelle le microbiote intestinal. Chez les adultes au mode de vie occidental et en bonne santé, les bactéries appartenant à l'embranchement (_phylum_) des _Firmicutes_ représentent plus de $60~\%$ de la composante bactérienne du microbiote. Si l'on y ajoute celles appartenant aux embranchements des _Actinobacteria_ et des _Bacteroidetes_, cette fraction monte à $90~\%$ [@zhernakova2016population]. 
+
+La variabilité inter-individus reflète principalement des facteurs environnementaux ou comportementaux, qui structurent fortement les flores microbiennes, notamment: le régime alimentaire [@david2014diet], l'âge [@otoole2010gut; @yatsunenko2012human] mais aussi la prise d'antibiotiques [@bokulich2016antibiotics; @palleja2018recovery], la présence d'un animal de compagnie [@kates2020household], etc.
+
+### Rôle
+
+Les micro-organismes qui colonisent le tractus gastro-intestinal dégradent les glucides qui n'ont pas été préalablement absorbés par l'hôte [@flint2012microbial; @rowland2018gut]. Ces réactions produisent des acides gras à chaîne courte (AGCC) qui sont des sources d'énergies importantes pour l'humain. Plusieurs voies métaboliques, présentes chez différentes bactéries, permettent de produire des AGCC et il n'existe donc un profil unique pour tous les humains. Des études à grande échelles [@arumugam2011enterotypes] ont cependant permis de dégager des « profils types », appelés entérotypes, caractérisés entre autres par l'alimentation.
+
+Certaines dégradations de sucres effectuées par le microbiote sont inaccessible aux seules voies métaboliques humaines : le microbiote constitue donc un compagnon indispensable pour assimiler pleinement les nutriments que nous consommons. Citons l'exemple de la population japonaise, qui consomme en moyenne $14.2~\text{g}$ de nori (un type d'algue) par jour et dans laquelle les enzymes porphyranases et agarases responsables de la dégradation des algues sont produites par la bactérie _Bacteroides plebeius_. Cette capacité a été obtenue à la suite d'un transfert horizontal de gène de la part _Zobellia galactanivorans_, une bactérie marine [@hehemann2010transfer].
+
+Le système immunitaire doit également beaucoup au microbiote intestinal [@blander2017regulation]. Parmi les AGCC précédemment cités, on retrouve le butyrate, un métabolite ayant des propriétés anti-inflammatoires et favorisant la prolifération cellulaire au sein de la muqueuse intestinale, ce qui participe à la prévention du cancer colorectal [@canani2011potential].
+La composition du microbiote intestinal a également un effet sur l'efficacité des vaccins [@valdez2014influence]. @eloe2013impact ont mis en évidence que les patients les plus répondeurs pour un vaccin antityphoïdique étaient ceux présentant une proportion plus importante de _Clostridiales_.  Mentionnons enfin dans ce domaine, la bactérie _Bacteroides thetaiotamicron_ qui induit une production du peptide antimicrobien $\text{LL-37}$, lequel protège à son tour son hôte contre les infections par _Candida albicans_ [@fan2015activation].
+
+La signalisation biochimique bidirectionnelle entre le tractus gastro-intestinal et le système nerveux central, communément appelée axe intestin-cerveau, est grandement affectée par le microbiote intestinal. Les résultats les plus spectaculaires sont obtenues chez la drosophile, dans laquelle le microbiote intestinal participe à la modulation des comportements locomoteur [@schretter2018gut] et sexuel [@sharon2010commensal], et chez le rat, dans lequel la production d'un métabolite (l'indole) par certaines bactéries du microbiote induit des troubles du comportement et des troubles de l'anxiété [@jaglin2018indole].
+
+### Dysbioses
+
+Le terme dysbiose désigne un déséquilibre du microbiote, qui se traduit généralement par une perte de diversité ou par la surreprésentation d'une espèce. La table \@ref(tab:dysbioses) présente un ensemble de maladies qui seraient causées par ou associées à une dysbiose.
+
+\newpage
+
+-----------------------------------------------------------------------------------------------
+  Type de maladie                         Maladie
+------------------------------- ---------------------------------------------------------------
+  Maladies métaboliques             Obésité [@turnbaugh2009core]
+                                    `r carriage_return()`
+                                    Diabète de type 2 [@qin2012metagenome]
+                                    `r carriage_return()`
+                                    Cirrhose [@qin2014alterations]
+
+  Maladies immunitaires             Maladie de Crohn [@morgan2012dysfunction]
+                                    `r carriage_return()`
+                                    Syndrome de l'intestin irritable [@chong2019microbiome]
+                                    `r carriage_return()`
+                                    Sclérose en plaques [@cekanaviciute2017gut]
+                                    `r carriage_return()`
+                                    Asthme [@stokholm2018maturation]
+
+  Maladies psychiatrique            Dépression [@foster2013gut]
+                                    `r carriage_return()`
+                                    Schizophrénie [@zheng2019gut]
+
+  Maladies neurologiques            Maladie d'Alzheimer [@pistollato2016role]
+                                    `r carriage_return()`
+                                    Maladie de Parkinson [@bedarf2017functional]
+                                    `r carriage_return()`
+                                    Syndrome de Gilles de La Tourette [@ding2019selective]
+
+  Autres maladies                   Eczema [@abrahamsson2012low]
+                                    `r carriage_return()`
+                                    Maladies cardiovasculaires [@kelly2016gut]
+                                    `r carriage_return()`
+                                    Cancer colorectal [@zeller2014potential]
+                                    `r carriage_return()`
+                                    Entérocolite nécrosante [@mai2011fecal]
+
+------------------------------- ---------------------------------------------------------------
+Table: (\#tab:dysbioses) Quelques exemples de maladies associées à une dysbiose.
+
+### Utilisations
+
+Les liens entre microbiote et santé étant très nombreux, la recherche académique ainsi que les départements de recherche et innovation des industries pharmaceutiques et agroalimentaires n'ont pas attendu pour se lancer dans la recherche d'applications et de traitements tirant parti de ces micro-organismes.
+
+Si certaines bactéries sont bénéfiques pour l'organisme, pourquoi ne pas augmenter volontairement leur quantité dans le microbiote ? C'est ce que proposent les approches probiotiques –aussi appelés bioaugmentation– qui consistent à administrer (le plus souvent par voie orale) des bactéries vivantes et non-pathogènes [@gibson2017expert]. Les probiotiques sont majoritairement considérés comme des compléments alimentaires, qui n'ont pas besoin de montrer leur efficacité pour être commercialisés. Des études cliniques prouvent cependant leur efficacité dans certains cas, comme l'utilisation d'un probiotique à base d'une souche de _Bifidobacterium longum_ pour diminuer la dépression chez les patients souffrant du syndrome de l'intestin irritable [@pinto2017probiotic].
+
+Plutôt que de fournir directement des souches vivantes, l'approche par prébiotiques fournit des nutriments non digestibles par l'hôte mais stimulant la croissance de certaines bactéries [@gibson2017expert]. Si les aliments « riches en fibres » peuvent être considérés comme des prébiotiques, des prébiotiques de synthèse font leur apparition sur le marché. Nestlé a par exemple déposé un brevet sur des prébiotiques à base d'oligosaccharides qui réduisent la présence de _Streptococcus_ chez l'enfant dans le but de diminuer le risque d'obésité une fois adulte [@sakwinska2017prebiotics]. Dans le même registre, la baguette « Amibiote » (contraction entre ami et microbiote), issue d'un partenariat entre l'INRAE et Bridor, contient $11~\text{g}$ de fibres pour $100~\text{g}$ de pain (contre $2.9~\text{g}$ pour une baguette normale) et favorise la croissance de trois bactéries probiotiques.
+
+Pour modifier la composition du microbiote intestinal, la méthode la plus efficace reste la transplantation fécale. Déjà pratiquée en Chine au $\text{IV}^{\text{e}}$ siècle [@zhang2012should], la repopulation de l'intestin d'un sujet malade avec le microbiote d'un sujet sain a fait un retour en force en montrant des résultats spectaculaire pour le traitement des infections à _Clostridium difficile_ comparé aux thérapies habituelles (prise d'antibiotiques avec ou sans lavement) [@nood2013duodenal]. L'infection à _Clostridium difficile_ provoque des diarrhées potentiellement mortelles et se produit chez des patients dont le microbiote intestinal a déjà subi une perte de diversité, laissant la place au pathogène pour se développer.
+
+Si la transplantation fécale pourrait servir de traitement à d'autres maladies, comme le syndrome de Gilles de La Tourette [@ding2019selective], ce n'est pas le seul dessein dans lequel l'utilisation de cette technique est possible. Des transplantations fécales autologues peuvent être envisagées dans le cas où une altération du microbiote serait à prévoir. Cette technique a été testée avec succès par la société française MaaT Pharma pour des patients souffrants de leucémie aiguë myéloïde. Leurs selles sont collectées avant la chimiothérapie et une transplantation fécale autologue permet de restaurer un microbiote diversifié comparable à celui présent dans le tractus avant le traitement [@mohty2018odyssee]. Une utilisation plus originale en est faite chez les koalas : la transplantation fécale leur permet de diversifier les espèces d'eucalyptus qu'ils sont capable de digérer, ce qui augmente leurs chances de survie alors que leur environnement est menacé [@reardon2018faecal].
+
+La médiatisation de ces bons résultats a conduit à l'apparition sur les réseaux sociaux de protocoles pour des transplantations fécales « à faire soi-même » [@ekekezie2020understanding], y compris pour des indications pour lesquelles elles ne sont (pour l'instant) pas recommandées comme le syndrome de l'intestin irritable ou les troubles de l'autisme. En fonction des pays, la thérapie fécale est considérée comme un médicament ou une transplantation au même titre que les organes.
+
+Plutôt que de modifier le microbiote et d'espérer que la nouvelle composition sera favorable, il est possible d'administrer directement des composés issus des bactéries désirées. C'est sur ce terrain que se place la biotech Enterome, qui a montré que l'administration de peptides issus du microbiote déclenchait une réponse immunitaire capable de s'attaquer à des tumeurs spécifiques [@chene2019microbiome].
+
+Une autre façon de tirer parti du microbiome est de s'en servir comme d'un biomarqueur : regarder sa composition peut être un moyen de déceler une maladie sans avoir recours à des tests invasifs ou plus coûteux.
+@zeller2014potential ont par exemple proposé un modèle prédictif basé principalement sur les abondances de souches de _Fusobacterium nucleatum_, _Porphyromonas asaccharolytica_ et _Peptostreptococcus stomatis_ pour détecter de façon précoce un cancer colorectal.
+Chez les nouveaux-nés, l'entérocolite nécrosante est précédée d'une dysbiose caractéristique [@mai2011fecal] permettant de l'identifier et de proposer un traitement adapté avant que la maladie ne leur soit fatale.
+
+Toutes ces opportunités ont incité de nombreuses sociétés à se lancer sur le marché du microbiote dans l'espoir de croissances rapides. Mais le réveil peut être douloureux lorsque les espoirs se fracassent sur le mur de la réalité, comme Seres Therapeutics en a fait les frais. Le 29 juillet 2016, l'annonce de l'échec de la phase II de son probiotique SER-109 contre les infections à _Clostridium difficile_ a entraîné une chute du cours de son action près de $70~\%$ (figure \@ref(fig:seres)). L'entreprise a publié un communiqué en janvier 2017 indiquant que cet échec était dû à une erreur de protocole et qu'elle allait par conséquent entamer un essai de phase III, mais cela n'a pas suffi à rassurer les investisseurs.
+
+(ref:txtseres) Cotation de Seres Therapeutics à partir de l'été 2016.
+
+```{r seres, fig.cap="(ref:txtseres)", echo=FALSE}
+include_graphics(path = "img/seres.png")
+```
+
+## Caractérisation du microbiote {#caracterisation}
+
+Nous décrivons ici brièvement les différentes méthodes et techniques utilisées pour caractériser le microbiote. 
+
+### Collecte des échantillons
+
+La collecte des échantillons et le mode de conservation des échantillons sont des étapes cruciales pour la reproductibilité des analyses et la fiabilité des résultats. En effet, le temps de stockage avant une congélation à $-80~^\circ\text{C}$ [@cuthbertson2014time] ou le nombre de dégels successifs [@sergeant2012high] peuvent avoir un impact important sur la composition microbienne des échantillons, en affectant certains genres plutôt que d'autres. 
+
+Il est donc souhaitable d'avoir les conditions les plus homogènes possibles. Cependant, il peut être relativement compliqué d'obtenir des conditions homogènes de collecte et de conservation, notamment quand il s'agit d'études longitudinales où la récolte d'échantillons s'étale sur plusieurs pays ou plusieurs années, avec des équipes différentes, ou bien quand celle-ci est effectuée au domicile du donneur dans le cadre d'études participatives, telles que l'_American Gut Project_ [@mcdonald2018american].
+
+### Séquençage par gène marqueur
+
+Le séquençage par gène marqueur, en général la sous-unité 16S de l'ARN ribosomique, permet de faire un inventaire taxonomique des espèces présentes dans le microbiote et de répondre à la question « qui est là ? ». Fait notable, le gène codant pour le 16S est présent chez toutes les espèces de bactéries et archées [@kembel2012incorporating]. Sa séquence présente une succession de région conservées, idéales pour l'extraire et l'amplifier par PCR, et des régions hypervariables, qui permettent de déterminer à quel genre (et dans une certaine mesure à quelle espèce) il appartient et de reconstruire une phylogénie. Il bénéficie également de bases de données taxonomiques extrêmement riches (par exemple, SILVA [@quast2012silva]). Pour toutes ces raisons, le gène 16S est un marqueur idéal pour identifier les différents micro-organismes présents dans un échantillon et quantifier leur abondance [@morgan2012human].
+
+Les différentes étapes d'analyse s'enchaînent comme suit. Après extraction de l'ADN, on amplifie le gène 16S par PCR avec des amorces universelles, calibrées à partir des régions conservées, puis on séquence une ou plusieurs régions hypervariables (pour une longueur totale d'environ 550 paires de base) par séquençage haut débit. Une fois ces portions d'ADN séquencés, on a accès aux séquences brutes des nucléotides qui les composent, appelé lectures ou _reads_. 
+
+Ces lectures doivent ensuite subir un contrôle qualité. En effet, les technologies de séquençage produisent des lectures trop courtes ou de mauvaise qualité  [@modolo2015urqt] qui doivent être éliminées. De plus, lors de l'amplification par PCR, il peut y avoir des évènements d'hybridation entre séquences d'ADN [@meyerhans1990dna] qui créent des séquences chimériques et augmentent artificiellement la richesse microbienne. Des algorithmes ont été proposés pour identifier et filtrer les séquences chimériques avant la suite des analyses [@wright2012decipher; @edgar2016uchime2]. 
+
+Une première approche, dite _affiliation first_, pour identifier à quelles espèces correspondent les lectures séquencés et de trouver une correspondance entre celles-ci et des séquences de références dans des bases de données de gènes 16S comme RDP [@maidak1997rdp; @maidak2000rdp], SILVA [@quast2012silva] ou Greengenes [@desantis2006greengenes]. Cette méthode est rapide et facilement parallélisable mais rend impossible le regroupement et l'analyse des lectures qui n'ont pas d'homologues dans les bases de référence.
+
+L'approche la plus utilisée, dite _clustering first_, consiste à rassembler les lectures au sein de groupes appelés OTUs, pour _Operational Taxonomic Units_. Ce partitionnement se fait en agglomérant toutes les séquences qui ont au moins $97~\%$ de similarité de séquence. Des outils bioinformatiques comme Mothur [@schloss2009introducing] ou QIIME [@caporaso2010qiime] utilisent des algorithmes de classification ascendante hiérarchique pour effectuer ce partitionnement, ce qui est coûteux en calcul et en mémoire. Des algorithmes gloutons [@edgar2010search] permettent d'accélérer et de réduire l'empreinte mémoire de cette étape de partitionnement. À l'issue de cette étape, un représentant est ensuite choisi pour chaque groupe afin de lui assigner une affiliation taxonomique en comparant ce représentant à des bases de références. Les séquences des représentants permettent également de déterminer un arbre phylogénétique des OTUs. Comparée à l'approche _affiliation first_, l'identification par OTU a l'avantage de pouvoir gérer des espèces non présentes dans les bases de données de référence en les considérant simplement comme mal affiliées. Le microbiote est finalement résumée par une table de comptage $X = (x_{ij})$ où $x_{ij}$ correspond au nombre de lectures de l'OTU $i$ dans l'échantillon $j$.
+
+Au delà du partitionnement par similarité de séquences, il existe d'autres méthodes pour partitionner l'ensemble des séquences. Mentionnons par exemple le regroupement aux sein d'ASVs, pour _Amplicon Sequence Variants_, qui a vocation à reconstruire les séquences exactes des représentants à l'aide d'un modèle probabiliste des erreurs de séquençage [@callahan2016dada2; @callahan2017exact], ou au sein d'oligotypes, qui se focalisent sur les sites nucléotidiques de grande variabilité [@eren2013oligotyping; @eren2014oligotyping]. Le point de différentiation majeur de ces méthodes par rapport aux OTUs est de ne pas donner le même poids à toutes les positions lors de la construction des groupes de lectures. 
+
+La caractérisation par gène marqueur, en particulier le 16S, est bon marché, rapide et s'appuie sur des outils matures. Elle souffre néanmoins de quelques inconvénients :
+
+1. Lors de l'amplification par PCR, outre la possible création de chimères, les taxons très abondants vont avoir plus de chances de voir leurs deux brins s'apparier entre eux plutôt qu'avec une amorce, ce qui brise la chaîne de réplication [@mathieu1996dna]. Les taxons peu présents vont au contraire avoir plus de chances d'aller jusqu'au bout de la chaîne de réplication et leur abondance sera surestimée.
+
+2. Le nombre de copies du gène 16S varie entre espèces, dans un rapport de $1$ à $21$ [@stoddard2015rrn]. Utiliser cette information pour corriger la quantification des OTU améliore l'estimation de la composition microbienne, mais le nombre de copies n'est pas toujours disponible [@kembel2012incorporating], en particulier pour les groupes microbiens peu étudiés. 
+
+3. Le 16S est limité à la fraction bactérienne du microbiote. D'autres marqueurs comme l'ITS1 et l'ITS2 doivent être utilisées pour la fraction fongique du microbiote. Ces derniers souffrent également du biais du nombre de copies (mais dans un rapport de $1$ à $1~000$) et de bases de référence nettement moins riches. 
+
+4. Le séquençage par gène marqueur ne permet d'obtenir une résolution taxonomique qu'au niveau du genre, éventuellement de l'espèce dans certains cas favorables. Il ne permet pas non plus de déterminer les fonctions ou voies métaboliques présentes dans le microbiote. Ces dernières peuvent en effet être spécifiques aux souches au sein d'une espèce et nécessitent d'adopter une stratégie non ciblée. 
+
+(ref:txt16s) Résumé des étapes du séquençage par gène marqueur, tiré de @regier2019combination.
+
+```{r 16s, fig.cap="(ref:txt16s)", echo=FALSE, fig.pos = "!t"}
+knitr::include_graphics(path = "img/16s.png")
+```
+
+### Séquençage non ciblé
+
+Comme son nom l'indique, le séquençage non ciblé, ou _whole genome shotgun_ souvent abrégé en _shotgun_, cible l'ensemble du matériel génétique présent dans les échantillons, et non un unique gène marqueur. Il permet d'étudier le potentiel fonctionnel du microbiote et de répondre à la question « qui peut faire quoi ? ».
+
+On commence par extraire l'ADN contenu dans les cellules puis on le brise par ultrason –ou sonification– afin d'obtenir de courts fragments, de l'ordre d'une centaine de nucléotides. On effectue ensuite une PCR non ciblée avec des amorces aléatoires pour amplifier les fragments avant de les séquencer pour obtenir des lectures couvrant l'ensemble du matériel génétique. 
+
+La construction d'une table de comptage à partir des lectures est sensiblement plus compliquée que dans l'approche par gène marqueur. Il existe en effet plusieurs manières d'obtenir une table de comptage à partir des lectures: par comparaison de lectures [@maillet2012compareads; @maillet2014commet], par comparaison des profils en $k$-mers [@benoit2016multiple; @deorowicz2015kmc], par classification exhaustive des lectures [@brady2009phymm; @kim2016centrifuge; @wood2014kraken; @ounit2015clark], par recensement de gènes marqueurs [@liu2011accurate; @segata2012metagenomic; @truong2015metaphlan2] ou encore par utilisation d'un catalogue de gènes [@kultima2012mocat; @coelho2019ng; @pons2010meteor]. Nous allons détailler cette dernière méthode, qui nécessite la construction préalable d'un catalogue ou l'utilisation d'un catalogue public [@almeida2020unified]. 
+
+Une fois le catalogue obtenu, chaque lecture est alignée contre celui-ci pour déterminer le gène auquel elle correspond le plus, sur la base de la similarité de séquence. Dans le meilleur des cas, une lecture ne s'aligne que sur un seul gène, mais il arrive dans environ $10~\%$ des cas qu'elle s'aligne sur plusieurs gènes distincts, par exemple parce qu'elle correspond à un domaine protéique partagé par plusieurs séquences. Dans ce dernier cas, plusieurs procédures sont possibles :
+
+* On ne prend pas en compte cette lecture dans le comptage.
+
+* Le compte de cette lecture est réparti uniformément entre les gènes (_i.e._ elle augmente le comptage de chacun des $n$ gènes sur lesquels elle s'aligne de $1/n$).
+
+* Le compte de cette lecture est réparti entre les gènes, au prorata de leurs comptages obtenus à partir des lectures non ambiguës (_i.e._ si elle s'aligne sur les gènes $G_1, \dots, G_n$ de comptages respectifs $A_1, \dots, A_n$ dans les lectures non ambiguës, l'abondance du gène $i$ est augmentée de $A_i / \sum_{j=1}^n A_j$).
+
+Contrairement à l'approche par gène marqueur, l'approche non-ciblée sur catalogue de gène dresse un inventaire fonctionnel du microbiote, où le gène remplace l'OTU comme descripteur de base du microbiote. 
+
+(ref:txtshotgun) Résumé des étapes du séquençage non ciblé, tiré de @quince2017shotgun.
+
+```{r shotgun, fig.cap="(ref:txtshotgun)", echo=FALSE}
+knitr::include_graphics(path = "img/shotgun.png")
+```
+
+### Données métagénomiques {#donneesmetagenomiques}
+
+Une fois l'annotation effectuée, on dispose d'une table de comptage, c'est à dire du compte des différentes entités considérées dans les échantillons. Dans la suite, on désignera ces entités sous le terme générique _taxon_, qu'il s'agisse d'espèces, de genres bactériens, d'OTUs, de gènes...
+
+Plusieurs cadres conceptuels existent pour analyser ces données mais les deux plus populaires sont ceux (i) des données de comptage et (ii) des données compositionnelles. Chacun de ces cadres possède des avantages et inconvénients qui lui  sont propres et malgré des discussions intenses dans la littérature,  [@gloor2016relative; @gloor2017microbiome; @mcmurdie2014waste; @vandeputte2017quantitative], il n'existe pas à l'heure actuelle de consensus sur celui à privilégier. 
+
+#### Données de comptage {-}
+
+Par la façon dont elles sont construites, à savoir en comptant le nombre de lectures de chaque taxon dans chaque échantillon, les tables d'abondance sont composées de données de comptage, à valeurs dans $\NN$. 
+
+Une approche naturelle serait de considérer ces comptes comme issus d'une loi de Poisson, dont les masses sont telles que $\PP{X = k} = \frac{\lambda^k}{k!}e^{-\lambda}$ pour $k \in \NN$. Cependant, l'espérance et la variance d'une loi de Poisson sont égales, alors que les données observées sont surdispersées : elles possèdent une plus grande variabilité qu'attendue pour une distribution de Poisson [@robinson2007moderated; @anders2010differential]. Afin de prendre en compte une telle surdispersion dans les données, il est préférable d'utiliser une loi binomiale négative [@zhang2017negative], qui peut être vu comme un mélange de loi de Poisson, avec une densité $\Gamma$ sur le paramètre de la loi de Poisson.
+
+Dans sa définition classique, la loi binomiale négative de paramètres $n$ et $p$ compte le nombre d'échecs avant d'obtenir $n$ succès pour un événement binaire, avec $p$ comme probabilité de succès. Sa fonction de répartition est alors telle que
+
+\begin{equation*}
+\PP{X = k} = \binom{k+n-1}{n-1} p^n(1-p)^k.
+\end{equation*}
+
+On préférera utiliser ici une autre paramétrisation, celle de moyenne $m$ et de paramètre de dispersion $\alpha \geq 0$. Lorsque $\alpha = 0$, on retombe sur une loi de Poisson. Dans le cas contraire,
+
+\begin{equation*}
+\PP{X = k} = \frac{\Gamma(k+r)}{k!\Gamma(r)}\left(\frac{m}{r+m}\right)^r\left(\frac{r}{r+m}\right)^k
+\end{equation*}
+
+où $r=\frac{1}{\alpha}$ et $\Gamma : z \mapsto \int_0^{+\infty}t^{z-1}e^{-t}\dx{t}$ est la fonction gamma. 
+
+Une autre particularité des données métagénomiques est leur grande proportion de zéros : les comptages nuls sont surreprésentés et représentent fréquemment $90~\%$ ou plus des coefficients de la table. Ceux-ci peuvent être des zéros structurels –de nature biologique– où le taxon n'est pas présent dans le jeu de données, ou des zéros d'échantillonnage –de nature probabiliste– où le taxon n'a pas été détecté alors qu'il est présent (mais en faible quantité) dans le jeu de données. Pour modéliser cette fréquence élevée de comptages nuls, on utilise alors des lois avec excès de zéros. Si $X$ suit une loi sur $\NN$, on peut créer $Y$ avec excès de zéros comme suit :
+
+\begin{equation*}
+\left\{
+\begin{aligned}
+\PP{Y = 0} & = p_0 + (1-p_0) \PP{X = 0}\\
+\PP{Y = k} & = (1-p_0) \PP{X = k} & \text{pour } k\in \NN^*,
+\end{aligned}
+\right.
+\end{equation*}
+
+où $p_0$ est la proportion de zéros structurels. Si $X$ suit une loi binomiale négative, $Y$ suivra alors une loi binomiale négative avec excès de zéros, ou ZINB (pour _Zero-Inflated Negative Binomial_) [@xinyan2016zero].
+
+La somme des comptages des taxons dans un échantillon est appelé _profondeur de séquençage_ et correspond au nombre de lectures produites par le séquenceur pour l'échantillon. La profondeur _cible_ (typiquement $100~000$ lectures par échantillons) est imposée par le scientifique mais la profondeur _effective_ peut varier d'un facteur $4$ pour des échantillons avec la même cible ($50~000$ lectures pour le premier, $200~000$ pour le deuxième). 
+Il est d'usage d'utiliser un facteur de normalisation pour prendre en compte ces différences et rendre les comptages comparables entre échantillons.
+
+#### Données compositionnelles {-}
+
+L'autre grand point de vue considère que les comptages  sont contraints par la profondeur de séquençage et ne nous permettent donc d'étudier que les _abondances relatives_ (par opposition aux _abondances absolues_) des différents taxons dans l'échantillon. En pratique, les comptages des $m$ taxons de chaque échantillon sont divisés par la profondeur de séquençage de l'échantillon pour reconstruire des vecteurs d'abondance relative, à valeurs dans le simplexe $\mathcal{S}^m = \left\{x \in \RR_+^{*,m}, \sum_{i=1}^m x_i = 1 \right\}$ [@gloor2016compositional]. 
+
+Ces vecteurs de proportion peuvent ensuite être modélisées comme des tirages de lois de Dirichlet. La loi de Dirichlet $\mathcal{D}(\alpha)$ sur $\mathcal{S}^m$ de paramètre $\alpha = (\alpha_1, \ldots, \alpha_m) \in \RR_+^{*,m}$ a pour densité 
+
+\begin{equation*}
+f(x_1, \ldots, x_m) = \frac{1}{\text{B}(\alpha)} \prod_{i=1}^m x_i^{\alpha_i-1},
+\end{equation*}
+
+où $\text{B} : \alpha \mapsto \frac{\prod_{i=1}^m\Gamma(\alpha_i)}{\Gamma\left(\sum_{i=1}^m \alpha_i\right)}$ est la fonction beta.
+
+Des approches plus sophistiquées, basées sur des lois hiérarchiques multinomiales Dirichlet, permettent de modéliser en plus le fait que les comptages sont une version bruitée du vecteur de proportion [@holmes2012dirichlet]. 
+
+\begin{equation*}
+\begin{aligned}
+p & \sim \mathcal{D}(\alpha), \\
+\PP{X_1 = n_1, \ldots, X_m = n_m\mid p} & = \frac{n!}{\prod_{i=1}^m n_i!}\prod_{i=1}^m p_i^{n_i}.
+\end{aligned}
+\end{equation*}
+
+\newline
+La transformation en proportions préserve certaines propriétés, par exemple le rang d'un taxon au sein d'un échantillon, mais requiert une attention particulière pour d'autres opérations élémentaires, comme le calcul d'une composition moyenne. @aitchison1982statistical est le premier à proposer une géométrie _compositionnelle_ du simplexe, qui diffère de la géométrie euclidienne standard. Dans cette géométrie, le simplexe possède ses propres opérations internes de perturbation $\oplus$ ou de composition $\odot$ ainsi que sa propre distance $d_a$ définie par 
+
+\begin{equation*}
+d_a(x, y) = \sqrt{\frac{1}{2m}\sum_{i=1}^m\sum_{i=1}^m\left(\ln\left(\frac{x_i}{x_j}\right)-\ln\left(\frac{y_i}{y_j}\right)\right)^2} \text{ pour } x,y\in\mathcal{S}^m.
+\end{equation*}
+
+\newline
+Un point régulièrement évoqué, que la géométrie d'Aitchison corrige, est la présence de corrélations négatives fallacieuses dans le jeu de données normalisé par la somme. Pour s'en convaincre, on peut considérer $2$ variables indépendantes $X$, $Y$ et constater que $p_1 = \frac{X}{X+Y}$ et $p_2 = \frac{Y}{X+Y} = 1 - p_1$ sont corrélées négativement. Aitchison propose plusieurs transformations, collectivement appelées _xlr_, pour pour plonger le simplexe dans l'espace euclidien standard et pouvoir ainsi appliquer les méthodes d'analyse multivariée standards aux données compositionnelles [@pawlowsky2007lecture].
+
+- **Le ratio logarithmique additif** (_additive log-ratio_) [@aitchison1986statistical]
+
+\begin{equation*}
+\text{alr}: x \in \mathcal{S}^m \mapsto \left(\ln\left(\frac{x_1}{x_m}\right), \ldots, \ln\left(\frac{x_{m-1}}{x_m}\right) \right) \in \RR^{m-1}.
+\end{equation*}
+
+Cette transformation souffre de deux problèmes : elle ne conserve pas les distances entre le simplexe et $\RR^{m-1}$ et nécessite d'utiliser un taxon de référence [@albarede1996introduction; @pawlowsky2007lecture].
+
+- **Le ratio logarithmique centré** (_centered log-ratio_) [@aitchison1986statistical]
+
+\begin{equation*}
+\text{clr}: x \in \mathcal{S}^m \mapsto \left(\ln\left(\frac{x_1}{g_m(x)}\right), \ldots, \ln\left(\frac{x_{m}}{g_m(x)}\right) \right) \in \RR^{m}
+\end{equation*}
+
+où $g:x\mapsto \sqrt[m]{\prod_{i=1}^m x_i}$ est la fonction de moyenne géométrique.
+Bien que cette transformation conserve les distances et ne nécessite plus d'utiliser un taxon de référence, le simplexe est plongé dans un sous-espace vectoriel de dimension $m-1$ de $\RR^m$ défini par $\{y \in \RR^m: y^T 1_m = 0\}$. Autrement dit, la somme des coordonnées du projeté doit être nulle.
+
+- **Le ratio logarithmique isométrique** (_isometric log-ratio_) [@egozcue2003isometric].
+
+\begin{equation*}
+\text{ilr}: x \in \mathcal{S}^m \mapsto \Psi^T \text{clr}(x) = \left(y_1, \ldots, y_{m-1}\right) \in \RR^{m-1} 
+\end{equation*}
+
+où $\Psi$ est une base orthonormée quelconque du sous-espace vectoriel $\text{clr}(S^m) = \{y \in \RR^m: y^T 1_m = 0\}$. Cette transformation conserve les distances et nécessite une base adaptée. Un choix classique de base est donné par la matrice de Helmert privée de sa première ligne (et représentée ici pour $m = 4$)
+
+\begin{equation*}
+\Psi^T = 
+\begin{pmatrix}
+1/\sqrt{2} & -1/\sqrt{2} & 0 & 0 \\
+1/\sqrt{6} & 1\sqrt{6}  & -2\sqrt{6} & 0 \\
+1/\sqrt{12} & 1\sqrt{12}  & 1\sqrt{12} & -3\sqrt{12} 
+\end{pmatrix},
+\end{equation*}
+
+pour laquelle on obtient
+
+\begin{equation*}
+y_{i-1} = \frac{1}{\sqrt{i(i+1)}} \ln\left(\frac{x_i}{\left(\prod_{j=1}^{i-1} x_j\right)^{\frac{1}{i-1}}}\right) \text{ pour } i \in [\![2,m]\!].
+\end{equation*}
+
+Cette base produit des coordonnées $y_i$ facilement interprétable : $y_i$ mesure la balance entre $x_i$ et la moyenne géométrique de $x_1$ à $x_{i-1}$. 
+
+Si l'on dispose de l'arbre phylogénétique des taxons, d'autres contrastes interprétables peuvent également être utilisés, par exemple la balance entre le sous-arbre gauche et le sous-arbre droit d'un nœud de l'arbre [@silverman2017phylogenetic].
+
+Enfin, @xia2018statistical proposent une autre base, qui donne les coordonnées suivantes. 
+
+\begin{equation*}
+y_i = \frac{1}{\sqrt{i(i+1)}}\ln \left(\frac{\prod_{j=1}^i x_j}{(x_i + 1)^i}\right) \text{ pour } i \in [\![1,m-1]\!].
+\end{equation*}
+
+\newline
+Les transformations xlr ne tolèrent pas des proportions nulles. La solution généralement adoptée consiste à ajouter un pseudo-compte de $1$ (ou $1/2$) à tous les taxons avant de calculer les proportions. Cette solution, si elle permet en pratique de s'abstraire des zéros lors des calculs, présente néanmoins l'inconvénient majeur  d'induire des pics dans la densité des coordonnées transformées sans pour autant permettre de gérer explicitement les zéros structurels. 
+
+
+## Jeux de données {#jeuxdonnees}
+
+Nous présentons ici les jeux de données utilisés dans ce manuscrit. Chaque jeu de données porte le nom du premier auteur de l'étude dont il est extrait. Tous sont disponibles dans le matériel supplémentaire de l'article d'origine ou dans le _package_ R `{curatedMetagenomicData}` qui met à disposition de manière homogène des jeux de données de métagénomique [@pasolli2017accessible; @r2020].
+
+#### Brito {-}
+
+@brito2016mobile comparent une cohorte de $81$ Nord-Américains urbains avec une cohorte de $171$ Fidjiens ruraux en utilisant à la fois du séquençage 16S (que nous utiliserons) et du séquençage non ciblé. Leurs travaux ont montré que la variation du régime alimentaire se reflète dans la variation du potentiel fonctionnel des gènes du microbiote, les Fidjiens ayant par exemple plus de gènes spécialisés dans la dégradation de l'amidon. En ne gardant que les $112$ adultes fidjiens de cette cohorte pour former un groupe d'échantillons homogènes, il reste $77$ OTUs.
+
+#### Chaillou {-}
+
+L'étude de @chaillou2015origin s'intéresse au microbiote alimentaire de produit carnés (bœuf haché, veau haché, merguez de volaille et dés de lardons) et de produits issus de la mer (filet de cabillaud, crevette, filet saumon et saumon fumé) pour étudier le rôle du microbiote dans l'altération de l'aliment. Les $64$ échantillons, répartis uniformément entre les différents aliments, ont mis en évidence une perte de diversité microbienne concomitante à l'altération et ont permis d'identifier des espèces associées à une altération précoce. En ne conservant que les taxons ayant une prévalence supérieure à $5~\%$ de prévalence, on conserve $499$ OTUs dont $97$ assignées à l'embranchement des _Bacteroidetes_. 
+
+#### Chlamydiae {-}
+
+Seul exception à la règle de nommage, le jeu de donnée Chlamydiae constitue une sous-partie du jeu de données construit par @caporaso2011global. Ce dernier contient $26$ échantillons répartis au sein de $8$ environnements très différents (selles, bouche, eau, sol, sédiments, océan, eau douce calme et eau douce vive) pour étudier la diversité microbienne globale et calibrer l'effort de séquençage nécessaire à une bonne caractérisation. Le sous-jeu de données est restreint aux $21$ OTUs assignées à l'ordre des _Chlamydiales_ et a servi d'exemple pour `{StructSSI}` dans @sankaran2014structssi.
+
+#### Ravel {-}
+
+Le jeu de données présenté dans @ravel2011vaginal concerne le microbiote vaginal de $396$ femmes nord-américaines, n'ayant pas atteint la ménopause, issues de différents groupes ethniques et sujettes ou non à des vaginoses. Le séquençage par gène marqueur 16S a permis d'identifier cinq _archétypes_ de communautés microbiennes: quatre d'entre eux sont dominés par une espèce de _Lactobacillus_ qui acidifie le milieu et empêche le développement de bactéries responsables de vaginose, le dernier correspond à une diversité bactérienne élevée et est associé à des risques accrus de vaginose. $40$ genres différents, de prévalence supérieure à $5~\%$ sont présents dans ce jeu de données.
+
+#### Wu {-}
+
+@wu2011linking se sont intéressé aux relations entre microbiote et régime alimentaire, parmi lesquels l'importance de la consommation d'alcool. Bien qu'un changement de régime alimentaire pendant une courte durée ($10$ jours) ait un impact significatif sur le microbiote, son ampleur reste modeste. Ce jeu de données, qui comprend $98$ échantillons répartis à égalité entre sujets à faible et forte consommation d'alcool, contient $400$ OTUs. 
+
+#### Zeller {-}
+
+Le jeu de données issu de @zeller2014potential contient $42$ patients ayant un adénome, $91$ patients ayant un cancer colorectal et $66$ volontaires sains. Le but de l'étude est d'étudier les associations entre la composition du microbiote et le statut du patient, notamment pour trouver des biomarqueurs de la maladie. Tous les échantillons ont été caractérisés par l'approche gène marqueur (à l'aide du gène 16S) et par l'approche non-ciblée. En ne conservant que les taxons ayant une prévalence supérieure à $~5\%$, l'approche gène marqueur a permis d'identifier $119$ genres différents tandis que l'approche non-ciblée a identifié $878$ MSPs –une autre entité métagénomique [@plaza2018mspminer]. 
+
+\newpage
+
+------------------------------------------------------------------------------------
+  Jeu de données              Microbiote         Rang      Taxons     Échantillons
+---------------------------- ----------------- --------- ----------- ---------------
+  @brito2016mobile              Intestinal        OTU       77          112
+  
+  @chaillou2015origin           Alimentaire       OTU       499/97      64
+  
+  Chlamydiae                    Varié             OTU       21          26
+  `r carriage_return()`
+  [@caporaso2011global]
+
+  @ravel2011vaginal              Vaginal         Genre     40          396
+
+  @wu2011linking                 Intestinal      OTU       400         98
+
+  @zeller2014potential           Intestinal      Genre     119         199
+
+  @zeller2014potential           Intestinal      MSP       878         199
+
+---------------------------- ----------------- --------- ----------- --------------
+Table: (\#tab:datasets) Jeux de données utilisés dans ce manuscrit.

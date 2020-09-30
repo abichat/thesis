@@ -1,0 +1,97 @@
+# Digest {-}
+
+## Chapter I {-}
+
+Microbiome, defined as the collection of microbes that inhabit a given environment, and metagenome, defined as the collection of their genes, have been the focus of growing attention for over a decade. In the human gut, microbial communities are responsible for carbohydrate degradation [@flint2012microbial; @rowland2018gut] and help the immune system to regulate inflammation [@blander2017regulation]. However, microbiome deregulation can also lead to moderate to severe disease, like Crohn's disease [@morgan2012dysfunction], depression [@foster2013gut], or necrotizing enterocolitis [@mai2011fecal]. Food and pharmaceutical industries saw the tremendous potential of the gut microbiome began developing product to take advantage of it. Among a lot of different methods, probiotics to lower depressive symptoms [@pinto2017probiotic], prebiotics to enhance specific bacteria and lower obesity's risk [@sakwinska2017prebiotics] or fecal transplant to fight against lethal forms of diarrhea [@nood2013duodenal] have been tested and proved to be highly efficient.
+
+Several techniques are available to establish the composition of the microbiome. The marker gene sequencing approach, also called metabarcoding, aims at targeting a universal but rapidly evolving gene (usually the 16S rRNA gene when studying bacteria) whose sequence acts as a barcode to identify the species it originates from [@morgan2012human]. However, it suffers form several drawbacks like the restriction to bacteria and archaea or the impossibility to obtain any information on the biological functions present in or expressed by the community. To bypass those limitations, the whole genome shotgun (WGS) sequencing approach amplifies all the genetic material to reconstruct a functional and more complete view of of the sample. It comes however with added complexity: the sequences must be mapped to preconstructed reference catalogues [@quince2017shotgun]. 
+
+By construction, metagenomics data consist of counts (number of reads per species or per genes) and can be modeled as such. Several models try to take into account overdispersion by using negative binomial models [@zhang2017negative] or overrepresentation of zeros by using zero-inflated models [@xinyan2016zero]. However, several authors also suggest that the counts are misleading and that metagenomics data are compositional in essence and should be analyzed using an appropriate framework [@gloor2016compositional].
+
+
+## Chapter II {-}
+
+In order to detect taxa that are differentially abundant between groups, several procedures have been developed. Among them, Wilcoxon-Mann-Whitney [@mann1947test; @wilcoxon1992individual] and Kruskall-Wallis [@kruskal1952use] tests are generic rank-based tests whose null hypothesis is a common count distribution in all groups. There also are specific tests tailored to the count or compositional aspect of sequencing-based omics data like _edgeR_ [@robinson2010edger], _DESeq2_ [@love2014moderated], _mbzinb_ [@chen2018omnibus] or _ALDEx2_ [@fernandes2014unifying]. The former two were first designed for transcriptomics data and then imported to microbiome data whereas the latter two were designed from the ground up for microbiome data. 
+
+All the previously mentioned tests are univariate: they test one taxon at the time for differential abundance and require a subsequent step of multiple testing correction to avoid a high number of false discoveries. The Benjamini-Hochberg procedure [@benjamini1995controlling] is the best known and most popular of those correction procedures: it control the expected proportion of false discoveries $\EE{\frac{FP}{TP + FP}}$ at a certain level, defined _a priori_.   
+
+Recently, new procedures have been proposed to take a hierarchical structure (mainly phylogeny) into account during differential abundance analyses. _TreeFDR_ [@xiao2017false] is a two-steps procedure based on smoothing of $z$-scores followed by a permutational correction technique. The smoothing is based on a hierarchical model whose hyperparameters control the level of smoothing. Hierarchical FDR, theorized by @yekutieli2008hierarchical and implemented by @sankaran2014structssi, considers instead a top-down approach: it progresses down the tree, from the root to the leaves, and tests increasingly smaller groups of taxons until it can not reject the null hypothesis anymore. Finally, @huang2020treeclimbr developed _treeclimbR_, which select differentially abundant clades based on a composite score computed for each internal node of the tree. 
+ 
+## Chapter III {-}
+
+This chapter addresses the questions of which tree to consider in hierarchical approaches. Phylogeny reflects the evolution history between taxa and is created from nucleotidic sequences from the dataset. Taxonomy is a highly polytomic tree of nested ranks that is available in reference databases [@geer2010ncbi]. We introduce the correlation tree, a tree built from the pairwise correlation matrix of abundance data using a hierarchical clustering procedure. 
+
+To compare those trees, we consider several distances. Formally, rooted trees are directed acyclic networks: they can be compared using the Robison-Foulds distance [@robinson1981comparison] which focuses solely on topologies (trees without branches lengths), the cophenetic distance [@sokal1962comparison] which focuses on path lengths in the tree, or the Billera-Holmes-Vogtmann distance [@billera2001geometry] which embeds trees in a geometric space and consider shortest paths in that space.
+
+We first investigate whether the phylogeny (or the taxonomy) is close to the correlation tree. We perform pairwise BHV distance computation on forest of trees covering the phylogeny, the correlation tree, bootstrapped versions of correlation tree and the random trees followed by a PCoA. It appears that the phylogeny is neither in the confidence region of the correlation tree, nor closer to the correlation tree than a random tree.
+
+We then apply hierarchical procedures with the different trees. The correlation tree performs better than the phylogeny, as it naturally captures similarity of abundance profiles and thus groups taxons in a relevant way. However, the classical BH procedure outperforms the hierarchical procedure, no matter what tree is used. 
+
+## Chapter IV {-}
+
+The Ornstein-Uhlenbeck process with optimal value $\ou{\optim}$ is defined as the solution of the stochastic differential equation:
+
+\begin{equation*}
+\dx{W_t} = - \ou{\alpha} (W_t - \ou{\optim}) \dx{t} + \ou{\sigma}\dx{B_t}.
+\end{equation*}
+
+It is a well suited framework to model evolution of continuous phylogenetic traits [@freckleton2003bergmann], especially because of its $\ou{\optim}$ centered Gaussian limit law. It has been used as a basic block to build more complex models, by considering OU processes on a tree and by considering piecewise linear functions for $\ou{\optim}$ [@bastide2017detection].
+
+We proposed a new model, _zazou_, where the $z$-scores arise from an OU process on a tree with shifts on its optimal values. Moreover, we assume that under $\mathcal{H}_1$, $\zs_i \sim \normal{\mu_i}{1}$ with $\mu_i < 0$ [@mclachlan2004finite] : finding the alternative hypotheses is equivalent to finding the non-zero components of $\mu$. This can be reframed as a constrained version of the well-known lasso [@tibshirani1996regression] to have a point estimator of the $\mu_i$. We then enhance this estimator using two desparsifications procedures from @zhang2014confidence and @javanmard2014confidence to debias the lasso estimate and build confidence intervals and in turn compute $p$-values for each of the components of $\mu$. Those $p$-values act as tree-smoothed $p$-values. The last part of _zazou_ is the application of a multiple testing correction designed for desparsified lasso [@javanmard2019false] on the computed $p$-values.
+
+We evaluate our procedure on both synthetic and real data. When the tree is informative in the simulations, _zazou_ outperforms BH and _TreeFDR_ in terms of TPR but does not control the FDR at the correct level. Using a threshold independent approach, we show that _zazou_ also outperforms competing methods in terms of ROC curves and AUC values. However, when the tree is not informative, forcing an irrelevant constraint leads to a significant loss of AUC.
+
+## Chapter V {-}
+
+In this last chapter, we resolved three numerical analysis problems. The proposed algorithms are iterative and converge to a reasonable approximation of the solution.
+
+The first one is a variation of the lasso with a linear constraint :
+
+\begin{equation*}
+\left\{
+  \begin{aligned}
+  \param^\star & = \argmin_{\param \in \RR^p} \left\|y - X\param\right\|_2^2 + \lambda \|\param\|_1 \\
+        & \text{s.t. } U\param \in \RR^q_{-}
+  \end{aligned}
+\right.
+\end{equation*}
+
+where $y \in \RR^n$, $X \in \RR^{n\times p}$ and $U \in \RR^{q \times p}$.
+
+The second one is a minimization problem of a quadratic form subject to an infinite norm constraint : 
+
+\begin{equation*}
+\left\{
+  \begin{aligned}
+    x^\star & = \argmin_{x \in \mathbb{R}^{n}} \ x^TAx, \\
+    &\text{s.t. }\|Ax - e\|_{\infty} \leq \gamma,
+  \end{aligned}
+\right.
+\end{equation*}
+
+where $A \in \RR^{n\times n}$ is a positive semidefinite matrix, $e\in \RR^n$ and $\gamma > 0$.
+
+The final one is a feasibility problem, where the goal is to find an element $x$ that satisfies: 
+
+\begin{equation*}
+\left\{x \in \RR^m : \|Mx-e\|_{\infty} < \gamma\right\},
+\end{equation*}
+
+with  $M \in \RR^{m\times n}$, $e \in \RR^m$ and $\gamma > 0$ sufficiently large.
+
+## Conclusions and outlooks {-}
+
+The issue considered in this manuscript is the detection of differentially abundant taxa among several groups. The inverse problem is a prediction problem where one wants to predict the groups from the taxa. Including hierarchical information for prediction has already been done in a weak manner for linear regression by @park2007averaged. The hierarchical information was the partition of variables in groups with high covariance among them. They proved that it is more interesting to estimate one coefficient per group than one per variable. 
+
+Existing hierarchical procedures take precomputed $p$-values or $z$-scores as input. Saying that, hierarchical information always come as a second step, for smoothing or correction. To our knowledge, there is no test that use this information. 
+
+_zazou_ suffers from a minor problem during model selection. Sometimes, the BIC selected model has no shifts. Alternative model selection procedures [@baudry2012slope; @khabbazian2016fast] have been tested but without success. The optimal model selection procedure would select a model with too many shifts, the useless one will be removed by the other steps. 
+
+Some theoretical work is still requires. During the desparsification step to constraint shifts on branches such that their sum on the leafs are non-positive, and to check if the hypothesis of the several combined methods are respected.
+
+
+
+
+
+
+

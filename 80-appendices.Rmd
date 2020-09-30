@@ -1,0 +1,255 @@
+`r if(knitr:::is_latex_output()) '\\appendix'`
+
+`r if(!knitr:::is_latex_output()) '# (APPENDIX) Annexes {-}'` 
+
+# Notations
+
+Nous répertorions ici l'ensemble des notations classiques suffisamment courantes pour ne pas être explicitées au fil de l'eau.
+
+$\NN$ : ensemble des entiers naturels ($0$ inclus)
+
+$\RR$ : ensemble des réels
+
+$[\![a,b]\!]$ : $\mathopen[a,b\mathclose] \cap \NN$
+
+$E_+$, $E_-$ ou $E^*$ : $E$ restreint à ses éléments positifs, négatifs ou non nuls
+
+$E^{n\times m}$ : ensemble des matrices à $n$ lignes et $m$ colonnes à coefficients dans $E$
+
+$M^T$ : transposée de $M$
+
+$\left|M\right|$ : déterminant de $M$
+
+$m_j$ : $j^{\text{ème}}$ colonne de $M$
+
+$m_{i,j}$ : élément de $M$ à l'intersection de la $i^{\text{ème}}$ ligne et $j^{\text{ème}}$ colonne
+
+$M_{-j}$ : matrice obtenue lorsqu'on retire à $M$ sa $j^{\text{ème}}$ colonne
+
+$\mathbf{I}_n$ : matrice identité de dimension $n$
+
+$\mathbf{1}_{n}$ : matrice colonne de taille $n$ composée uniquement de $1$
+
+$\diag\left(x_1, \ldots x_n, \right)$ : matrice diagonale dont la diagonale est $x_1, \ldots x_n$ définie par $\left(x_i\delta_{i,j}\right)_{i,j \in [\![ 1, n]\!]}$
+
+$\|x\|_q$ : norme $q \in \NN^*$ d'un vecteur définie par $\left(\sum_{i=1}^n = |x_i|^q \right)^{\frac{1}{q}}$
+ 
+$\|x\|_\infty$ : norme infinie d'un vecteur définie par $\max\{|x_1|, \ldots, |x_n|\}$
+ 
+$\langle x, y \rangle$ : produit scalaire entre $x$ et $y$
+ 
+$x \vee y$ : maximum entre $x$ et $y$
+
+$f^{(n)}$ : composée $n$-ième de $f$ avec elle-même
+
+$\nabla^2 f$ : hessienne de $f$ définie par $\nabla^2 f:x\mapsto \left(\partial_i\partial_jf(x)\right)_{i,j} \in \RR^{n\times n}$
+
+$\binom{n}{k}$ : coefficient binomial défini par $\frac{n!}{k!(n-k!)}$
+
+$\EE{X}$ : espérance de $X$
+
+$\VV{X}$ : espérance de $X$
+
+$\CC{X,Y}$ : covariance entre $X$ et $Y$
+
+$\unif{E}$ : loi uniforme sur $E$
+
+$\normal{\mu}{\sigma^2}$ : loi normale de moyenne $\mu$ et de variance $\sigma^2$
+
+$\mathcal{N}_{d}\left(\mu,\Sigma\right)$ : loi normale multidimensionnelle de moyenne $\mu$ et de matrice de variance-covariance $\Sigma$ en dimension $d$
+
+$\Phi$ : fonction de répartition de la loi normale centrée réduite
+
+$\mathcal{H}_0$ : hypothèse nulle
+
+$\mathcal{H}_1$ : hypothèse alternative
+
+$\mathbb{H}_0$ : indices des hypothèses dans l'ensemble des vraies hypothèses nulles 
+
+$\indic$ : indicatrice de l'événement $A$ définie par $\indic_{A} = \begin{cases}1 & \text{si }A\\ 0 & \text{sinon}\end{cases}$
+
+$\delta_{i,j}$ : symbole de Kronecker entre $i$ et $j$ défini par $\delta_{i,j} = \indic_{i=j}$
+
+$(x_{(1)}, \ldots, x_{(n)})$ : réordonnement du vecteur $x$ défini par $x_{(1)} = \min_i x_i$ et $x_{(p)} = \min_{y \in \{x_1, \ldots, x_n\} \setminus \{x_{(1)}, \ldots, x_{(p - 1)}\}} y$ pour $p \in [\![2,n]\!]$
+
+# Productions scientifiques
+
+## Quantifying the impact of tree choice in metagenomics differential abundance studies with R {-}
+
+Ce poster a été présenté à [_UseR! 2019_](https://www.user2019.fr/posters/), et a remporté le premier prix dans la catégorie _Biostatistique_.
+
+`r if(!knitr::is_latex_output()) knitr::knit_child("81-html.Rmd")`
+
+`r if(knitr::is_latex_output()) knitr::knit_child("81-pdf.Rmd")`
+
+## Incorporating Phylogenetic Information in Microbiome Differential Abundance Studies Has No Effect on Detection Power and FDR Control {-}
+
+Cet article a été publié dans [_Frontiers in Microbiology_](https://doi.org/10.3389/fmicb.2020.00649).
+
+`r if(!knitr::is_latex_output()) knitr::knit_child("82-html.Rmd")`
+
+`r if(knitr::is_latex_output()) knitr::knit_child("82-pdf.Rmd")`
+
+## Hierarchical correction of p-values via a tree running Ornstein-Uhlenbeck process {-}
+
+Cet article devrait être soumis dans _Statistics and Computing_ et est disponible sur [_arXiv_](http://arxiv.org/abs/2009.13335).
+ 
+`r if(!knitr::is_latex_output()) knitr::knit_child("83-html.Rmd")`
+
+`r if(knitr::is_latex_output()) knitr::knit_child("83-pdf.Rmd")`
+
+## Packages R {-}
+
+### yatah {-}
+
+Lorsque l'on travaille avec les données taxonomiques, il est courant d'avoir des lignes taxonomiques écrites sous la forme `k__Bacteria|p__Firmicutes|c__Bacilli` pour décrire les différents clades auxquels appartient un taxon donné. `{yatah}` fournit une série de fonctions basées sur des expressions régulières pour manipuler de telles lignées : filtrer les lignées appartenant à un clade spécifique, ne conserver que le dernier rang ou encore créer la table et l'arbre taxonomiques associés. Au moment de la rédaction de ce manuscrit, la version $0.1.0$ est disponible sur le CRAN.
+
+`r if(knitr::is_html_output()) '<iframe src="https://abichat.github.io/yatah/" width="100%" height="650px"></iframe>'`
+
+### evabic {-}
+
+`{evabic}`, pour _EVAluation of BInary Classifiers_, permet de calculer facilement des métriques associées à des procédures de classification binaires, typiquement rejet ou non de l'hypothèse nulle. Il a été conçu pour bien s'intégrer dans une logique de code orienté `{dplyr}` et `{tidyverse}` [@tidyverse2019]. Au moment de la rédaction de ce manuscrit, la version $0.0.3$ est disponible sur le CRAN.
+
+`r if(knitr::is_html_output()) '<iframe src="https://abichat.github.io/evabic/" width="100%" height="650px"></iframe>'`
+
+### correlationtree {-}
+
+La création de l'arbre des corrélations proposée dans la section \@ref(cortree) a été implémentée dans le _package_ `{correlationtree}`. Au moment de la rédaction de ce manuscrit, la version $0.0.3$ est disponible sur GitHub.
+
+### zazou {-}
+
+L'algorithme _zazou_, décrite dans la section \@ref(zazousection), est implémenté dans le _package_ éponyme. Il bénéficie du package `{ggtree}` [@yu2017ggtree] pour mettre en regard l'arbre et différentes variables associées aux feuilles. Un exemple d'utilisation est donnée dans l'annexe \@ref(vignette).
+
+
+# Vignette de zazou {#vignette}
+
+Nous commençons par charger les _packages_ qui seront utilisés dans cette vignette.
+
+```{r, message=FALSE}
+library(zazou)
+library(evabic)
+library(dplyr)
+library(ggplot2)
+set.seed(20201209)
+```
+
+On récupère ensuite le jeu de données de @wu2011linking, où l'on ne conserve que les individus avec une faible consommation d'alcool. On modifie les longueurs de branches de la phylogénie pour que celle-ci soit ultramétrique.
+
+```{r}
+data("alcohol")
+abund <- alcohol$X[, alcohol$Y == "Low"]
+tree <- force_ultrametric(alcohol$tree)
+```
+
+On filtre ensuite les OTUs qui sont présentes dans au moins 25 échantillons parmi les `r ncol(abund)`.
+
+```{r}
+abund <- abund[rowSums(abund > 0) > 25, ]
+tree <- ape::drop.tip(tree, setdiff(tree$tip.label, rownames(abund)))
+```
+
+Il en reste alors `r nrow(abund)`.
+
+Nous assignons ensuite chaque échantillon aléatoirement à un groupe $A$ ou $B$. 
+
+```{r}
+groups <- sample(c("A", "B"), size = ncol(abund), replace = TRUE)
+pvalues_original <- test_wilcoxon(abund, groups)$p.value
+zscores_original <- p2z(pvalues_original)
+sum(pvalues_original < 0.05)
+```
+
+Certaines OTUs sont déjà considérées comme différentiellement abondantes. 
+
+L'ensemble des OTUs est partitionné en $20$ groupes cohérents avec la phylogénie, comme expliqué dans la section \@ref(simuzazou). Puis $5$ de ces groupes et les OTUs qu'ils contiennent sont tirés aléatoirement pour être différentiellement abondants.
+
+```{r}
+clustering <- create_clusters(tree, N_clusters = 20, 
+                              method = "paraphyletic")
+clusters_da <- sample(20, 5)
+clusters_da
+otus_da <- names(clustering[which(clustering %in% clusters_da)])
+1 - length(otus_da) / nrow(abund)
+```
+
+On applique ensuite un _fold-change_ de $10$ aux OTUs différentiellement abondants dans le groupe $B$.
+
+```{r}
+abund[otus_da, groups == "B"] <- 10 * abund[otus_da,  groups == "B"]
+```
+
+On effectue un test de Wilcoxon sur ce nouveau jeu de données. 
+
+```{r}
+pvalues <- test_wilcoxon(abund, groups)$p.value
+zscores <- p2z(pvalues)
+plot_shifts(tree, NA, obs_scores = zscores,
+            sup_scores = list(
+              list(scores = clustering,
+                   title = "Clusters",
+                   color = as.character(clustering)),
+              list(scores = zscores - zscores_original,
+                   title = "Difference in z-scores after fold-change",
+                   color = as.character(sign(zscores - zscores_original)))
+              ))
+```
+
+Nous donnons ensuite nos $z$-scores à la fonction `estimate_shifts` pour déterminer la position idéale des sauts avec une régression lasso. La grille des $\ou{\alpha}$ est également spécifiée mais celles des $\lambda$ est déterminée automatiquement. 
+
+```{r}
+estimation_lasso <- estimate_shifts(zscores = zscores, tree = tree, 
+                                    alphaOU = c(0.2, 0.5, 1, 2, 5),
+                                    method = "lasso")
+estimation_lasso
+plot(estimation_lasso)
+```
+
+Trois sauts sur l'arbre ont été détectées, sur des branches ayant beaucoup de descendants. 
+
+Si nous voulons avoir des $p$-valeurs et des intervalles de confiance, il faut utiliser une régression _scaled lasso_ avant d'appliquer la fonction `estimate_confint`.
+
+```{r}
+estimation_scaledlasso <- 
+  estimate_shifts(zscores = zscores,
+                  tree = tree, alphaOU = c(0.2, 0.5, 1, 2, 5),
+                  method = "scaled lasso")
+estimation_scoresystem <- 
+  estimate_confint(estimation_scaledlasso, 
+                   method = "score system")
+estimation_scoresystem
+plot(estimation_scoresystem)
+pvalues_smoothed <- pull_pvalues(estimation_scoresystem)
+```
+
+Après le débiaisage, les sauts dans les branches ne sont plus parcimonieux.
+
+Nous allons regarder les performances de notre prédicteurs via une courbe ROC.
+
+```{r}
+df_measures_zazou <- 
+  ebc_tidy_by_threshold(detection_values = pvalues_smoothed, 
+                        true = otus_da, all = rownames(abund))
+df_measures_classic <- 
+  ebc_tidy_by_threshold(detection_values = pvalues, 
+                        true = otus_da, all = rownames(abund))
+bind_rows(mutate(df_measures_zazou, type = "zazou"),
+          mutate(df_measures_classic, type = "classic")) %>% 
+  ggplot() +
+  aes(x = FPR, y = TPR, color = type) +
+  geom_line() +
+  theme_bw()
+```
+
+La courbe ROC de _zazou_ est au dessus de celle de la méthode standard. Et ceci se traduit dans en terme d'AUC :
+
+```{r}
+ebc_AUC_from_measures(df_measures_zazou)
+ebc_AUC_from_measures(df_measures_classic)
+```
+
+Version de `{zazou}` utilisée dans cette analyse :
+
+```{r}
+packageVersion("zazou")
+```
+

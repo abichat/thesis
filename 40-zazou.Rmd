@@ -1,0 +1,301 @@
+# _zazou_ : une nouvelle approche {#nouvelleapproche}
+
+## Processus d'Ornstein-Uhlenbeck {#ou}
+
+Un processus d'Ornstein-Uhlenbeck (OU) de force de rappel $\ou{\alpha}$, de valeur optimale $\ou{\optim}$, et d'écart-type $\ou{\sigma}$ est un processus gaussien qui satisfait l'équation différentielle stochastique suivante : 
+
+\begin{equation*}
+\dx{W_t} = - \ou{\alpha} (W_t - \ou{\optim}) \dx{t} + \ou{\sigma}\dx{B_t}.
+\end{equation*}
+
+Si $W_0$ est connu et fixé, l'espérance du processus vaut $\EE{W_t} = W_0 e^{-\ou{\alpha} t} + \ou{\optim}\left(1 - e^{-\ou{\alpha} t}\right)$ et la covariance du processus est donnée par
+
+$$\CC{W_t, W_s} = \frac{\ou{\sigma}^2}{2\ou{\alpha}}\left(e^{-\ou{\alpha} \left|t-s\right|} - e^{-\ou{\alpha} \left(t+s\right)}\right).$$
+
+Le processus est gaussien et il admet pour loi limite $\normal{\ou{\optim}}{\frac{\ou{\sigma}^2}{2\ou{\alpha}}}$, dont la variance est finie.
+
+De par leurs propriétés, les processus d'Ornstein-Uhlenbeck sont devenus populaires pour modéliser l'évolution de traits biologiques continus, comme la masse corporelle des mammifères [@freckleton2003bergmann].
+
+Il est également possible de faire évoluer un processus d'Ornstein-Uhlenbeck sur un
+arbre [@bastide2017detection]. Le long d'une branche, les paramètres du processus sont fixes. À chaque nœud, une branche se divise (en deux dans le cas d'un arbre binaire) et le processus donne naissance à deux copies indépendantes ayant la même valeur initiale au point de branchement. Cela induit notamment une dépendance statistique entre tous les descendants d'un même ancêtre. Cette dépendance est d'autant plus forte que l'ancêtre est récent. Sur la figure \@ref(fig:treeou), le processus vert partant de $N_1$ jusqu'à $N_2$ donne naissance à deux processus $T_4$ et $T_5$, jaune et bleu, lorsqu'il arrive au nœud $N_2$.
+
+De plus, à chaque branchement, un changement dans les paramètres du processus est susceptible de se produire. Dans ce cas, le processus garde la même valeur au nœud mais continue sa trajectoire avec les nouveaux paramètres. C'est le cas en $N_3$ dans la figure \@ref(fig:treeou) où le processus orange a subi un changement dans sa valeur optimale $\ou{\optim}$ par rapport au processus rouge : la trajectoire est continue et le processus dérive vers la nouvelle valeur optimale.
+
+(ref:txttreeou) Exemple d'un processus d'Ornstein-Uhlenbeck sur un arbre à 5 feuilles. À chaque branchement, le processus se scinde en deux processus indépendants ayant la même valeur initiale. Les paramètres sont conservés sauf lors d'un saut dans la valeur optimale, comme sur la branche conduisant à $N_4$.
+
+
+```{r treeou, fig.cap="(ref:txttreeou)", echo=FALSE}
+include_graphics(path = "img/tree_ou.png")
+```
+
+Le produit matriciel de la matrice d'incidence $T$ par le vecteur de sauts $\shifts$ permet d'effectuer la somme cumulée des sauts le long des branches pour obtenir la valeur optimale du processus aux feuilles. Dans l'exemple de la figure \@ref(fig:treeou),
+
+\begin{equation*}
+\oui{\optim}{\{\text{feuilles}\}} = T \shifts = 
+\begin{bmatrix}
+1 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 1 \\
+0 & 1 & 0 & 0 & 0 & 1 & 0 & 1 & 1 \\
+0 & 0 & 1 & 0 & 0 & 1 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 & 0 & 1 & 1 & 0 & 0 \\
+0 & 0 & 0 & 0 & 1 & 1 & 1 & 0 & 0 \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+0 \\
+0 \\
+0 \\
+0 \\
+0 \\
+0 \\
+0 \\
+0 \\
+4 \\
+\end{bmatrix} 
+= 
+\begin{bmatrix}
+4 \\
+4 \\
+0 \\
+0 \\
+0 \\
+\end{bmatrix}.
+\end{equation*}
+
+\newline
+
+En notant $\oui{\optim}{i}$ la valeur optimale du processus sur la branche descendant au nœud $i$, la loi à ce nœud conditionnellement à son parent est
+
+\begin{equation*}
+X_i|X_{\text{pa}(i)} \sim \mathcal{N}\left( X_{\text{pa}(i)} e^{-\ou{\alpha} \ell_i } + \oui{\optim}{i} \left(1-e^{-\ou{\alpha} \ell_i}\right), \frac{\ou{\sigma}^2}{2\ou{\alpha}} \left(1 - e^{-2\ou{\alpha} \ell_i}\right) \right).
+\end{equation*}
+
+Ceci permet d'avoir une expression pour la covariance entre les nœuds $i$ et $j$. Dans le cas où $P = \pa(i)=\pa(j)$, on a 
+
+\begin{equation*}
+\begin{aligned}
+\CC{X_i, X_j} & = \EE{X_iX_j} - \EE{X_i} \EE{X_j} \\
+& = \EE{\EE{X_iX_j\mid P}} - \EE{\EE{X_i\mid P}} \EE{\EE{X_j \mid P }} \\
+& = \EE{\left(P e^{-\ou{\alpha}\ell_i} + \oui{\optim}{i} \left(1-e^{-\ou{\alpha}\ell_i}\right)\right) \left(P e^{-\ou{\alpha}\ell_j} + \oui{\optim}{j} \left(1-e^{-\ou{\alpha}\ell_j}\right)\right)} \\
+& \qquad - \EE{P e^{-\ou{\alpha}\ell_i} + \oui{\optim}{i} \left(1-e^{-\ou{\alpha}\ell_i}\right)} \EE{P e^{-\ou{\alpha}\ell_j} + \oui{\optim}{j} \left(1-e^{-\ou{\alpha}\ell_j}\right)} \\
+& = e^{-\ou{\alpha}(\ell_i + \ell_j)} \EE{P^2} - e^{-\ou{\alpha}(\ell_i + \ell_j)} \EE{P}^2 \\
+& = e^{-\ou{\alpha} d_{i,j}} \VV{P} \\
+& = \frac{\ou{\sigma}^2}{2\ou{\alpha}}\left(1 - e^{-2\ou{\alpha} t_{i,j} }\right) \times e^{-\ou{\alpha} d_{i,j}}.
+\end{aligned}
+\end{equation*}
+
+Cette expression reste valable quelque soit le niveau de parenté entre $i$ et $j$. Ainsi, pour un arbre ultramétrique de longueur $h$, la matrice de variance-covariance du vecteur gaussien des feuilles (numérotées de 1 à $m$) est composée des éléments
+
+\begin{equation}
+(\#eq:covariance)
+\frac{\ou{\sigma}^2}{2\ou{\alpha}}\left(e^{-\ou{\alpha} d_{i,j}} - e^{-2\ou{\alpha} h}\right).
+\end{equation}
+
+En particulier, la variance à toutes les feuilles est $\frac{\ou{\sigma}^2}{2\ou{\alpha}}\left(1 - e^{-2\ou{\alpha} h}\right)$.
+
+## Zazou {#zazousection}
+
+### Modèle
+
+L'approche que nous avons développée s'appuie sur les $z$-scores aux feuilles et fait deux hypothèses :
+
+1. les $z$-scores sont la réalisation d'un processus d'Ornstein-Uhlenbeck avec sauts sur l'arbre phylogénétique,
+2. sous $\mathcal{H}_1$, $\zs_i \sim \normal{\mu_i}{1}$ avec $\mu_i < 0$.
+
+La première hypothèse nous permet de définir la distribution jointe des $z$-scores comme 
+
+\begin{equation*}
+\zs \sim \mathcal{N}_{m}\left(\mu,\Sigma\right)
+\end{equation*}
+
+où $\mu$ dépend de $\shifts$, le vecteur des sauts du processus, via la relation $\mu = T\delta$ et $\Sigma$ dépend de $\ou{\alpha}$ et $\ou{\sigma}$ via l'équation \@ref(eq:covariance).
+
+La seconde hypothèse est classique lorsqu'on travaille sur les $z$-scores [@mclachlan2004finite] et suppose l'équivalence entre trouver les hypothèses alternatives et déterminer les composantes non-nulles du vecteur $\mu$. Sous $\mathcal{H}_0$ et $\mathcal{H}_1$, la variance aux feuilles doit valoir $1$, ce qui impose
+\begin{equation*}
+\ou{\hat{\sigma}}=\frac{2\ou{\hat{\alpha}}}{1 - e^{-2\ou{\hat{\alpha}}h}},
+\end{equation*}
+
+de sorte que $\widehat{\Sigma}$ dépend uniquement de $\ou{\hat{\alpha}}$.
+
+### Estimation ponctuelle
+
+En supposant $\ou{\hat{\alpha}}$ (et donc $\widehat{\Sigma}$) connue, une application naïve du maximum de vraisemblance donnerait 
+
+\begin{equation*}
+\hat{\mu} = \argmin_{\mu\in\mathbb{R}_-^m} \|\zs - \mu\|_{\Sigma^{-1}, 2}^2
+\end{equation*}
+
+comme estimateur de $\mu$. En réalité, c'est la position des sauts qui nous intéresse et nous souhaitons donc plutôt avoir un estimateur de $\shifts$. En utilisant la relation $\mu = T\shifts$, celui-ci est donné par
+
+\begin{equation*}
+\hat{\delta} = \argmin_{\shifts \in \shiftset} \left\|\zs - T\shifts\right\|_{\Sigma^{-1},2}^2,
+\end{equation*}
+
+où $\shiftset = \left\{\shifts\in \mathbb{R}^{n} / T\shifts \in\mathbb{R}_-^m\right\}$ est l'ensemble de faisabilité pour les sauts qui induisent des composantes négatives aux feuilles. Bien que le problème soit convexe (la fonction objective est convexe, tout comme l'ensemble de faisabilité), la matrice $T$ n'est pas plein rang et l'estimateur $\hat{\mu}$ n'est donc pas unique.
+
+Nous lui préférons donc un estimateur parcimonieux, obtenu en rajoutant une contrainte $\ell_1$ [@tibshirani1996regression] à la fonction objectif :
+
+\begin{equation*}
+\hat{\shifts} = \argmin_{\shifts \in \shiftset} \left\|\zs - T\shifts\right\|_{\Sigma^{-1},2}^2 + \lambda \|\shifts\|_1.
+\end{equation*}
+
+\newline
+En utilisant la décomposition de Cholesky $\Sigma^{-1} = R^TR$, ce nouveau problème peut se ramener au problème bien connu du lasso, avec une contrainte convexe sur $\shifts$ :
+
+\begin{equation}
+(\#eq:lasso)
+\hat{\shifts} = \argmin_{\shifts \in \shiftset} \left\|y - X\shifts\right\|_2^2 + \lambda \|\shifts\|_1,
+\end{equation}
+
+où $y = R\zs \in \RR^m$ et $X = RT \in \RR^{m \times n}$.
+
+Le problème \@ref(eq:lasso) est convexe en $\shifts$ et sa résolution est possible avec l'algorithme détaillé dans la section \@ref(shooting), qui est une modification de l'algorithme du _shooting_ [@fu1998penalized].
+
+
+Il reste maintenant à déterminer $\alpha$ et $\lambda$. Ceux-ci ne pouvant être obtenus directement à partir des données, nous allons sélectionner le couple qui minimise le critère BIC suivant :
+
+\begin{equation*}
+\left(\ou{\hat{\alpha}}, \hat{\lambda}\right) = \argmin_{\alpha > 0, \lambda \geq 0} \left\|\zs - T\shifts_{\alpha, \lambda}\right\|_{\Sigma(\alpha)^{-1},2}^2 + \log|\Sigma(\alpha)| + \|\shifts_{\alpha, \lambda}\|_0 \log{m},
+\end{equation*}
+
+où $\shifts_{\alpha, \lambda}$ est la solution du problème \@ref(eq:lasso) pour $\alpha$ et $\lambda$. En pratique, une grille bidimensionnelle donne les valeurs du couple à tester. Cette approche a été préférée à l'alternative usuelle de la validation croisée pour ne pas avoir à gérer la dépendance entre les $z$-scores. 
+
+### Débiaisage et intervalles de confiance
+
+L'estimateur lasso est connu pour être biaisé [@javanmard2013confidence] et ne produit pas d'intervalles de confiance pour les $\hat{\shifts}_i$. Nous utilisons donc une procédure de débiaisage, comme celles proposées dans @zhang2014confidence ou @javanmard2013confidence et @javanmard2014confidence. Ces deux procédures fonctionnent suivant le même principe. Tout d'abord, au lieu d'avoir un estimateur initial de $\shifts$ comme dans \@ref(eq:lasso), nous avons besoin d'un estimateur couplé de $\shifts$ et de sa variance $\sigma$, qui peut être obtenu par un _scaled lasso_ [@sun2012scaled] et qui sera notre estimateur initial : 
+
+\begin{equation*}
+\left(\hat{\shifts}^{\text{(init)}},\ \hat{\sigma}\right) = \argmin_{\shifts \in \shiftset, \sigma > 0}  \frac{\|y - X \shifts\|_2^2}{2\sigma m} + \frac{\sigma}{2} + \lambda \|\shifts\|_1.
+\end{equation*}
+
+\newline
+
+L'estimation jointe est faite de façon itérative en alternant des étapes de mise à jour de 
+$\hat{\shifts}^{\text{(init)}}$ par lasso et de mise à jour de $\hat{\sigma}$ par résolution exacte, via l'expression $\hat{\sigma} = \frac{\left\|y - X \hat{\shifts}^{\text{(init)}}\right\|_2}{\sqrt{m}}$. Une fois cette estimation initiale obtenue, @zhang2014confidence proposent de calculer un système de score $S$, qu'on peut comprendre comme une orthogonalisation faible de $X$, pour corriger $\hat{\shifts}^{\text{(init)}}$. La colonne $s_j$ de $S$ s'obtient comme étant le résidu de la régression lasso de $x_j$ contre $X_{-j}$, le reste des colonnes de $X$.
+
+Puis, l'estimateur débiaisé s'obtient alors en en corrigeant $\hat{\shifts}_j^{\text{(init)}}$ comme suit :
+
+\begin{equation*}
+\hat{\shifts}_j = \hat{\shifts}_j^{\text{(init)}} + \frac{\langle s_j,y-X\hat{\shifts}^{(\text{init})}\rangle}{\langle s_j,x_j\rangle}.
+\end{equation*}
+
+\newline
+
+@javanmard2013confidence et @javanmard2014confidence proposent une correction alternative
+
+\begin{equation*}
+\hat{\shifts} = \hat{\shifts}^{(\text{init})} + \frac{1}{m}SX^T \left(Y-X\hat{\shifts}^{(\text{init})}\right),
+\end{equation*}
+
+basée sur un système de score différent. La matrice $S$ est cette fois-ci un inverse généralisé de $M = \frac{X^TX}{m}$, construit colonne par colonne en résolvant les problèmes suivants : 
+
+\begin{equation*}
+\left\{
+  \begin{aligned}
+    s_j & = \argmin_{s \in \mathbb{R}^{n}} \ s^TMs \\
+    &\text{t.q.}\  \|Ms - e_j\|_{\infty} \leq \gamma
+  \end{aligned}
+\right.
+\end{equation*}
+
+où $e_j \in \RR^n$ est le $j^{\text{ème}}$ vecteur de la base canonique définie par $e_{ij} = \delta_{i,j}$. Dans chacune des deux méthodes, sous des hypothèses standard en régression en grande dimension, $\hat{\shifts}\sim \mathcal{N}_n\left(\shifts,V\right)$ ce qui permet d'obtenir un intervalle de confiance bilatéral au niveau $\alpha$ pour $\shifts_j$ :
+
+\begin{equation*}
+\left[ \hat{\shifts}_j \pm \phi^{-1}\left(1-\frac{\alpha}{2}\right) \sqrt{v_{j,j}} \right].
+\end{equation*}
+
+\newline
+
+Avec le premier système de score, $V$ se calcule élément par élément : 
+
+\begin{equation*}
+v_{i,j} = \hat{\sigma}^2 \frac{\langle s_i,s_j\rangle}{\langle s_i,x_i\rangle\langle s_j,x_j\rangle},
+\end{equation*}
+
+tandis qu'avec le second, $V = \frac{S M S^T }{m}$. En exprimant la $i^{\text{ème}}$ composante de $\mu$ à l'aide de $\optim$ comme étant $\mu_i = t_{i.}^T\shifts$ où $t_{i.}$ est la $i^{\text{ème}}$ ligne de $T$, on obtient également un intervalle de confiance unilatéral au niveau $\alpha$ pour $\hat{\mu}_i$ :
+
+\begin{equation*}
+\left[-\infty, \hat{\mu}_i + \sqrt{t_{i.}^T V t_{i.}} \phi^{-1}\left(1-\alpha\right)\right],
+\end{equation*}
+
+et la $p$-valeur associée à cet intervalle, qui teste $\mathcal{H}_0 = \left\{\mu_i = 0\right\}$ contre $\mathcal{H}_1 = \left\{\mu_i < 0\right\}$, est donc 
+
+\begin{equation*}
+\pv^\text{h}_i = \Phi\left(\frac{t_{i.}^T\hat{\shifts}}{\left(t_{i.}^TVt_{i.}\right)^{1/2}}\right),
+\end{equation*}
+
+qui est la $p$-valeur lissée hiérarchiquement. 
+
+### Correction pour tests multiples
+
+Une fois ces $p$-valeurs lissées obtenues, @javanmard2019false proposent une méthode de correction pour tests multiples conçue spécialement pour le lasso débiaisé et qui repose sur les $t$-scores 
+$\ts_i = \frac{t_{i.}^T\hat{\shifts}}{\left(t_{i.}^TVt_{i.}\right)^{1/2}}$. 
+
+Définissons $t_{\text{max}} = \sqrt{2 \log m - 2 \log \log m}$ puis 
+
+\begin{equation}
+(\#eq:tstar)
+t^{\star} = \inf \left\{ 0 \leq t \leq t_{\max} : \frac{2m(1 - \Phi(t))}{R(t) \vee 1} \leq \alpha \right\},
+\end{equation}
+
+où $R(t)= \sum_{i = 1}^m \indic_{\{\ts_i \leq -t\}}$ est le nombre d'hypothèses nulles rejetées au niveau $t$. Si l'infimum en \@ref(eq:tstar) est $+\infty$, on pose $t^{\star} = \sqrt{2 \log m}$.
+
+On rejette $\mathcal{H}_0$ si $\ts_i \leq -t^{\star}$ ce qui amène à définir les $q$-valeurs hiérarchiques 
+\begin{equation*}
+\qv^{\text{h}}_i = \frac{\pv^{\text{h}}_i \alpha}{\Phi(-t^{\star})},
+\end{equation*}
+et l'hypothèse nulle associée est rejetée si $\qv^{\text{h}}_i < \alpha$. Cette procédure contrôle le FDR au niveau $\alpha$ [@javanmard2019false]. 
+
+```{remark}
+Comme $t^{\star}$ dépend de $\alpha$, les $q$-valeurs dépendent aussi de $\alpha$ et doivent être calculées pour chaque niveau de FDR cible, contrairement à la procédure BH($\alpha$) standard. 
+```
+
+## Évaluation de la méthode {#evaluation}
+
+### Données simulées {#simuzazou}
+
+Afin d'évaluer la qualité de notre procédure, nous avons simulé des données de manière non-paramétrique, comme présenté dans la section \@ref(checktreefdr) et dans la figure \@ref(fig:abdiff) : à partir d'un jeu de données homogènes, on sélectionne des taxons différentiellement abondants, on assigne un groupe $A$ ou $B$ à chacun des échantillon et on multiplie les abondances de chaque taxon différentiellement abondant dans le groupe $B$ par un _fold-change_ prédéterminé. 
+
+Trois déclinaisons de simulations ont été adoptées. Dans la première, dite positive, les taxons sont sélectionnés pour former des groupes dans la phylogénie et un _fold-change_ de $3$, $5$ ou $10$ est ensuite appliqué. Ceci permet de créer des simulations pour lesquelles l'arbre est réellement informatif. Plus précisément, pour sélectionner les taxons différentiellement abondants, on applique un algorithme des $k$-médoïdes [@reynolds2006clustering] à la matrice des distances patristiques [@sneath1973numerical], ce qui donne des groupes de taxons à faible distance patristique les uns des autres, qui correspondent généralement à un sous-arbre de la phylogénie. Un ou plusieurs groupes sont alors sélectionnés aléatoirement et leurs taxons sont déclarés différentiellement abondants.
+
+Les deux autres déclinaisons de la procédure de simulation de jeux de données sont dites négatives. Pour l'une, les taxons sont sélectionnées uniformément dans l'arbre puis un _fold-change_ de $5$ est appliqué, pour créer des simulations dans lesquelles le modèle est mal spécifié. Pour l'autre le _fold-change_ appliqué vaut $1$, ce qui permet de voir comment réagit l'algorithme lorsqu'aucun taxon n'est différentiellement abondant.
+
+La figure \@ref(fig:tprfdrzazou) présente les résultats dans le cas des simulations positives. Si les procédures de corrections classiques (BH et BY) contrôlent bien le FDR à $5~\%$, ce n'est pas le cas pour les procédures hiérarchiques. Dans la majorité des cas, le FDR des procédures hiérarchiques reste en dessous de $6~\%$ mais pour la procédure à système de score (ss) avec un fold-change de $5$ et pour celle avec l'inverse généralisé par colonne (ci) avec in fold-change de $3$, il passe à $8$ et $9~\%$ respectivement. Dans toutes les configurations, BY a le TPR le plus faible, BH et _TreeFDR_ (tf) se comportent de manière semblable, conformément aux résultats présentés dans @bichat2020incorporating, et les deux variantes de _zazou_ obtiennent le meilleur TPR. 
+
+(ref:txttprfdrzazou) TPR (haut) et FDR (bas) pour les différentes procédures et différents _fold-changes_ (en colonnes) dans le cadre des simulations positives.
+
+```{r tprfdrzazou, fig.cap="(ref:txttprfdrzazou)", echo=FALSE}
+include_graphics(path = "img/tprfdr_zazou.png")
+```
+
+Le taux de faux positif plus élevé qu'attendu pour les résultats de _zazou_ suggère que le choix du seuil de détection proposé dans @javanmard2019false n'est pas complètement adapté. Nous comparons donc les performances des différentes méthodes à l'aide de l'AUC, qui est une mesure indépendante du seuil. La figure \@ref(fig:aucroczazou) met en évidence les meilleures performances de _zazou_, dans ses deux variantes. En regardant la partie gauche des courbes ROC, on s'aperçoit que _zazou_ est plus performant dès les premières découvertes et que cela n'est pas un effet compensatoire des seuils plus élevés. Comme mentionné précédemment, BH et _TreeFDR_ obtiennent des performances similaires et moins bonnes que celles de _zazou_. BY est la méthode la moins satisfaisante.
+
+(ref:txtaucroczazou) Distribution des AUC (haut) et courbes ROC (bas) pour les différentes procédures et _fold-changes_ (en colonnes) dans le cadre des simulations positives.
+
+```{r aucroczazou, fig.cap="(ref:txtaucroczazou)", echo=FALSE, fig.pos = "!t"}
+include_graphics(path = "img/aucroc_zazou.png")
+```
+
+Dans le cas des simulations négatives (figure \@ref(fig:aucnegzazou)), l'imposition d'une contrainte hiérarchique inadaptée fait perdre $15$ à $20$ points d'AUC à _zazou_ par rapport à BH. Ce phénomène ne se retrouve pas dans les résultats de  _TreeFDR_, qui est pourtant également une procédure hiérarchique, grâce à une astuce d'implémentation. En effet,  _TreeFDR_ effectue une correction de BH en parallèle de la procédure de lissage, et si cette dernière détecte bien moins de taxons que BH, les résultats de BH sont renvoyés à la place de ceux obtenus par lissage [@bichat2020incorporating; @xiao2017false].
+
+(ref:txtaucnegzazou) Distribution des AUC pour les différentes procédures lorsque les taxons différentiellement abondants sont sélectionnés uniformément.
+
+```{r aucnegzazou, fig.cap="(ref:txtaucnegzazou)", echo=FALSE, out.width = "40%", fig.pos = "!t"}
+include_graphics(path = "img/aucneg_zazou.png")
+```
+
+Enfin, pour les simulations où aucun taxon n'est différentiellement abondant ($\text{fc} = 1$), les procédures ne détectent aucun faux positif, comme attendu.
+
+### Influence de l'âge 
+
+Nous avons comparé l'effet des différentes procédures de correction lors d'une analyse d'abondance différentielle entre des $112$ adultes et $34$ enfants au sein du jeu de données de @brito2016mobile des populations insulaires. Des tests de Wilcoxon ont été effectués sur les 387 espèces présentes et 21 espèces ont été détectées à $5~\%$ sans correction. Après correction par BH, BY, _TreeFDR_ ou _treeclimbR_, aucune espèce n'est détectée. En revanche, _zazou_ en détecte certaines avec ses deux variantes : 17 pour ss et 6 pour ci.
+
+La figure \@ref(fig:heattree) montre que les espèces détectées par _zazou_ ne forment pas un sous-ensemble de celles obtenues sans correction.  Au contraire, _zazou_ identifie des espèces proches de certaines détectées sans correction, majoritairement dans la zone mise en évidence par le bandeau rouge.
+
+(ref:txtheattree) Phylogénie des $387$ espèces du jeu de données des Fidjiens. Les cercles intérieur, central et extérieur représentent respectivement les $z$-scores bruts, les évidences corrigées et les statuts détecté ou non associé aux espèces pour différentes procédures (sans correction et les deux variantes de _zazou_).
+
+```{r heattree, fig.cap="(ref:txtheattree)", echo=FALSE, fig.pos = "!t"}
+include_graphics(path = "img/heattree.png")
+```
+
+
+

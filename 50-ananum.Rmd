@@ -1,0 +1,244 @@
+# Problèmes d'analyse numérique {#ananum}
+
+Ce chapitre présente trois résolutions que nous avons apportées aux problèmes d'analyses numériques rencontrés lors de l'élaboration de l'algorithme _zazou_, présenté dans la section \@ref(zazousection).
+
+Ce sont des algorithmes itératifs qui permettent de converger jusqu'à une approximation raisonnable de la solution.
+
+## Algorithme du _shooting_ {#shooting}
+
+L'algorithme du _shooting_ est une méthode de résolution numérique du lasso proposée par @fu1998penalized. Nous allons ici décrire la variante que nous avons développée lorsque l'espace d'existence du paramètre est contraint.
+
+Le problème \@ref(eq:lasso) peut-être réécrit dans sa forme générale 
+
+\begin{equation}
+(\#eq:shooting)
+\param^\star = \argmin_{\param \in \RR^p,U\param \in \RR^q_{-}} \left\|y - X\param\right\|_2^2 + \lambda \|\param\|_1,
+\end{equation}
+
+où $y \in \RR^n$, $X \in \RR^{n\times p}$ et $U \in \RR^{q \times p}$. Il s'agit d'un problème convexe et donc nous pouvons facilement adapter l'algorithme initial pour résoudre itérativement un problème unidirectionnel sur chaque coordonnée.
+
+
+Pour isoler la $j^{\text{ème}}$ coordonnée $\param_j$, nous décomposons les termes du problème en  
+\begin{equation*}
+\left\|y - X\param\right\|_2^2 + \lambda \|\param\|_1 = \left\|y - X_{-j}\param_{-j} - \param_j x_j\right\|_2^2 + \lambda |\param_j| + \lambda \|\param_{-j}\|_1
+\end{equation*}
+
+et 
+
+\begin{equation*}
+U\param = U_{-j}\param_{-j} + \param_j u_j.
+\end{equation*}
+
+
+Ainsi, le problème unidirectionnel associé à la $j^{\text{ème}}$ coordonnée du problème \@ref(eq:shooting) est
+
+\begin{equation}
+(\#eq:unidirectionnel)
+\left\{
+  \begin{aligned}
+    \argmin_{\param \in \RR} h(\param) & = \frac{1}{2} \|y - z - x\param\|^2_2 + \lambda |\param| \\
+    & \text{t.q. } u + v\param \leq 0
+  \end{aligned}
+\right.
+\end{equation}
+
+Notons $I_+ = \left\{ i : v_i > 0 \right\}$ et $I_- = \left\{i : v_i < 0 \right\}$ puis $\param_{\min} = \max_{i \in I_+} -\frac{u_i}{v_i}$ et $\param_{\max} = \min_{i \in I_-} -\frac{u_i}{v_i}$.
+
+Le problème \@ref(eq:unidirectionnel) est faisable si et seulement si 
+
+1. $\param_{\min} \leq \param_{\max}$,
+
+2. pour chaque $i$, $v_i = 0$ entraîne $u_i \leq 0$.
+
+Sous ces deux conditions, la région de faisabilité est $\mathcal{I} = \mathopen[\param_{\min}, \param_{\max}\mathclose]$.
+
+
+Le sous-gradient de $h$ est 
+
+\begin{equation*}
+\partial h(\param) = 
+\begin{cases} 
+-(y-z)^Tx + x^Tx\param - \lambda & \text{si } \param < 0, \\ 
+-(y-z)^Tx + x^Tx\param + \lambda & \text{si } \param > 0, \\
+ -(y-z)^Tx + \lambda [-1, 1]          & \text{si } \param = 0,
+\end{cases}
+\end{equation*}
+
+et les potentiels minimiseurs de $h$, tels que $0\in \partial h(\param)$, sont alors 
+
+\begin{equation}
+(\#eq:solutionsanscontrainte)
+\begin{cases} 
+\frac{(y-z)^Tx+\lambda}{x^Tx} & \text{si } (y-z)^Tx < -\lambda, \\ 
+\frac{(y-z)^Tx-\lambda}{x^Tx} & \text{si } (y-z)^Tx > \lambda, \\ 
+0                             & \text{si } | (y-z)^Tx | \leq \lambda.
+\end{cases}
+\end{equation}
+
+Si le problème \@ref(eq:unidirectionnel) est faisable, par convexité de $h$, sa solution est obtenue en projetant \@ref(eq:solutionsanscontrainte) sur l'ensemble de faisabilité $\mathcal{I}$ :
+
+\begin{equation*}
+\param^\star = \begin{cases} 
+P_{\mathcal{I}}\left(\frac{(y-z)^Tx+\lambda}{x^Tx}\right) & \text{si } (y-z)^Tx < -\lambda, \\ 
+P_{\mathcal{I}}\left(\frac{(y-z)^Tx-\lambda}{x^Tx}\right) & \text{si } (y-z)^Tx > \lambda, \\ 
+P_{\mathcal{I}}(0)                             & \text{si } | (y-z)^Tx | \leq \lambda,
+\end{cases}
+\end{equation*}
+
+où $P_{\mathcal{I}} : x \mapsto \max\left({\param_{\min}}, \min\left(x, \param_{\max}\right)\right)$ est la projection sur $\mathcal{I}$.
+
+## Minimisation sous contrainte de $x^TAx$ {#mam}
+
+Soit $A \in \RR^{n\times n}$ une matrice définie positive, $e$ un vecteur de $\RR^n$ et $\gamma$ un réel strictement positif. Nous avons mis en place un algorithme de résolution au problème de minimisation suivant :
+
+\begin{equation}
+(\#eq:xax)
+\left\{
+  \begin{aligned}
+    x^\star & = \argmin_{x \in \mathbb{R}^{n}} \ x^TAx \\
+    &\text{t.q. }\|Ax - e\|_{\infty} \leq \gamma.
+  \end{aligned}
+\right.
+\end{equation}
+
+D'après le théorème spectral, il existe $U, D \in \RR^{n\times n}$ et $\lambda \in \RR_+^n$ tels que 
+
+* $A = UDU^T$,
+
+* $U^TU = \mathbf{I}_n$,
+
+* $D = \diag\left(\lambda_1, \ldots, \lambda_n\right)$,
+
+* $\lambda_1 \geq \dots ... \lambda_r > 0 = \lambda_{r+1} = \dots = \lambda_{n}$ avec $r = \rang(A)$.
+
+La solution $x^{\star}$ du problème initial \@ref(eq:xax) est liée à la solution $x^{\diamond}$ du problème complémentaire 
+
+\begin{equation}
+(\#eq:xaxcomp)
+\left\{
+  \begin{aligned}
+    x^\diamond & = \argmin_{x \in \mathbb{R}^{n}} \ x^TDx \\
+    &\text{t.q.}\  \|Bx - e\|_{\infty} \leq \gamma
+  \end{aligned}
+\right.
+\end{equation}
+
+par $x^\star = Ux^\diamond$, avec $B = UD$.
+
+
+La résolution du problème complémentaire \@ref(eq:xaxcomp) se fait en trouvant d'abord un $x$ dans l'ensemble de faisabilité, par exemple avec la méthode proposée dans la section \@ref(proj), puis en mettant à jour coordonnée par coordonné jusqu'à convergence.
+
+Pour $j \in [\![1,n]\!]$, le problème de minimisation de $x^TDx$ en $x_j$ peut s'écrire
+
+\begin{equation*}
+\argmin_{x_j \in \RR} \lambda x_j^2 + \sum_{k\neq j}x_k^2\lambda_k,
+\end{equation*}
+
+dont la solution non contrainte évidente est $0$, qu'il faudra projeter sur l'ensemble de faisabilité.
+
+
+Explicitons la contrainte en $x_j$ donnée dans le problème \@ref(eq:xaxcomp). Écrivons d'abord la décomposition de $Bx$ en $Bx = B_{-j}x_{-j} + x_jb_j = c + x_jb_j$ avec $c = B_{-j}x_{-j}\in\RR^n$.
+
+On a alors 
+
+\begin{equation*}
+\begin{aligned}
+& \|Bx - e\|_\infty \leq \gamma \\
+\iff  & \|c + x_jb_j - e\|_\infty \leq \gamma \\
+\iff  & |c_k + x_jb_{k,j} - e_k| \leq \gamma & \forall k \\
+\iff  & -\gamma \leq c_k + x_jb_{k,j} - e_k \leq \gamma & \forall k \\
+\iff  & -\gamma + e_k - c_k \leq x_jb_{k,j} \leq \gamma + e_k - c_k  & \forall k\\
+\iff  & x_j \in \mathopen[l_k, u_k\mathclose] = \mathcal{I}_k & \forall k\\
+\iff  & x_j \in \mathopen[\max((l_k)_k) , \min((u_k)_k)\mathclose] = \bigcap_k \mathcal{I}_k = \mathcal{I} \\
+\end{aligned}
+\end{equation*}
+ 
+où 
+
+\begin{equation*}
+l_k = \left\{
+  \begin{aligned}
+    & \frac{-\gamma + e_k - c_k}{b_{k,j}} & \text{si } b_{k,j} > 0 \\
+    & \frac{\gamma + e_k - c_k}{-b_{k,j}} & \text{si } b_{k,j} < 0 \\
+    & \left\{  
+    \begin{aligned}
+      & -\infty & \text{si }|c_k - e_k| \leq \gamma \\
+      & +\infty & \text{sinon} \\
+    \end{aligned}
+    \right. & \text{si } b_{k,j} = 0
+  \end{aligned}
+\right.
+\end{equation*}
+
+et 
+
+\begin{equation*}
+u_k = \left\{
+  \begin{aligned}
+      & \frac{\gamma + e_k - c_k}{b_{k,j}} & \text{si } b_{k,j} > 0 \\
+      & \frac{-\gamma + e_k - c_k}{-b_{k,j}} & \text{si } b_{k,j} < 0 \\
+    & \left\{  
+    \begin{aligned}
+      & +\infty & \text{si }|c_k - e_k| \leq \gamma \\
+      & -\infty & \text{sinon} \\
+    \end{aligned}
+    \right. & \text{si } b_{k,j} = 0
+  \end{aligned}
+\right.
+\end{equation*}
+
+
+Le problème \@ref(eq:xaxcomp) est faisable si et seulement si $\mathcal{I} \neq \emptyset$ si et seulement si $\max((l_k)_k) \leq \min((u_k)_k)$. Dans ce cas, le minimum sous contrainte est atteint en $P_\mathcal{I}(0)$, la projection de $0$ sur $\mathcal{I}$. 
+
+
+```{remark}
+S'il existe un $k$ tel que $b_{k,j} = 0$ et $\left|c_k-e_k\right| > \gamma$ alors $\mathcal{I} = \mathcal{I}_k = \emptyset$ et le problème n'est pas faisable. À l'inverse, si pour tout $k$, $b_{k,j} = 0$ et $\left|c_k-e_k\right| \leq \gamma$ alors $\mathcal{I} = \RR$ et la solution est $0$.
+```
+
+
+L'algorithme de résolution avance en mettant à jour la $j^{\text{ème}}$ coordonnée de $x^\diamond$ à $P_\mathcal{I}(0)$ et continue d'itérer sur les coordonnées jusqu'à convergence.
+
+## Projection sur un ensemble de faisabilité {#proj}
+
+Nous appliquons ici le problème de projection sur une intersection d'ensembles convexes au cas rencontré dans le problème \@ref(eq:xaxcomp), c'est à dire quand l'ensemble est de la forme $\|Mx-e\|_{\infty} < \gamma$.
+
+Formellement, si $M \in \RR^{m\times n}$, $e \in \RR^m$ et $\gamma > 0$, nous cherchons à obtenir un point dans $\mathcal{C} = \left\{x \in \RR^n, \|Mx-e\|_{\infty} < \gamma \right\}$, que nous supposons non vide.
+
+Définissons $f:x\mapsto \max\left(f_1(x), \ldots, f_m(x), -\varepsilon\right)$, où $f_j: x\mapsto \left|m_j^Tx - e_j\right| - \gamma$ et $\varepsilon > 0$. Comme $\mathcal{C}\neq\emptyset$, $\argmin f \subset \mathcal{C}$ et $\min f = -\varepsilon$.
+
+
+Nous utilisons une descente du gradient dont les itérations successives sont donnés par $x^{(0)} \in \RR^n$ et 
+
+\begin{equation*}
+x^{(k+1)} = x^{(k)} - \alpha_kg_k
+\end{equation*}
+
+où $\alpha_k$ est le pas et $g_k = \partial f\left(x^{(k)}\right)$.
+
+Comme $\min f = -\varepsilon$ est connu, nous pouvons utiliser la longueur de pas de Polyak [@polyak1987introduction] 
+
+\begin{equation*}
+\alpha_k = \frac{f\left(x^{(k)}\right) + \varepsilon}{\|g_k\|_2^2},
+\end{equation*}
+
+qui est optimale en un certain sens.
+
+Il nous reste maintenant à expliciter $g_k$.
+
+Si pour chaque $i \in [\![1,m]\!]$, $f_i\left(x^{(k)}\right) < -\varepsilon$ alors $x^{(k)} \in \mathcal{C}$ et l'algorithme peut s'arrêter.
+
+Dans le cas contraire, il existe $j\in [\![1,m]\!]$ tel que $f\left(x^{(k)}\right) = f_j\left(x^{(k)}\right)$ et alors 
+
+\begin{equation*}
+\begin{aligned}
+g_k & = \partial f_j\left(x^{(k)}\right) \\
+& = 
+  \begin{cases}
+  m_j & \text{si}\ m_j^Tx^{(k)} - e_j > 0,\\
+  \mathopen[-m_j, m_j\mathclose] & \text{si}\ m_j^Tx^{(k)} - e_j = 0,\\
+  -m_j & \text{si}\ m_j^Tx^{(k)} - e_j < 0,
+  \end{cases}
+\end{aligned}
+\end{equation*}
+
+puis $\|g_k\|_2^2 = m_j^Tm_j$.

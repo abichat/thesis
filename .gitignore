@@ -1,0 +1,7 @@
+.DS_Store
+.Rhistory
+.RData
+.Rproj.user
+_book/
+_bookdown_files/
+thesis.log

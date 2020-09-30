@@ -1,0 +1,177 @@
+---
+#### Output ####
+knit: bookdown::render_book
+site: bookdown::bookdown_site
+output: 
+  thesisdown::thesis_pdf: 
+    includes:
+      in_header: macros.tex
+  thesisdown::thesis_gitbook: 
+    includes:
+      in_header: ga.html
+      before_body: macros.html
+    css: style.css
+    config: 
+      fontsettings:
+        theme: night
+        family: serif
+        size: 2
+      sharing:
+        facebook: no
+        github: yes
+        twitter: no
+        linkedin: no
+        all: ['twitter', 'linkedin', 'facebook', 'weibo', 'instapaper']
+      toc: 
+        before: "<br><br><br>"
+        after: null
+#### Pour le site ####
+github-repo: "abichat/thesis"
+url: "https://abichat.github.io/thesis/"
+favicon: "img/favicon.ico"
+cover-image: "img/tree_ou.png"
+description: "Thèse de mathématiques appliquées par Antoine Bichat. Statistique – Apprentissage – Métagénomique – Arbre phylogénétique – Tests multiples – Processus stochastiques"
+#### Infos générales ####
+prenom: "Antoine"
+nom: "BICHAT"
+lieu: "Paris"
+date_jma: "9 décembre 2020"
+title: "Prise en compte de l'organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles"
+titre_francais: "Prise en compte de l'organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles"
+titre_anglais: "Discovering multi-scale metagenomic signatures through hierarchical organization of species"
+nnt: "2020SACLY000"
+#### Affiliations ####
+ecole_doctotrale: "École Doctorale de Mathématique Hadamard (EDMH) n°574"
+logo_ecole_doctotrale: "logos/edmh.jpg"
+specialite: "Mathématiques appliquées"
+unite: "Laboratoire de mathématiques et modélisation d'Évry (UEVE), UMR 8071 CNRS-INRA"
+referent: "Université d'Évry"
+#####################
+#### Rapporteurs ####
+#####################
+rap1_nom: "Étienne Roquain"
+rap1_qualite: "Rapporteur"
+rap1_titre: "Maître de conférences, HdR – Sorbonne Université"
+rap2_nom: "Joseph Salmon"
+rap2_qualite: "Rapporteur"
+rap2_titre: "Professeur des universités – Université de Montpellier"
+##############
+#### Jury ####
+##############
+## Par ordre alphabétique, ne mettre les rapporteurs que s'ils font
+## partie du jury, ne mettre le président qu'après la soutenance
+## pour le second dépôt légal. /
+## By alphabetical order, include the referees only if they are jury
+## members, indicate the president only after the defense for the
+## second legal deposit.
+## À adapter dans le fichier template.tex en fonction du nombre
+jur1_nom: "Christophe Ambroise"
+jur1_qualite: "Directeur"
+jur1_titre: "Professeur des universités – Université d'Évry"
+jur2_nom: "Julie Aubert"
+jur2_qualite: "Examinatrice"
+jur2_titre: "Ingénieure de recherche – INRAE Paris"
+jur3_nom: "Agathe Guilloux"
+jur3_qualite: "Examinatrice"
+jur3_titre: "Professeure des universités – Université d'Évry"
+jur4_nom: "Mahendra Mariadassou"
+jur4_qualite: "Co–encadrant"
+jur4_titre: "Chargé de recherche – INRAE Jouy-en-Josas"
+jur5_nom: "Matthieu Pichaud"
+jur5_qualite: "Examinateur"
+jur5_titre: "Danone"
+jur6_nom: "Jonathan Plassais"
+jur6_qualite: "Invité"
+jur6_titre: "Stat-Alliance"
+jur7_nom: "Étienne Roquain"
+jur7_qualite: "Rapporteur"
+jur7_titre: "Maître de conférences, HdR – Sorbonne Université"
+jur8_nom: "Joseph Salmon"
+jur8_qualite: "Rapporteur"
+jur8_titre: "Professeur des universités – Université de Montpellier"
+jur9_nom: "Nathalie Vialaneix"
+jur9_qualite: "Examinatrice"
+jur9_titre: "Directrice de recherche – INRAE Toulouse"
+#### Quatrième de couverture ####
+mots_clefs_francais: "Statistique – Apprentissage – Métagénomique – Arbre phylogénétique – Tests multiples – Processus stochastiques"
+mots_clefs_anglais: "Statistics – Machine learning – Metagenomics – Phylogenetic tree – Multiple testing – Stochastic processes"
+resume_francais: |
+ Cette thèse porte sur l'inclusion d'informations hiérarchiques dans des procédures 
+ de détection d'abondance différentielle sur des données métagénomiques. Les différents 
+ taxons qui composent le microbiote sont généralement accompagnés d'un arbre, comme la 
+ taxonomie ou la phylogénie, qui traduit une proximité biologique entre eux. 
+ Il est alors naturel de vouloir tirer parti de cette information hiérarchique afin 
+ d'augmenter la puissance des tests de détection de taxons différentiellement 
+ abondants. Dans un premier temps, nous nous sommes intéressés aux performances des 
+ procédures hiérarchiques existantes et à l'impact du choix de l'arbre sur celles-ci. 
+ Dans un second temps, nous avons développé notre propre méthode hiérarchique de 
+ détection d'abondance différentielle. Celle-ci modélise les $z$-scores associés 
+ à chaque taxon comme la réalisation d'un processus d'Ornstein-Uhlenbeck sur arbre 
+ avec sauts dans la valeur optimale du processus puis effectue une régression de type lasso 
+ pour déterminer les positions et intensités optimales des sauts.
+resume_anglais: |
+ This thesis deals with the use of hierarchical information in differential abundance 
+ analyses in metagenomics. Taxa that make up the microbiome are 
+ usually associated with a tree, like the taxonomy or the phylogeny, that reflects a 
+ biological link between them. It is therefore natural to exploit this hierarchical 
+ information to increase the statistical power of differential abundance techniques. 
+ We first investigated the efficiency of existing hierarchical 
+ differential abundance detection procedures and the impact of tree choice 
+ on those. We then developped our own hierarchical differentially 
+ abundance detection procedure. It models the taxa associated $z$-scores as realization 
+ of an Ornstein-Uhlenbeck process on a tree with shifts on its optimal value 
+ then a lasso-like regression is used to identify optimal positions and intensities 
+ of the shifts. \newline
+# Specify the location of the bibliography below
+bibliography: 
+  - biblios/arbres.bib
+  - biblios/bioinfo.bib
+  - biblios/biologie.bib
+  - biblios/datasets.bib
+  - biblios/divers.bib
+  - biblios/general.bib
+  - biblios/hierarchie.bib
+  - biblios/stats.bib
+# Download your specific csl file and refer to it in the line below.
+csl: csl/apa.csl
+lot: true
+lof: true
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      out.width = "90%",
+                      fig.align = "center")
+```
+
+```{r library, message=FALSE, echo=FALSE}
+library(knitr)
+```
+
+```{r functions, echo=FALSE}
+carriage_return <- function() {
+  if (knitr::is_latex_output()) {
+    return("\n")
+  } else {
+    return("<br>")
+  }
+}
+```
+
+
+# Introduction {.unnumbered}
+
+En 1982, lorsque J. Robin Warren et Barry J. Marshall mettent en évidence la relation entre ulcère de l'estomac et présence de la bactérie _Helicobacter pylori_, la communauté scientifique ne les prend pas au sérieux, estimant impossible la survie de micro-organismes dans l'estomac à cause de son acidité. Des études ultérieures leurs donnent cependant raison et Warren et Marshall reçoivent finalement le prix Nobel de physiologie ou médecine en 2005 « pour la découverte de la bactérie _Helicobacter pylori_ et son rôle dans les problèmes gastriques et les ulcères de l'estomac ». 
+
+Depuis, les connaissances et les données sur ce que l'on appelle désormais le microbiote –et en particulier sur le microbiote intestinal humain– s'accumulent à un rythme effréné. Celles-ci ouvrent la voie à de nouvelles opportunités thérapeutiques, mais soulèvent également de nouvelles questions. Y répondre nécessite des méthodes statistiques adaptées et de plus en plus puissantes.
+
+Nous nous intéressons ici aux méthodes dites « d'abondance différentielle », dont le but est de détecter les espèces dont la présence ou l'abondance sont liées à un environnement, le statut de l'hôte et plus généralement un facteur d'intérêt. Plus particulièrement, nous considérerons les approches hiérarchiques, où une information de similarité entre espèces, disponible sous la forme d'un arbre, peut être utilisée pour augmenter la puissance statistique du test. 
+
+Ce manuscrit commence par un chapitre de contextualisation biologique. Nous y introduisons les concepts de microbiote et de métagénomique à travers l'exemple du microbiote intestinal et les enjeux qui lui sont associés. Puis nous détaillons les différentes étapes du traitement classique des données métagénomiques –collecte, séquençage, prétraitement. Enfin, ce chapitre se termine en présentant les jeux de données qui seront utilisés dans ce manuscrit.
+
+Le deuxième chapitre est un chapitre de contextualisation statistique autour des analyses d'abondances différentielles. Nous y rappelons les tests statistiques dédiés à cette question puis introduisons la problématique des tests multiples et les corrections habituelles. Enfin, nous terminons ce chapitre en présentant trois méthodes d'analyse d'abondance différentielle qui utilisent une information hiérarchique pour augmenter leur puissance statistique.
+
+Après avoir présenté différentes distances entre les arbres, le chapitre \@ref(arbres) présente une évaluation de l'efficacité des méthodes d'abondances différentielles hiérarchiques et l'impact du choix de l'arbre sur celles-ci.
+
+Le chapitre \@ref(nouvelleapproche) présente la nouvelle approche que nous avons mise au point pour inclure une information hiérarchique dans les études d'abondance différentielle. Il se termine par une évaluation de cette nouvelle méthode sur des jeux de données synthétiques et réelles. 
+
+Enfin, le chapitre \@ref(ananum) présente la résolution de trois problèmes d'analyse numériques que nous avons rencontrés au cours de nos recherches.

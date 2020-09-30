@@ -1,0 +1,40 @@
+# Mentions légales {-}
+
+Thèse présentée et soutenue à `r rmarkdown::metadata$lieu`, le `r rmarkdown::metadata$date_jma`, par `r rmarkdown::metadata$prenom` `r rmarkdown::metadata$nom`.
+
+Numéro national de thèse : `r rmarkdown::metadata$nnt`
+
+`r rmarkdown::metadata$ecole_doctotrale`
+
+Spécialité de doctorat : `r rmarkdown::metadata$specialite`
+
+Unité de recherche : `r rmarkdown::metadata$unite`
+
+Référent : `r rmarkdown::metadata$referent`
+
+Au vu des rapports de :
+
+* `r rmarkdown::metadata$rap1_nom`, `r rmarkdown::metadata$rap1_qualite` (`r rmarkdown::metadata$rap1_titre`)
+
+* `r rmarkdown::metadata$rap2_nom`, `r rmarkdown::metadata$rap2_qualite` (`r rmarkdown::metadata$rap2_titre`)
+
+Composition du jury :
+
+* `r rmarkdown::metadata$jur1_nom`, `r rmarkdown::metadata$jur1_qualite` (`r rmarkdown::metadata$jur1_titre`)
+
+* `r rmarkdown::metadata$jur2_nom`, `r rmarkdown::metadata$jur2_qualite` (`r rmarkdown::metadata$jur2_titre`)
+
+* `r rmarkdown::metadata$jur3_nom`, `r rmarkdown::metadata$jur3_qualite` (`r rmarkdown::metadata$jur3_titre`)
+
+* `r rmarkdown::metadata$jur4_nom`, `r rmarkdown::metadata$jur4_qualite` (`r rmarkdown::metadata$jur4_titre`)
+
+* `r rmarkdown::metadata$jur5_nom`, `r rmarkdown::metadata$jur5_qualite` (`r rmarkdown::metadata$jur5_titre`)
+
+* `r rmarkdown::metadata$jur6_nom`, `r rmarkdown::metadata$jur6_qualite` (`r rmarkdown::metadata$jur6_titre`)
+
+* `r rmarkdown::metadata$jur7_nom`, `r rmarkdown::metadata$jur7_qualite` (`r rmarkdown::metadata$jur7_titre`)
+
+* `r rmarkdown::metadata$jur8_nom`, `r rmarkdown::metadata$jur8_qualite` (`r rmarkdown::metadata$jur8_titre`)
+
+* `r rmarkdown::metadata$jur9_nom`, `r rmarkdown::metadata$jur9_qualite` (`r rmarkdown::metadata$jur9_titre`)
+

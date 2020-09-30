@@ -1,0 +1,34 @@
+book_filename: "thesis"
+download: [["thesis.pdf", "PDF"]]
+delete_merged_file: true
+rmd_files:
+- "index.Rmd"
+- "10-metagenomique.Rmd"
+- "20-analysediff.Rmd"
+- "30-arbres.Rmd"
+- "40-zazou.Rmd"
+- "50-ananum.Rmd"
+- "60-conclusion.Rmd"
+- "70-digest.Rmd"
+- "80-appendices.Rmd"
+- "90-references.Rmd"
+language:
+  label:
+    fig: 'Figure '
+    tab: 'Table '
+    eq: 'Équation '
+    thm: 'Théoreme '
+    lem: 'Lemme '
+    cor: 'Corollaire '
+    prp: 'Proposition '
+    cnj: 'Conjecture '
+    def: 'Définition '
+    exm: 'Exemple '
+    exr: 'Exercice '
+    proof: 'Preuve. '
+    remark: 'Remarque. '
+    solution: 'Solution. '
+  ui:
+    edit: Edit
+    chapter_name: 'Chapitre '
+    appendix_name: ''
