@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapitre 5 Problèmes d’analyse numérique | Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles</title>
   <meta name="description" content="Thèse de mathématiques appliquées par Antoine Bichat. Statistique – Apprentissage – Métagénomique – Arbre phylogénétique – Tests multiples – Processus stochastiques" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapitre 5 Problèmes d’analyse numérique | Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles" />
   <meta property="og:type" content="book" />
@@ -213,7 +213,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3" data-path="5-ananum.html"><a href="5-ananum.html#proj"><i class="fa fa-check"></i><b>5.3</b> Projection sur un ensemble de faisabilité</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html"><i class="fa fa-check"></i>Conclusion et perspectives</a><ul>
-<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#détection-versus-prédiction"><i class="fa fa-check"></i>Détection versus prédiction</a></li>
+<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#association-versus-prédiction"><i class="fa fa-check"></i>Association versus prédiction</a></li>
 <li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#autres-procédures-hiérarchiques"><i class="fa fa-check"></i>Autres procédures hiérarchiques</a></li>
 <li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#amélioration-de-zazou"><i class="fa fa-check"></i>Amélioration de zazou</a></li>
 </ul></li>
@@ -306,7 +306,7 @@ MathJax.Hub.Config({
 <p>Ce sont des algorithmes itératifs qui permettent de converger jusqu’à une approximation raisonnable de la solution.</p>
 <div id="shooting" class="section level2">
 <h2><span class="header-section-number">5.1</span> Algorithme du <em>shooting</em></h2>
-<p>L’algorithme du <em>shooting</em> est une méthode de résolution numérique du lasso proposée par <span class="citation">Fu (1998)</span>. Nous allons ici décrire la variante que nous avons développée lorsque l’espace d’existence du paramètre est contraint.</p>
+<p>L’algorithme du <em>shooting</em> est une méthode de résolution numérique du lasso proposée par <span class="citation">Fu (<a href="références.html#ref-fu1998penalized" role="doc-biblioref">1998</a>)</span>. Nous allons ici décrire la variante que nous avons développée lorsque l’espace d’existence du paramètre est contraint.</p>
 <p>Le problème <a href="4-nouvelleapproche.html#eq:lasso">(4.2)</a> peut-être réécrit dans sa forme générale</p>
 <p><span class="math display" id="eq:shooting">\[\begin{equation}
 \tag{5.1}
@@ -396,7 +396,7 @@ P_{\mathcal{I}}(0)                             &amp; \text{si } | (y-z)^Tx | \le
 \right.
 \end{equation}\]</span></p>
 <p>par <span class="math inline">\(x^\star = Ux^\diamond\)</span>, avec <span class="math inline">\(B = UD\)</span>.</p>
-<p>La résolution du problème complémentaire <a href="5-ananum.html#eq:xaxcomp">(5.5)</a> se fait en trouvant d’abord un <span class="math inline">\(x\)</span> dans l’ensemble de faisabilité, par exemple avec la méthode proposée dans la section <a href="5-ananum.html#proj">5.3</a>, puis en mettant à jour coordonnée par coordonné jusqu’à convergence.</p>
+<p>La résolution du problème complémentaire <a href="5-ananum.html#eq:xaxcomp">(5.5)</a> se fait en trouvant d’abord un <span class="math inline">\(x\)</span> dans l’ensemble de faisabilité, par exemple avec la méthode proposée dans la section <a href="5-ananum.html#proj">5.3</a>, puis en mettant à jour coordonnée par coordonnée jusqu’à convergence.</p>
 <p>Pour <span class="math inline">\(j \in [\![1,n]\!]\)</span>, le problème de minimisation de <span class="math inline">\(x^TDx\)</span> en <span class="math inline">\(x_j\)</span> peut s’écrire</p>
 <p><span class="math display">\[\begin{equation*}
 \argmin_{x_j \in \RR} \lambda x_j^2 + \sum_{k\neq j}x_k^2\lambda_k,
@@ -455,15 +455,15 @@ u_k = \left\{
 </div>
 <div id="proj" class="section level2">
 <h2><span class="header-section-number">5.3</span> Projection sur un ensemble de faisabilité</h2>
-<p>Nous appliquons ici le problème de projection sur une intersection d’ensembles convexes au cas rencontré dans le problème <a href="5-ananum.html#eq:xaxcomp">(5.5)</a>, c’est à dire quand l’ensemble est de la forme <span class="math inline">\(\|Mx-e\|_{\infty} &lt; \gamma\)</span>.</p>
+<p>Nous appliquons ici le problème de projection sur une intersection d’ensembles convexes au cas rencontré dans le problème <a href="5-ananum.html#eq:xaxcomp">(5.5)</a>, c’est-à-dire quand l’ensemble est de la forme <span class="math inline">\(\|Mx-e\|_{\infty} &lt; \gamma\)</span>.</p>
 <p>Formellement, si <span class="math inline">\(M \in \RR^{m\times n}\)</span>, <span class="math inline">\(e \in \RR^m\)</span> et <span class="math inline">\(\gamma &gt; 0\)</span>, nous cherchons à obtenir un point dans <span class="math inline">\(\mathcal{C} = \left\{x \in \RR^n, \|Mx-e\|_{\infty} &lt; \gamma \right\}\)</span>, que nous supposons non vide.</p>
 <p>Définissons <span class="math inline">\(f:x\mapsto \max\left(f_1(x), \ldots, f_m(x), -\varepsilon\right)\)</span>, où <span class="math inline">\(f_j: x\mapsto \left|m_j^Tx - e_j\right| - \gamma\)</span> et <span class="math inline">\(\varepsilon &gt; 0\)</span>. Comme <span class="math inline">\(\mathcal{C}\neq\emptyset\)</span>, <span class="math inline">\(\argmin f \subset \mathcal{C}\)</span> et <span class="math inline">\(\min f = -\varepsilon\)</span>.</p>
-<p>Nous utilisons une descente du gradient dont les itérations successives sont donnés par <span class="math inline">\(x^{(0)} \in \RR^n\)</span> et</p>
+<p>Nous utilisons une descente du gradient dont les itérations successives sont données par <span class="math inline">\(x^{(0)} \in \RR^n\)</span> et</p>
 <p><span class="math display">\[\begin{equation*}
 x^{(k+1)} = x^{(k)} - \alpha_kg_k
 \end{equation*}\]</span></p>
 <p>où <span class="math inline">\(\alpha_k\)</span> est le pas et <span class="math inline">\(g_k = \partial f\left(x^{(k)}\right)\)</span>.</p>
-<p>Comme <span class="math inline">\(\min f = -\varepsilon\)</span> est connu, nous pouvons utiliser la longueur de pas de Polyak <span class="citation">(Polyak, 1987)</span></p>
+<p>Comme <span class="math inline">\(\min f = -\varepsilon\)</span> est connu, nous pouvons utiliser la longueur de pas de Polyak <span class="citation">(Polyak, <a href="références.html#ref-polyak1987introduction" role="doc-biblioref">1987</a>)</span></p>
 <p><span class="math display">\[\begin{equation*}
 \alpha_k = \frac{f\left(x^{(k)}\right) + \varepsilon}{\|g_k\|_2^2},
 \end{equation*}\]</span></p>

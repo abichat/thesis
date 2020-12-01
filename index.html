@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles</title>
   <meta name="description" content="Thèse de mathématiques appliquées par Antoine Bichat. Statistique – Apprentissage – Métagénomique – Arbre phylogénétique – Tests multiples – Processus stochastiques" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles" />
   <meta property="og:type" content="book" />
@@ -213,7 +213,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3" data-path="5-ananum.html"><a href="5-ananum.html#proj"><i class="fa fa-check"></i><b>5.3</b> Projection sur un ensemble de faisabilité</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html"><i class="fa fa-check"></i>Conclusion et perspectives</a><ul>
-<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#détection-versus-prédiction"><i class="fa fa-check"></i>Détection versus prédiction</a></li>
+<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#association-versus-prédiction"><i class="fa fa-check"></i>Association versus prédiction</a></li>
 <li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#autres-procédures-hiérarchiques"><i class="fa fa-check"></i>Autres procédures hiérarchiques</a></li>
 <li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#amélioration-de-zazou"><i class="fa fa-check"></i>Amélioration de zazou</a></li>
 </ul></li>
@@ -305,14 +305,14 @@ MathJax.Hub.Config({
 </div>
 <div id="introduction" class="section level1 unnumbered">
 <h1>Introduction</h1>
-<p>En 1982, lorsque J. Robin Warren et Barry J. Marshall mettent en évidence la relation entre ulcère de l’estomac et présence de la bactérie <em>Helicobacter pylori</em>, la communauté scientifique ne les prend pas au sérieux, estimant impossible la survie de micro-organismes dans l’estomac à cause de son acidité. Des études ultérieures leurs donnent cependant raison et Warren et Marshall reçoivent finalement le prix Nobel de physiologie ou médecine en 2005 « pour la découverte de la bactérie <em>Helicobacter pylori</em> et son rôle dans les problèmes gastriques et les ulcères de l’estomac ».</p>
+<p>En 1982, lorsque J. Robin Warren et Barry J. Marshall mettent en évidence la relation entre ulcère de l’estomac et présence de la bactérie <em>Helicobacter pylori</em>, la communauté scientifique ne les prend pas au sérieux, estimant impossible la survie de micro-organismes dans l’estomac à cause de son acidité. Des études ultérieures leur donnent cependant raison et Warren et Marshall reçoivent finalement le prix Nobel de physiologie ou médecine en 2005 « pour la découverte de la bactérie <em>Helicobacter pylori</em> et son rôle dans les problèmes gastriques et les ulcères de l’estomac ».</p>
 <p>Depuis, les connaissances et les données sur ce que l’on appelle désormais le microbiote –et en particulier sur le microbiote intestinal humain– s’accumulent à un rythme effréné. Celles-ci ouvrent la voie à de nouvelles opportunités thérapeutiques, mais soulèvent également de nouvelles questions. Y répondre nécessite des méthodes statistiques adaptées et de plus en plus puissantes.</p>
 <p>Nous nous intéressons ici aux méthodes dites « d’abondance différentielle », dont le but est de détecter les espèces dont la présence ou l’abondance sont liées à un environnement, le statut de l’hôte et plus généralement un facteur d’intérêt. Plus particulièrement, nous considérerons les approches hiérarchiques, où une information de similarité entre espèces, disponible sous la forme d’un arbre, peut être utilisée pour augmenter la puissance statistique du test.</p>
 <p>Ce manuscrit commence par un chapitre de contextualisation biologique. Nous y introduisons les concepts de microbiote et de métagénomique à travers l’exemple du microbiote intestinal et les enjeux qui lui sont associés. Puis nous détaillons les différentes étapes du traitement classique des données métagénomiques –collecte, séquençage, prétraitement. Enfin, ce chapitre se termine en présentant les jeux de données qui seront utilisés dans ce manuscrit.</p>
 <p>Le deuxième chapitre est un chapitre de contextualisation statistique autour des analyses d’abondances différentielles. Nous y rappelons les tests statistiques dédiés à cette question puis introduisons la problématique des tests multiples et les corrections habituelles. Enfin, nous terminons ce chapitre en présentant trois méthodes d’analyse d’abondance différentielle qui utilisent une information hiérarchique pour augmenter leur puissance statistique.</p>
 <p>Après avoir présenté différentes distances entre les arbres, le chapitre <a href="3-arbres.html#arbres">3</a> présente une évaluation de l’efficacité des méthodes d’abondances différentielles hiérarchiques et l’impact du choix de l’arbre sur celles-ci.</p>
 <p>Le chapitre <a href="4-nouvelleapproche.html#nouvelleapproche">4</a> présente la nouvelle approche que nous avons mise au point pour inclure une information hiérarchique dans les études d’abondance différentielle. Il se termine par une évaluation de cette nouvelle méthode sur des jeux de données synthétiques et réelles.</p>
-<p>Enfin, le chapitre <a href="5-ananum.html#ananum">5</a> présente la résolution de trois problèmes d’analyse numériques que nous avons rencontrés au cours de nos recherches.</p>
+<p>Enfin, le chapitre <a href="5-ananum.html#ananum">5</a> présente la résolution de trois problèmes d’analyse numérique que nous avons rencontrés au cours de nos recherches.</p>
 
 </div>
             </section>

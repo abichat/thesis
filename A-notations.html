@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>A Notations | Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles</title>
   <meta name="description" content="Thèse de mathématiques appliquées par Antoine Bichat. Statistique – Apprentissage – Métagénomique – Arbre phylogénétique – Tests multiples – Processus stochastiques" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="A Notations | Prise en compte de l’organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles" />
   <meta property="og:type" content="book" />
@@ -213,7 +213,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3" data-path="5-ananum.html"><a href="5-ananum.html#proj"><i class="fa fa-check"></i><b>5.3</b> Projection sur un ensemble de faisabilité</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html"><i class="fa fa-check"></i>Conclusion et perspectives</a><ul>
-<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#détection-versus-prédiction"><i class="fa fa-check"></i>Détection versus prédiction</a></li>
+<li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#association-versus-prédiction"><i class="fa fa-check"></i>Association versus prédiction</a></li>
 <li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#autres-procédures-hiérarchiques"><i class="fa fa-check"></i>Autres procédures hiérarchiques</a></li>
 <li class="chapter" data-level="" data-path="conclusion-et-perspectives.html"><a href="conclusion-et-perspectives.html#amélioration-de-zazou"><i class="fa fa-check"></i>Amélioration de zazou</a></li>
 </ul></li>
@@ -315,7 +315,7 @@ MathJax.Hub.Config({
 <p><span class="math inline">\(M_{-j}\)</span> : matrice obtenue lorsqu’on retire à <span class="math inline">\(M\)</span> sa <span class="math inline">\(j^{\text{ème}}\)</span> colonne</p>
 <p><span class="math inline">\(\mathbf{I}_n\)</span> : matrice identité de dimension <span class="math inline">\(n\)</span></p>
 <p><span class="math inline">\(\mathbf{1}_{n}\)</span> : matrice colonne de taille <span class="math inline">\(n\)</span> composée uniquement de <span class="math inline">\(1\)</span></p>
-<p><span class="math inline">\(\diag\left(x_1, \ldots x_n, \right)\)</span> : matrice diagonale dont la diagonale est <span class="math inline">\(x_1, \ldots x_n\)</span> définie par <span class="math inline">\(\left(x_i\delta_{i,j}\right)_{i,j \in [\![ 1, n]\!]}\)</span></p>
+<p><span class="math inline">\(\diag\left(x_1, \ldots, x_n \right)\)</span> : matrice diagonale dont la diagonale est <span class="math inline">\(x_1, \ldots, x_n\)</span> définie par <span class="math inline">\(\left(x_i\delta_{i,j}\right)_{i,j \in [\![ 1, n]\!]}\)</span></p>
 <p><span class="math inline">\(\|x\|_q\)</span> : norme <span class="math inline">\(q \in \NN^*\)</span> d’un vecteur définie par <span class="math inline">\(\left(\sum_{i=1}^n = |x_i|^q \right)^{\frac{1}{q}}\)</span></p>
 <p><span class="math inline">\(\|x\|_\infty\)</span> : norme infinie d’un vecteur définie par <span class="math inline">\(\max\{|x_1|, \ldots, |x_n|\}\)</span></p>
 <p><span class="math inline">\(\langle x, y \rangle\)</span> : produit scalaire entre <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span></p>
@@ -324,7 +324,7 @@ MathJax.Hub.Config({
 <p><span class="math inline">\(\nabla^2 f\)</span> : hessienne de <span class="math inline">\(f\)</span> définie par <span class="math inline">\(\nabla^2 f:x\mapsto \left(\partial_i\partial_jf(x)\right)_{i,j} \in \RR^{n\times n}\)</span></p>
 <p><span class="math inline">\(\binom{n}{k}\)</span> : coefficient binomial défini par <span class="math inline">\(\frac{n!}{k!(n-k!)}\)</span></p>
 <p><span class="math inline">\(\EE{X}\)</span> : espérance de <span class="math inline">\(X\)</span></p>
-<p><span class="math inline">\(\VV{X}\)</span> : espérance de <span class="math inline">\(X\)</span></p>
+<p><span class="math inline">\(\VV{X}\)</span> : variance de <span class="math inline">\(X\)</span></p>
 <p><span class="math inline">\(\CC{X,Y}\)</span> : covariance entre <span class="math inline">\(X\)</span> et <span class="math inline">\(Y\)</span></p>
 <p><span class="math inline">\(\unif{E}\)</span> : loi uniforme sur <span class="math inline">\(E\)</span></p>
 <p><span class="math inline">\(\normal{\mu}{\sigma^2}\)</span> : loi normale de moyenne <span class="math inline">\(\mu\)</span> et de variance <span class="math inline">\(\sigma^2\)</span></p>
