@@ -2,11 +2,13 @@
 
 ## Processus d'Ornstein-Uhlenbeck {#ou}
 
-Un processus d'Ornstein-Uhlenbeck (OU) de force de rappel $\ou{\alpha}$, de valeur optimale $\ou{\optim}$, et d'écart-type $\ou{\sigma}$ est un processus gaussien qui satisfait l'équation différentielle stochastique suivante : 
+Un processus d'Ornstein-Uhlenbeck (OU) de force de rappel $\ou{\alpha}$, de valeur optimale $\ou{\optim}$, et d'écart-type $\ou{\sigma} > 0$ est un processus gaussien qui satisfait l'équation différentielle stochastique suivante : 
 
 \begin{equation*}
-\dx{W_t} = - \ou{\alpha} (W_t - \ou{\optim}) \dx{t} + \ou{\sigma}\dx{B_t}.
+\dx{W_t} = - \ou{\alpha} (W_t - \ou{\optim}) \dx{t} + \ou{\sigma}\dx{B_t},
 \end{equation*}
+
+avec $B$ le mouvement brownien unidimensionnel standard.
 
 Si $W_0$ est connu et fixé, l'espérance du processus vaut $\EE{W_t} = W_0 e^{-\ou{\alpha} t} + \ou{\optim}\left(1 - e^{-\ou{\alpha} t}\right)$ et la covariance du processus est donnée par
 
@@ -109,16 +111,18 @@ La première hypothèse nous permet de définir la distribution jointe des $z$-s
 
 où $\mu$ dépend de $\shifts$, le vecteur des sauts du processus, via la relation $\mu = T\delta$ et $\Sigma$ dépend de $\ou{\alpha}$ et $\ou{\sigma}$ via l'équation \@ref(eq:covariance).
 
-La seconde hypothèse est classique lorsqu'on travaille sur les $z$-scores [@mclachlan2004finite] et suppose l'équivalence entre trouver les hypothèses alternatives et déterminer les composantes non-nulles du vecteur $\mu$. Sous $\mathcal{H}_0$ et $\mathcal{H}_1$, la variance aux feuilles doit valoir $1$, ce qui impose
+La seconde hypothèse est classique lorsqu'on travaille sur les $z$-scores [@mclachlan2004finite] et est justifiée par le décalage à gauche des $p$-valeurs sous $\mathcal{H}_1$ : $\pv_i \preccurlyeq \unif{\mathopen[0, 1\mathclose]}$. Cette hypothèse implique alors l'équivalence entre trouver les hypothèses alternatives et déterminer les composantes non-nulles du vecteur $\mu$. Sous $\mathcal{H}_0$ et $\mathcal{H}_1$, la variance aux feuilles doit valoir $1$, ce qui impose
 \begin{equation*}
-\ou{\hat{\sigma}}=\frac{2\ou{\hat{\alpha}}}{1 - e^{-2\ou{\hat{\alpha}}h}},
+\ou{\sigma}=\frac{2\ou{\alpha}}{1 - e^{-2\ou{\alpha}h}},
 \end{equation*}
 
-de sorte que $\widehat{\Sigma}$ dépend uniquement de $\ou{\hat{\alpha}}$.
+de sorte que $\Sigma$ dépend uniquement de $\ou{\alpha}$.
+
+À ce stade, nous n'avons accès qu'au vecteur $\zs$.
 
 ### Estimation ponctuelle
 
-En supposant $\ou{\hat{\alpha}}$ (et donc $\widehat{\Sigma}$) connue, une application naïve du maximum de vraisemblance donnerait 
+En supposant $\ou{\alpha}$ (et donc $\Sigma$) connue, une application naïve du maximum de vraisemblance donnerait 
 
 \begin{equation*}
 \hat{\mu} = \argmin_{\mu\in\mathbb{R}_-^m} \|\zs - \mu\|_{\Sigma^{-1}, 2}^2
@@ -130,7 +134,7 @@ comme estimateur de $\mu$. En réalité, c'est la position des sauts qui nous in
 \hat{\delta} = \argmin_{\shifts \in \shiftset} \left\|\zs - T\shifts\right\|_{\Sigma^{-1},2}^2,
 \end{equation*}
 
-où $\shiftset = \left\{\shifts\in \mathbb{R}^{n} / T\shifts \in\mathbb{R}_-^m\right\}$ est l'ensemble de faisabilité pour les sauts qui induisent des composantes négatives aux feuilles. Bien que le problème soit convexe (la fonction objective est convexe, tout comme l'ensemble de faisabilité), la matrice $T$ n'est pas plein rang et l'estimateur $\hat{\mu}$ n'est donc pas unique.
+où $\shiftset = \left\{\shifts\in \mathbb{R}^{n} / T\shifts \in\mathbb{R}_-^m\right\}$ est l'ensemble de faisabilité pour les sauts qui induisent des composantes négatives aux feuilles. Bien que le problème soit convexe (la fonction objective est convexe, tout comme l'ensemble de faisabilité), la matrice $T$ n'est pas de plein rang et l'estimateur $\hat{\mu}$ n'est donc pas unique.
 
 Nous lui préférons donc un estimateur parcimonieux, obtenu en rajoutant une contrainte $\ell_1$ [@tibshirani1996regression] à la fonction objectif :
 
@@ -151,7 +155,7 @@ où $y = R\zs \in \RR^m$ et $X = RT \in \RR^{m \times n}$.
 Le problème \@ref(eq:lasso) est convexe en $\shifts$ et sa résolution est possible avec l'algorithme détaillé dans la section \@ref(shooting), qui est une modification de l'algorithme du _shooting_ [@fu1998penalized].
 
 
-Il reste maintenant à déterminer $\alpha$ et $\lambda$. Ceux-ci ne pouvant être obtenus directement à partir des données, nous allons sélectionner le couple qui minimise le critère BIC suivant :
+Il reste maintenant à déterminer $\ou{\alpha}$ et $\lambda$. Ceux-ci ne pouvant être obtenus directement à partir des données, nous allons sélectionner le couple qui minimise le critère BIC suivant :
 
 \begin{equation*}
 \left(\ou{\hat{\alpha}}, \hat{\lambda}\right) = \argmin_{\alpha > 0, \lambda \geq 0} \left\|\zs - T\shifts_{\alpha, \lambda}\right\|_{\Sigma(\alpha)^{-1},2}^2 + \log|\Sigma(\alpha)| + \|\shifts_{\alpha, \lambda}\|_0 \log{m},
@@ -234,10 +238,10 @@ Définissons $t_{\text{max}} = \sqrt{2 \log m - 2 \log \log m}$ puis
 
 \begin{equation}
 (\#eq:tstar)
-t^{\star} = \inf \left\{ 0 \leq t \leq t_{\max} : \frac{2m(1 - \Phi(t))}{R(t) \vee 1} \leq \alpha \right\},
+t^{\star} = \inf \bigg\{ 0 \leq t \leq t_{\max} : \underbrace{\frac{m(1 - \Phi(t))}{R(t) \vee 1}}_{\widehat{\text{FDR}}(t)} \leq \alpha \bigg\},
 \end{equation}
 
-où $R(t)= \sum_{i = 1}^m \indic_{\{\ts_i \leq -t\}}$ est le nombre d'hypothèses nulles rejetées au niveau $t$. Si l'infimum en \@ref(eq:tstar) est $+\infty$, on pose $t^{\star} = \sqrt{2 \log m}$.
+où $R(t)= \sum_{i = 1}^m \indic_{\{\ts_i \leq -t\}}$ est le nombre d'hypothèses nulles rejetées au niveau $t$. Le numérateur du quotient peut s'interpréter comme le nombre attendu de rejets sous l'hypothèse nulle, et celui-ci est donc une estimation du $\text{FDR}$ au niveau $t$, que l'on cherche à garder sous le seuil $\alpha$. Si l'infimum en \@ref(eq:tstar) est $+\infty$, on pose $t^{\star} = \sqrt{2 \log m}$.
 
 On rejette $\mathcal{H}_0$ si $\ts_i \leq -t^{\star}$ ce qui amène à définir les $q$-valeurs hiérarchiques 
 \begin{equation*}
@@ -257,9 +261,9 @@ Afin d'évaluer la qualité de notre procédure, nous avons simulé des données
 
 Trois déclinaisons de simulations ont été adoptées. Dans la première, dite positive, les taxons sont sélectionnés pour former des groupes dans la phylogénie et un _fold-change_ de $3$, $5$ ou $10$ est ensuite appliqué. Ceci permet de créer des simulations pour lesquelles l'arbre est réellement informatif. Plus précisément, pour sélectionner les taxons différentiellement abondants, on applique un algorithme des $k$-médoïdes [@reynolds2006clustering] à la matrice des distances patristiques [@sneath1973numerical], ce qui donne des groupes de taxons à faible distance patristique les uns des autres, qui correspondent généralement à un sous-arbre de la phylogénie. Un ou plusieurs groupes sont alors sélectionnés aléatoirement et leurs taxons sont déclarés différentiellement abondants.
 
-Les deux autres déclinaisons de la procédure de simulation de jeux de données sont dites négatives. Pour l'une, les taxons sont sélectionnées uniformément dans l'arbre puis un _fold-change_ de $5$ est appliqué, pour créer des simulations dans lesquelles le modèle est mal spécifié. Pour l'autre le _fold-change_ appliqué vaut $1$, ce qui permet de voir comment réagit l'algorithme lorsqu'aucun taxon n'est différentiellement abondant.
+Les deux autres déclinaisons de la procédure de simulation de jeux de données sont dites négatives. Pour l'une, les taxons sont sélectionnés uniformément dans l'arbre puis un _fold-change_ de $5$ est appliqué, pour créer des simulations dans lesquelles le modèle est mal spécifié. Pour l'autre le _fold-change_ appliqué vaut $1$, ce qui permet de voir comment réagit l'algorithme lorsqu'aucun taxon n'est différentiellement abondant.
 
-La figure \@ref(fig:tprfdrzazou) présente les résultats dans le cas des simulations positives. Si les procédures de corrections classiques (BH et BY) contrôlent bien le FDR à $5~\%$, ce n'est pas le cas pour les procédures hiérarchiques. Dans la majorité des cas, le FDR des procédures hiérarchiques reste en dessous de $6~\%$ mais pour la procédure à système de score (ss) avec un fold-change de $5$ et pour celle avec l'inverse généralisé par colonne (ci) avec in fold-change de $3$, il passe à $8$ et $9~\%$ respectivement. Dans toutes les configurations, BY a le TPR le plus faible, BH et _TreeFDR_ (tf) se comportent de manière semblable, conformément aux résultats présentés dans @bichat2020incorporating, et les deux variantes de _zazou_ obtiennent le meilleur TPR. 
+La figure \@ref(fig:tprfdrzazou) présente les résultats dans le cas des simulations positives. Si les procédures de corrections classiques (BH et BY) contrôlent bien le FDR à $5~\%$, ce n'est pas le cas pour les procédures hiérarchiques. Dans la majorité des cas, le FDR des procédures hiérarchiques reste en dessous de $6~\%$ mais pour la procédure à système de score (ss) avec un _fold-change_ de $5$ et pour celle avec l'inverse généralisé par colonne (ci) avec un _fold-change_ de $3$, il passe à $8$ et $9~\%$ respectivement. Dans toutes les configurations, BY a le TPR le plus faible, BH et _TreeFDR_ (tf) se comportent de manière semblable, conformément aux résultats présentés dans @bichat2020incorporating, et les deux variantes de _zazou_ obtiennent le meilleur TPR. 
 
 (ref:txttprfdrzazou) TPR (haut) et FDR (bas) pour les différentes procédures et différents _fold-changes_ (en colonnes) dans le cadre des simulations positives.
 
@@ -267,7 +271,7 @@ La figure \@ref(fig:tprfdrzazou) présente les résultats dans le cas des simula
 include_graphics(path = "img/tprfdr_zazou.png")
 ```
 
-Le taux de faux positif plus élevé qu'attendu pour les résultats de _zazou_ suggère que le choix du seuil de détection proposé dans @javanmard2019false n'est pas complètement adapté. Nous comparons donc les performances des différentes méthodes à l'aide de l'AUC, qui est une mesure indépendante du seuil. La figure \@ref(fig:aucroczazou) met en évidence les meilleures performances de _zazou_, dans ses deux variantes. En regardant la partie gauche des courbes ROC, on s'aperçoit que _zazou_ est plus performant dès les premières découvertes et que cela n'est pas un effet compensatoire des seuils plus élevés. Comme mentionné précédemment, BH et _TreeFDR_ obtiennent des performances similaires et moins bonnes que celles de _zazou_. BY est la méthode la moins satisfaisante.
+Le taux de faux positif plus élevé qu'attendu pour les résultats de _zazou_ suggère que le choix du seuil de détection proposé dans @javanmard2019false n'est pas complètement adapté. Nous comparons donc les performances des différentes méthodes à l'aide de l'AUC, qui est une mesure indépendante du seuil. La figure \@ref(fig:aucroczazou) met en évidence les meilleures performances de _zazou_, dans ses deux variantes. En regardant la partie gauche des courbes ROC, on s'aperçoit que _zazou_ est plus performant dès les premières découvertes et que cela n'est pas un effet compensatoire des seuils plus élevés. Comme mentionné précédemment, BH et _TreeFDR_ obtiennent des performances similaires et moins bonnes que celles de _zazou_. BY est la méthode la moins satisfaisante (du fait du grand nombre de $p$-valeurs ajustées à $1$).
 
 (ref:txtaucroczazou) Distribution des AUC (haut) et courbes ROC (bas) pour les différentes procédures et _fold-changes_ (en colonnes) dans le cadre des simulations positives.
 

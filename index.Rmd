@@ -11,6 +11,7 @@ output:
       in_header: ga.html
       before_body: macros.html
     css: style.css
+    anchor_sections: false
     config: 
       fontsettings:
         theme: night
@@ -39,22 +40,13 @@ date_jma: "9 décembre 2020"
 title: "Prise en compte de l'organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles"
 titre_francais: "Prise en compte de l'organisation hiérarchique des espèces pour la découverte de signatures métagénomiques multi-échelles"
 titre_anglais: "Discovering multi-scale metagenomic signatures through hierarchical organization of species"
-nnt: "2020SACLY000"
+nnt: "2020UPASM016"
 #### Affiliations ####
 ecole_doctotrale: "École Doctorale de Mathématique Hadamard (EDMH) n°574"
 logo_ecole_doctotrale: "logos/edmh.jpg"
 specialite: "Mathématiques appliquées"
-unite: "Laboratoire de mathématiques et modélisation d'Évry (UEVE), UMR 8071 CNRS-INRA"
+unite: "Université Paris-Saclay, CNRS, Univ Évry, Laboratoire de Mathématiques et Modélisation d'Évry, 91037, Évry-Courcouronnes, France"
 referent: "Université d'Évry"
-#####################
-#### Rapporteurs ####
-#####################
-rap1_nom: "Étienne Roquain"
-rap1_qualite: "Rapporteur"
-rap1_titre: "Maître de conférences, HdR – Sorbonne Université"
-rap2_nom: "Joseph Salmon"
-rap2_qualite: "Rapporteur"
-rap2_titre: "Professeur des universités – Université de Montpellier"
 ##############
 #### Jury ####
 ##############
@@ -65,33 +57,36 @@ rap2_titre: "Professeur des universités – Université de Montpellier"
 ## members, indicate the president only after the defense for the
 ## second legal deposit.
 ## À adapter dans le fichier template.tex en fonction du nombre
-jur1_nom: "Christophe Ambroise"
-jur1_qualite: "Directeur"
-jur1_titre: "Professeur des universités – Université d'Évry"
-jur2_nom: "Julie Aubert"
-jur2_qualite: "Examinatrice"
-jur2_titre: "Ingénieure de recherche – INRAE Paris"
-jur3_nom: "Agathe Guilloux"
+jur1_nom: "Étienne ROQUAIN"
+jur1_qualite: "Rapporteur et examinateur"
+jur1_titre: "Maître de conférences, HdR – Sorbonne Université"
+jur2_nom: "Joseph SALMON"
+jur2_qualite: "Rapporteur et examinateur"
+jur2_titre: "Professeur des universités – Université de Montpellier"
+jur3_nom: "Julie AUBERT"
 jur3_qualite: "Examinatrice"
-jur3_titre: "Professeure des universités – Université d'Évry"
-jur4_nom: "Mahendra Mariadassou"
-jur4_qualite: "Co–encadrant"
-jur4_titre: "Chargé de recherche – INRAE Jouy-en-Josas"
-jur5_nom: "Matthieu Pichaud"
+jur3_titre: "Ingénieure de recherche – INRAE Paris"
+jur4_nom: "Agathe GUILLOUX"
+jur4_qualite: "Examinatrice"
+jur4_titre: "Professeure des universités – Université d'Évry"
+jur5_nom: "Matthieu PICHAUD"
 jur5_qualite: "Examinateur"
 jur5_titre: "Danone"
-jur6_nom: "Jonathan Plassais"
-jur6_qualite: "Invité"
-jur6_titre: "Stat-Alliance"
-jur7_nom: "Étienne Roquain"
-jur7_qualite: "Rapporteur"
-jur7_titre: "Maître de conférences, HdR – Sorbonne Université"
-jur8_nom: "Joseph Salmon"
-jur8_qualite: "Rapporteur"
-jur8_titre: "Professeur des universités – Université de Montpellier"
-jur9_nom: "Nathalie Vialaneix"
-jur9_qualite: "Examinatrice"
-jur9_titre: "Directrice de recherche – INRAE Toulouse"
+jur6_nom: "Nathalie VIALANEIX"
+jur6_qualite: "Examinatrice"
+jur6_titre: "Directrice de recherche – INRAE Toulouse"
+jur7_qualite: "Directeur"
+jur7_nom: "Christophe AMBROISE"
+jur7_titre: "Professeur des universités – Université d'Évry"
+jur8_nom: "Mahendra MARIADASSOU"
+jur8_qualite: "Co-encadrant"
+jur8_titre: "Chargé de recherche – INRAE Jouy-en-Josas"
+jur9_nom: "Jonathan PLASSAIS"
+jur9_qualite: "Invité"
+jur9_titre: "Stat-Alliance"
+#### Remerciements ####
+acknowledgements: |
+ `r if(knitr:::is_latex_output()) paste(readLines("00-remerciements.Rmd"), collapse = '\n  ')`
 #### Quatrième de couverture ####
 mots_clefs_francais: "Statistique – Apprentissage – Métagénomique – Arbre phylogénétique – Tests multiples – Processus stochastiques"
 mots_clefs_anglais: "Statistics – Machine learning – Metagenomics – Phylogenetic tree – Multiple testing – Stochastic processes"
@@ -134,6 +129,7 @@ bibliography:
   - biblios/stats.bib
 # Download your specific csl file and refer to it in the line below.
 csl: csl/apa.csl
+link-citations: yes
 lot: true
 lof: true
 ---
@@ -160,7 +156,7 @@ carriage_return <- function() {
 
 # Introduction {.unnumbered}
 
-En 1982, lorsque J. Robin Warren et Barry J. Marshall mettent en évidence la relation entre ulcère de l'estomac et présence de la bactérie _Helicobacter pylori_, la communauté scientifique ne les prend pas au sérieux, estimant impossible la survie de micro-organismes dans l'estomac à cause de son acidité. Des études ultérieures leurs donnent cependant raison et Warren et Marshall reçoivent finalement le prix Nobel de physiologie ou médecine en 2005 « pour la découverte de la bactérie _Helicobacter pylori_ et son rôle dans les problèmes gastriques et les ulcères de l'estomac ». 
+En 1982, lorsque J. Robin Warren et Barry J. Marshall mettent en évidence la relation entre ulcère de l'estomac et présence de la bactérie _Helicobacter pylori_, la communauté scientifique ne les prend pas au sérieux, estimant impossible la survie de micro-organismes dans l'estomac à cause de son acidité. Des études ultérieures leur donnent cependant raison et Warren et Marshall reçoivent finalement le prix Nobel de physiologie ou médecine en 2005 « pour la découverte de la bactérie _Helicobacter pylori_ et son rôle dans les problèmes gastriques et les ulcères de l'estomac ». 
 
 Depuis, les connaissances et les données sur ce que l'on appelle désormais le microbiote –et en particulier sur le microbiote intestinal humain– s'accumulent à un rythme effréné. Celles-ci ouvrent la voie à de nouvelles opportunités thérapeutiques, mais soulèvent également de nouvelles questions. Y répondre nécessite des méthodes statistiques adaptées et de plus en plus puissantes.
 
@@ -174,4 +170,4 @@ Après avoir présenté différentes distances entre les arbres, le chapitre \@r
 
 Le chapitre \@ref(nouvelleapproche) présente la nouvelle approche que nous avons mise au point pour inclure une information hiérarchique dans les études d'abondance différentielle. Il se termine par une évaluation de cette nouvelle méthode sur des jeux de données synthétiques et réelles. 
 
-Enfin, le chapitre \@ref(ananum) présente la résolution de trois problèmes d'analyse numériques que nous avons rencontrés au cours de nos recherches.
+Enfin, le chapitre \@ref(ananum) présente la résolution de trois problèmes d'analyse numérique que nous avons rencontrés au cours de nos recherches.

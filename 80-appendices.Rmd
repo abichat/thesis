@@ -30,7 +30,7 @@ $\mathbf{I}_n$ : matrice identité de dimension $n$
 
 $\mathbf{1}_{n}$ : matrice colonne de taille $n$ composée uniquement de $1$
 
-$\diag\left(x_1, \ldots x_n, \right)$ : matrice diagonale dont la diagonale est $x_1, \ldots x_n$ définie par $\left(x_i\delta_{i,j}\right)_{i,j \in [\![ 1, n]\!]}$
+$\diag\left(x_1, \ldots, x_n \right)$ : matrice diagonale dont la diagonale est $x_1, \ldots, x_n$ définie par $\left(x_i\delta_{i,j}\right)_{i,j \in [\![ 1, n]\!]}$
 
 $\|x\|_q$ : norme $q \in \NN^*$ d'un vecteur définie par $\left(\sum_{i=1}^n = |x_i|^q \right)^{\frac{1}{q}}$
  
@@ -48,7 +48,7 @@ $\binom{n}{k}$ : coefficient binomial défini par $\frac{n!}{k!(n-k!)}$
 
 $\EE{X}$ : espérance de $X$
 
-$\VV{X}$ : espérance de $X$
+$\VV{X}$ : variance de $X$
 
 $\CC{X,Y}$ : covariance entre $X$ et $Y$
 
@@ -118,7 +118,7 @@ La création de l'arbre des corrélations proposée dans la section \@ref(cortre
 
 ### zazou {-}
 
-L'algorithme _zazou_, décrite dans la section \@ref(zazousection), est implémenté dans le _package_ éponyme. Il bénéficie du package `{ggtree}` [@yu2017ggtree] pour mettre en regard l'arbre et différentes variables associées aux feuilles. Un exemple d'utilisation est donnée dans l'annexe \@ref(vignette).
+L'algorithme _zazou_, décrit dans la section \@ref(zazousection), est implémenté dans le _package_ éponyme. Il bénéficie du package `{ggtree}` [@yu2017ggtree] pour mettre en regard l'arbre et différentes variables associées aux feuilles. Un exemple d'utilisation est donné dans l'annexe \@ref(vignette).
 
 
 # Vignette de zazou {#vignette}
@@ -149,6 +149,10 @@ tree <- ape::drop.tip(tree, setdiff(tree$tip.label, rownames(abund)))
 ```
 
 Il en reste alors `r nrow(abund)`.
+
+```{r setup2, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE)
+```
 
 Nous assignons ensuite chaque échantillon aléatoirement à un groupe $A$ ou $B$. 
 
@@ -194,7 +198,7 @@ plot_shifts(tree, NA, obs_scores = zscores,
               ))
 ```
 
-Nous donnons ensuite nos $z$-scores à la fonction `estimate_shifts` pour déterminer la position idéale des sauts avec une régression lasso. La grille des $\ou{\alpha}$ est également spécifiée mais celles des $\lambda$ est déterminée automatiquement. 
+Nous donnons ensuite nos $z$-scores à la fonction `estimate_shifts` pour déterminer la position idéale des sauts avec une régression lasso. La grille des $\ou{\alpha}$ est également spécifiée mais celle des $\lambda$ est déterminée automatiquement. 
 
 ```{r}
 estimation_lasso <- estimate_shifts(zscores = zscores, tree = tree, 
@@ -204,7 +208,7 @@ estimation_lasso
 plot(estimation_lasso)
 ```
 
-Trois sauts sur l'arbre ont été détectées, sur des branches ayant beaucoup de descendants. 
+Trois sauts sur l'arbre ont été détectés, sur des branches ayant beaucoup de descendants. 
 
 Si nous voulons avoir des $p$-valeurs et des intervalles de confiance, il faut utiliser une régression _scaled lasso_ avant d'appliquer la fonction `estimate_confint`.
 
@@ -223,7 +227,7 @@ pvalues_smoothed <- pull_pvalues(estimation_scoresystem)
 
 Après le débiaisage, les sauts dans les branches ne sont plus parcimonieux.
 
-Nous allons regarder les performances de notre prédicteurs via une courbe ROC.
+Nous allons regarder les performances de notre prédicteur via une courbe ROC.
 
 ```{r}
 df_measures_zazou <- 
@@ -240,7 +244,7 @@ bind_rows(mutate(df_measures_zazou, type = "zazou"),
   theme_bw()
 ```
 
-La courbe ROC de _zazou_ est au dessus de celle de la méthode standard. Et ceci se traduit dans en terme d'AUC :
+La courbe ROC de _zazou_ est au dessus de celle de la méthode standard. Et ceci se traduit en terme d'AUC :
 
 ```{r}
 ebc_AUC_from_measures(df_measures_zazou)

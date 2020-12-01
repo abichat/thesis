@@ -126,7 +126,7 @@ La solution $x^{\star}$ du problème initial \@ref(eq:xax) est liée à la solut
 par $x^\star = Ux^\diamond$, avec $B = UD$.
 
 
-La résolution du problème complémentaire \@ref(eq:xaxcomp) se fait en trouvant d'abord un $x$ dans l'ensemble de faisabilité, par exemple avec la méthode proposée dans la section \@ref(proj), puis en mettant à jour coordonnée par coordonné jusqu'à convergence.
+La résolution du problème complémentaire \@ref(eq:xaxcomp) se fait en trouvant d'abord un $x$ dans l'ensemble de faisabilité, par exemple avec la méthode proposée dans la section \@ref(proj), puis en mettant à jour coordonnée par coordonnée jusqu'à convergence.
 
 Pour $j \in [\![1,n]\!]$, le problème de minimisation de $x^TDx$ en $x_j$ peut s'écrire
 
@@ -200,14 +200,14 @@ L'algorithme de résolution avance en mettant à jour la $j^{\text{ème}}$ coord
 
 ## Projection sur un ensemble de faisabilité {#proj}
 
-Nous appliquons ici le problème de projection sur une intersection d'ensembles convexes au cas rencontré dans le problème \@ref(eq:xaxcomp), c'est à dire quand l'ensemble est de la forme $\|Mx-e\|_{\infty} < \gamma$.
+Nous appliquons ici le problème de projection sur une intersection d'ensembles convexes au cas rencontré dans le problème \@ref(eq:xaxcomp), c'est-à-dire quand l'ensemble est de la forme $\|Mx-e\|_{\infty} < \gamma$.
 
 Formellement, si $M \in \RR^{m\times n}$, $e \in \RR^m$ et $\gamma > 0$, nous cherchons à obtenir un point dans $\mathcal{C} = \left\{x \in \RR^n, \|Mx-e\|_{\infty} < \gamma \right\}$, que nous supposons non vide.
 
 Définissons $f:x\mapsto \max\left(f_1(x), \ldots, f_m(x), -\varepsilon\right)$, où $f_j: x\mapsto \left|m_j^Tx - e_j\right| - \gamma$ et $\varepsilon > 0$. Comme $\mathcal{C}\neq\emptyset$, $\argmin f \subset \mathcal{C}$ et $\min f = -\varepsilon$.
 
 
-Nous utilisons une descente du gradient dont les itérations successives sont donnés par $x^{(0)} \in \RR^n$ et 
+Nous utilisons une descente du gradient dont les itérations successives sont données par $x^{(0)} \in \RR^n$ et 
 
 \begin{equation*}
 x^{(k+1)} = x^{(k)} - \alpha_kg_k

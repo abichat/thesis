@@ -25,7 +25,7 @@ $F$ correspond au ratio entre la variance des moyennes de chaque groupe et la va
 
 ### Test de Wilcoxon
 
-Le test de Wilcoxon-Mann-Whitney [@mann1947test; @wilcoxon1992individual] permet de tester si, pour deux échantillons, la probabilité qu'une valeur tirée au hasard dans un échantillon soit plus petite qu'une valeur tiré au hasard dans le second est égale à la probabilité qu'elle soit plus grande. 
+Le test de Wilcoxon-Mann-Whitney [@mann1947test; @wilcoxon1992individual] permet de tester si, pour deux échantillons, la probabilité qu'une valeur tirée au hasard dans un échantillon soit plus petite qu'une valeur tirée au hasard dans le second est égale à la probabilité qu'elle soit plus grande. 
 L'hypothèse nulle est alors $\mathcal{H}_0 = \left\{\PP{X < Y} = \PP {Y < X} \right\}$ pour $X$ et $Y$ tirés dans chacune des populations. 
 En pratique, on utilise ce test non-paramétrique pour vérifier si les deux populations suivent la même distribution ou non.
 
@@ -72,7 +72,7 @@ On rejette l'hypothèse nulle sur l'égalité des rangs moyens $\mathcal{H}_0 = 
 
 Les données métagénomiques ayant les spécificités précédemment présentées dans la section \@ref(donneesmetagenomiques) (non-normalité, surabondance de zéros, somme contrainte...), des méthodes spécifiques ont été développées pour les appréhender. Nous pouvons par exemple citer _edgeR_ [@robinson2010edger], _DESeq2_ [@love2014moderated], _metagenomeSeq_ [@paulson2013differential] ou _mbzinb_ [@chen2018omnibus]. Celles-ci peuvent utiliser des modèles linéaires généralisés ou des modèles avec excès de zéros pour essayer d'appréhender au mieux les données.
 
-Nous n'avons pas testé ces méthodes dans nos analyses. Nous nous intéressons à l'apport de l'information hiérarchique et avons préféré utiliser le même test classique (Wilcoxon ou Kruskall-Wallis) dans toutes nos comparaison. La nouvelle procédure que nous proposons dans le chapitre \@ref(nouvelleapproche) peut cependant être appliquée sur les sorties de méthodes quelconques, pourvu qu'elles fournissent un vecteur de $p$-valeurs.
+Nous n'avons pas testé ces méthodes dans nos analyses. Nous nous intéressons à l'apport de l'information hiérarchique et avons préféré utiliser le même test classique (Wilcoxon ou Kruskall-Wallis) dans toutes nos comparaisons. La nouvelle procédure que nous proposons dans le chapitre \@ref(nouvelleapproche) peut cependant être appliquée sur les sorties de méthodes quelconques, pourvu qu'elles fournissent un vecteur de $p$-valeurs.
 
 #### _edgeR_ et _DESeq2_ {-}
 
@@ -155,7 +155,7 @@ Ces deux quantités sont à valeurs dans $\mathopen[0,1\mathclose]$ et plus elle
 
 Les mesures présentées auparavant sont valables quelque soit le seuil à partir duquel on rejette l'hypothèse nulle, couramment égal à $0.05$. Il peut alors être intéressant de regarder ces quantités comme une fonction du seuil de rejet $t$ : $\text{TPR}(t)$, $\text{FDP}(t)$, $\text{ACC}(t)$...
 
-On défini alors la courbe ROC (_receiver operating characteristic_) comme étant la sensibilité en fonction de la spécificité pour les différents seuil, soit l'ensemble des points $\left(\text{FDP}(t), \text{TPR}(t)\right)_{t\in\mathopen[0,1\mathclose]}$. 
+On définit alors la courbe ROC (_receiver operating characteristic_) comme étant la sensibilité en fonction de la spécificité pour les différents seuils, soit l'ensemble des points $\left(\text{FDP}(t), \text{TPR}(t)\right)_{t\in\mathopen[0,1\mathclose]}$. 
 
 Lorsque $t=0$, on ne rejette jamais, il n'y a ni faux positif ni vrai positif et on est en $(0,0)$. Lorsque $t=1$, on rejette tout le temps, $\text{FN} = \text{TN} = 0$ et on est en $(1,1)$. $\text{FDP}$ et $\text{TPR}$ sont des fonctions croissantes en $t$. En $(0,1)$, il n'y a ni faux négatif ni faux positif et le test est toujours correct. La courbe ROC relie donc $(0,0)$ à $(1,1)$ et plus elle s'approche de $(0,1)$, mieux c'est. L'aire sous la courbe ROC, dite AUC pour _area under the curve_, permet de quantifier la qualité d'un classificateur indépendamment du seuil choisi. Plus l'AUC est proche de $1$, plus le classificateur est performant.
 
@@ -171,7 +171,7 @@ La correction de Bonferroni a pour objectif de contrôler le _family-wise error 
 & \leq \alpha.
 \end{align*}
 
-Pour plus de praticité, on travaille avec les $q$-valeurs associées à la correction de Bonferroni définies par 
+Pour plus de praticité, on travaille avec les $q$-valeurs –ou $p$-valeurs ajustées– associées à la correction de Bonferroni définies par 
 
 \begin{equation*}
 \qv^{\text{bonf}} = m * \pv,
@@ -200,7 +200,7 @@ $\text{FDP} = \frac{\text{FP}}{\text{R} \vee 1} = \sum_{i\in \mathbb{H}_0} \frac
 
 Fixons $i\in \mathbb{H}_0 \neq \emptyset$. S'il y a $k$ hypothèses rejetées, alors $H_i$ est rejetée si et seulement si $\pv_i \leq \frac{\alpha k}{m}$ et alors $V_i = \indic_{\left\{\pv_i \leq \frac{\alpha k}{m}\right\}}$. Définissons $\text{R}(\pv_i \rightarrow 0)$ le nombre d'hypothèses rejetées lorsqu'on fixe $\pv_i$ à $0$. S'il y a $k$ hypothèses rejetées et que $\pv_i \leq \frac{\alpha k}{m}$, $H_i$ est rejetée et fixer $\pv_i$ à $0$ ne change pas le nombre d'hypothèses rejetées : $\text{R} = \text{R}(\pv_i \rightarrow 0)$. À l'inverse, si $\pv_i > \frac{\alpha k}{m}$, $H_i$ n'est pas rejetée et $V_i = 0$. La concaténation des deux résultats précédents donne $V_i\indic_{\left\{\text{R}=k\right\}} = V_i\indic_{\left\{\text{R}(\pv_i \rightarrow 0) = k\right\}}$.
 
-En notant $\mathcal{F}_i = \left\{\pv_1, \ldots, \pv_{i-1}, \pv_{i+1}, \ldots, \pv_m \right\}$ la tribu engendrée par les $p$-valeurs sauf $\pv_i$, 
+En notant $\mathcal{F}_i = \sigma\left(\left\{\pv_1, \ldots, \pv_{i-1}, \pv_{i+1}, \ldots, \pv_m \right\}\right)$ la tribu engendrée par les $p$-valeurs sauf $\pv_i$, 
 
 \begin{equation*}
 \begin{aligned}
@@ -254,7 +254,7 @@ Cette section ne nécessite qu'une définition intuitive de ce qu'est un arbre :
 
 _TreeFDR_ [@xiao2017false] est une procédure de lissage des $z$-scores suivie d'une procédure de correction par permutation implémentée dans le package `{StructFDR}`. 
 
-Dans ce modèle hiérarchique, les $z$-scores $\zs = \Phi^{-1}\left(\pv\right)$ sont vus comme la réalisation un vecteur gaussien multivarié de moyenne $\mu$ : 
+Dans ce modèle hiérarchique, les $z$-scores $\zs = \Phi^{-1}\left(\pv\right)$ sont vus comme la réalisation d'un vecteur gaussien multivarié de moyenne $\mu$ : 
 
 \begin{equation*}
 \left. \zs \mid \mu \right. \sim \mathcal{N}_m\left(\mu,\sigma^2 \mathbf{I}_m\right).
@@ -290,7 +290,7 @@ C'est un algorithme descendant qui teste les hypothèses par _familles_ –c'est
 knitr::include_graphics(path = "img/hfdr.png")
 ```
 
-Alors que $\alpha$ est le niveau de contrôle _a priori_ intra-familles, si l'on ne considère que les découvertes au niveau des feuilles, hFDR garanti un contrôle _a posteriori_ au niveau
+Alors que $\alpha$ est le niveau de contrôle _a priori_ intra-familles, si l'on ne considère que les découvertes au niveau des feuilles, hFDR garantit un contrôle _a posteriori_ au niveau
 
 \begin{equation*}
 \alpha' = 1.44 \times \alpha \times \frac{\# \text{découvertes} + \#\text{familles testées}}{\# \text{découvertes} + 1}.
@@ -320,7 +320,7 @@ Pour chaque $t$ candidat sur une grille, on parcours l'arbre depuis la racine et
 
 On effectue ensuite une correction pour test multiple (Benjamini-Hochberg) sur les nœuds terminaux et les feuilles qui ne font pas partie de la descendance d'un nœud terminal.
 
-Il reste à sélectionner le meilleur $t$ candidat. On utilise trois critères éliminatoires. Le premier est un choix _a posteriori_ d'une borne maximale $t_{\max}$ pour $t$ (dépendante des résultats) et on exclut les candidats tels que $t\in\mathopen[0, t_{\max}\mathclose]$, ceci permettant de contrôler le FDR au niveau des feuilles parmi les candidats restants. Puis on ne conserve que les candidats ayant le plus grand nombre de feuille rejetées, ce qui maximise la puissance. Et enfin, parmi les candidats restants, on ne garde que ceux qui minimisent le nombre de nœuds rejetés, pour retenir le niveau de résolution le plus adapté. 
+Il reste à sélectionner le meilleur $t$ candidat. On utilise trois critères éliminatoires. Le premier est un choix _a posteriori_ d'une borne maximale $t_{\max}$ pour $t$ (dépendante des résultats) et on exclut les candidats tels que $t\in\mathopen[0, t_{\max}\mathclose]$, ceci permettant de contrôler le FDR au niveau des feuilles parmi les candidats restants. Puis on ne conserve que les candidats ayant le plus grand nombre de feuilles rejetées, ce qui maximise la puissance. Et enfin, parmi les candidats restants, on ne garde que ceux qui minimisent le nombre de nœuds rejetés, pour retenir le niveau de résolution le plus adapté. 
 
 
 

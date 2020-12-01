@@ -12,12 +12,6 @@ Unité de recherche : `r rmarkdown::metadata$unite`
 
 Référent : `r rmarkdown::metadata$referent`
 
-Au vu des rapports de :
-
-* `r rmarkdown::metadata$rap1_nom`, `r rmarkdown::metadata$rap1_qualite` (`r rmarkdown::metadata$rap1_titre`)
-
-* `r rmarkdown::metadata$rap2_nom`, `r rmarkdown::metadata$rap2_qualite` (`r rmarkdown::metadata$rap2_titre`)
-
 Composition du jury :
 
 * `r rmarkdown::metadata$jur1_nom`, `r rmarkdown::metadata$jur1_qualite` (`r rmarkdown::metadata$jur1_titre`)

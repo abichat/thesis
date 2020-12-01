@@ -1,0 +1,39 @@
+
+Mes premiers remerciements vont naturellement à mes directeurs de thèse, Christophe Ambroise et Mahendra Mariadassou. Merci à vous de m'avoir guidé, soutenu, et épaulé pendant ces trois années sous vos ailes, avec votre culture scientifique, votre patience et votre dévouement. Merci à Jonathan Plassais de m'avoir accompagné cette première année de thèse, et à Francesco Strozzi d'avoir pris le relais. J'ai énormément appris avec vous !
+
+\vspace{5mm}
+
+Merci à Étienne Roquain et Joseph Salmon d'avoir accepté de rapporter ma thèse, ainsi qu'à Julie Aubert, Agathe Guilloux, Matthieu Pichaud et Nathalie Vialaneix de m'avoir fait l'honneur d'être dans mon jury, vos remarques ont contribué à améliorer mon manuscrit.
+
+\vspace{5mm}
+
+Je tiens à remercier toute la société Enterome, qui m'a accueilli pendant ces trois ans. Merci à Jonathan et Alessandra d'avoir monté ce projet de thèse, et à Christophe, Marie-Laure et Pierre de l'avoir accepté. De retour dans l'équipe en tant que doctorant, j'y ai retrouvé William –qui m'avait fait découvrir _ggplot2_ un plus tôt–, Coline, Jonathan et Francesco. D'autres collègues sont arrivés depuis –parfois déjà repartis–, Pauline, Tuk, Mercia, Camille –dans mes slides !–, Guillaume, et tout récemment Mathilde et Marlène. Ça a toujours été un réel plaisir de travailler avec vous au sein du département _Biomarqueurs_ puis _Data Science_ ! Merci à Rachel, Florence et Agnès –merci pour tous les colis !–, Jean-Michel, Victoria, Christophe, Christelle et tant d'autres, pour ces moments passés au bureau, au ski ou autour de la table !
+
+\vspace{5mm}
+
+Merci aux collègues du LaMME, que je retrouvais deux jours par semaine –ou un peu moins en fonction du RER. À Florent –avec qui j'ai partagé le bureau 404– mais aussi Vincent, Guillem, Marco, Agathe, Franck et Cyril. Merci particulièrement à Valérie et Maurice pour leur aide pendant ces trois ans. Et bon courage à toi, Edmond, pour ces années de thèse qu'il te reste. 
+
+\vspace{5mm}
+
+Je tiens à remercier les équipes de l'Agro pour m'avoir accueilli comme l'un des leurs. Aux doctorants, Raphaëlle –ma demi-sœur de thèse–, Félix, Marie, Timothée, Anna-Rosa, Martina, Saint-Clair, Bewentaoré, Rana, Mathieu, qui m'avez ouvert les portes de vos bureaux et invité à vos goûters. Mais également toute la famille de l'Agro, Tristan, Laure, Gabriel, Sophie, Pierre, Pierre, Liliane, Émilie, Paul et Stéphane –qui ont fourni l'inspiration pour _zazou_–, Sarah, Avner, Céline, Éric. Et un grand merci à Julien, Julie et Marie-Pierre pour _State of the R_ et _Finist'R_, ces séances que j'attendais avec impatience pour prêcher la bonne parole du _tidy_.
+
+\vspace{5mm}
+
+Merci à Émilie, Laure, Gabriel, Erwan et Erwan de m'avoir fait confiance pour assurer vos formations à l'Agro et à l'X ou vous accompagner pendant vos projets pédagogiques. Je l'ai fait avec grand plaisir –je ne sais pas si ça l'a été aussi pour les élèves...
+
+\vspace{5mm}
+
+Merci aux enseignants que j'ai pu avoir au cours de ma scolarité, qui m'ont transmis le goût de l'apprentissage et des mathématiques. J'aimerais en remercier deux plus particulièrement. Catherine Mathias –qui m'a propulsé en thèse– et Rémi Peyre –pour tous nos échanges de méls durant ces trois années.
+
+\vspace{5mm}
+
+Merci à la communauté R, pour m'avoir fait découvrir ce merveilleux langage. En particulier ceux de _Grrr_, toujours disponibles pour répondre à mes questions : Sébastien, Romain, Christophe, David, Diane, Colin, Victor, Florian, et beaucoup d'autres, qui m'avez enlevé tant d'épines du pied !
+
+\vspace{5mm}
+
+Un énorme merci à ma famille, qui m'a vu partir dans cette aventure et a toujours été là, mes parents –qui m'ont vu revenir en confinement–, mes grands-parents, mon parrain, ma marraine et mon filleul.  
+
+\vspace{5mm}
+
+Enfin, merci à mes amis, qui, par leur affection, leur présence et leur bonne humeur, ont rendu agréables ces trois années de thèse : Gaëtan, Maxime, Agathe, Jean-Baptiste, Mathieu, Rodolphe, Martin, Olivier, Ulysse, Mathilde, Guillaume, Rémy, Théo, Geoffrey, Élodie, Bao, Emmanuel, Adrien, Loïs, Clément, Romain, Alexandre, Lise, Mathias, Gabriel, Nathanaël, Matthieu, Vincent, Mathilde, Jean, Amaury, Quentin, Lucile, Théo, Xavier, Valentin, Laureline, Alexis, Tristan, Adrien, Lalou, William, Raphaël, Anthony, Arnaud, Corentin, Orion, Maxime.
+
