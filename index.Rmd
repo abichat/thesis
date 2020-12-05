@@ -112,7 +112,7 @@ resume_anglais: |
  information to increase the statistical power of differential abundance techniques. 
  We first investigated the efficiency of existing hierarchical 
  differential abundance detection procedures and the impact of tree choice 
- on those. We then developped our own hierarchical differentially 
+ on those. We then developed our own hierarchical differentially 
  abundance detection procedure. It models the taxa associated $z$-scores as realization 
  of an Ornstein-Uhlenbeck process on a tree with shifts on its optimal value 
  then a lasso-like regression is used to identify optimal positions and intensities 
