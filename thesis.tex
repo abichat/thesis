@@ -1777,7 +1777,7 @@ Une fois ces \(p\)-valeurs lissées obtenues, Javanmard, Javadi, \& others (\pro
 Définissons \(t_{\text{max}} = \sqrt{2 \log m - 2 \log \log m}\) puis
 \begin{equation}
 \label{eq:tstar}
-t^{\star} = \inf \bigg\{ 0 \leq t \leq t_{\max} : \underbrace{\frac{m(1 - \Phi(t))}{R(t) \vee 1}}_{\widehat{\text{FDR}}(t)} \leq \alpha \bigg\},
+t^{\star} = \inf \bigg\{ 0 \leq t \leq t_{\max} : \underbrace{\frac{2 m(1 - \Phi(t))}{R(t) \vee 1}}_{\widehat{\text{FDR}}(t)} \leq \alpha \bigg\},
 \end{equation}
 où \(R(t)= \sum_{i = 1}^m \indic_{\{\ts_i \leq -t\}}\) est le nombre d'hypothèses nulles rejetées au niveau \(t\). Le numérateur du quotient peut s'interpréter comme le nombre attendu de rejets sous l'hypothèse nulle, et celui-ci est donc une estimation du \(\text{FDR}\) au niveau \(t\), que l'on cherche à garder sous le seuil \(\alpha\). Si l'infimum en \eqref{eq:tstar} est \(+\infty\), on pose \(t^{\star} = \sqrt{2 \log m}\).
 
@@ -3143,7 +3143,7 @@ biological link between them. It is therefore natural to exploit this hierarchic
 information to increase the statistical power of differential abundance techniques.
 We first investigated the efficiency of existing hierarchical
 differential abundance detection procedures and the impact of tree choice
-on those. We then developped our own hierarchical differentially
+on those. We then developed our own hierarchical differentially
 abundance detection procedure. It models the taxa associated \(z\)-scores as realization
 of an Ornstein-Uhlenbeck process on a tree with shifts on its optimal value
 then a lasso-like regression is used to identify optimal positions and intensities
