@@ -69,7 +69,7 @@ jobs:
          path: _book # optional
 
      - name: Deploy to GitHub Pages
-       uses: Cecilapp/GitHub-Pages-deploy@master
+       uses: Cecilapp/GitHub-Pages-deploy@v2
        env:
           EMAIL: ${{ secrets.EMAIL }}               # must be a verified email
           GH_TOKEN: ${{ secrets.GHTOKEN }} # https://github.com/settings/tokens

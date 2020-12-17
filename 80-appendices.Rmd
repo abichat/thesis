@@ -92,7 +92,7 @@ Cet article a été publié dans [_Frontiers in Microbiology_](https://doi.org/1
 
 ## Hierarchical correction of p-values via a tree running Ornstein-Uhlenbeck process {-}
 
-Cet article devrait être soumis dans _Statistics and Computing_ et est disponible sur [_arXiv_](http://arxiv.org/abs/2009.13335).
+Cet article a été soumis et est disponible sur [_arXiv_](http://arxiv.org/abs/2009.13335).
  
 `r if(!knitr::is_latex_output()) knitr::knit_child("83-html.Rmd")`
 
@@ -151,7 +151,7 @@ tree <- ape::drop.tip(tree, setdiff(tree$tip.label, rownames(abund)))
 Il en reste alors `r nrow(abund)`.
 
 ```{r setup2, include=FALSE}
-knitr::opts_chunk$set(eval = TRUE)
+knitr::opts_chunk$set(eval = TRUE, warning = FALSE)
 ```
 
 Nous assignons ensuite chaque échantillon aléatoirement à un groupe $A$ ou $B$. 
