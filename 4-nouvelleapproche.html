@@ -241,6 +241,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="C" data-path="C-vignette.html"><a href="C-vignette.html"><i class="fa fa-check"></i><b>C</b> Vignette de zazou</a></li>
 <li class="chapter" data-level="" data-path="références.html"><a href="références.html"><i class="fa fa-check"></i>Références</a></li>
 <li class="chapter" data-level="" data-path="mentions-légales.html"><a href="mentions-légales.html"><i class="fa fa-check"></i>Mentions légales</a></li>
+<li class="divider"></li>
+<li><a href='https://abichat.github.io/defense' target='blank'>PhD defense</a></li>
 </ul>
 
       </nav>
@@ -481,7 +483,7 @@ v_{i,j} = \hat{\sigma}^2 \frac{\langle s_i,s_j\rangle}{\langle s_i,x_i\rangle\la
 <p>Définissons <span class="math inline">\(t_{\text{max}} = \sqrt{2 \log m - 2 \log \log m}\)</span> puis</p>
 <p><span class="math display" id="eq:tstar">\[\begin{equation}
 \tag{4.3}
-t^{\star} = \inf \bigg\{ 0 \leq t \leq t_{\max} : \underbrace{\frac{2 m(1 - \Phi(t))}{R(t) \vee 1}}_{\widehat{\text{FDR}}(t)} \leq \alpha \bigg\},
+t^{\star} = \inf \bigg\{ 0 \leq t \leq t_{\max} : \underbrace{\frac{2m(1 - \Phi(t))}{R(t) \vee 1}}_{\widehat{\text{FDR}}(t)} \leq \alpha \bigg\},
 \end{equation}\]</span></p>
 <p>où <span class="math inline">\(R(t)= \sum_{i = 1}^m \indic_{\{\ts_i \leq -t\}}\)</span> est le nombre d’hypothèses nulles rejetées au niveau <span class="math inline">\(t\)</span>. Le numérateur du quotient peut s’interpréter comme le nombre attendu de rejets sous l’hypothèse nulle, et celui-ci est donc une estimation du <span class="math inline">\(\text{FDR}\)</span> au niveau <span class="math inline">\(t\)</span>, que l’on cherche à garder sous le seuil <span class="math inline">\(\alpha\)</span>. Si l’infimum en <a href="4-nouvelleapproche.html#eq:tstar">(4.3)</a> est <span class="math inline">\(+\infty\)</span>, on pose <span class="math inline">\(t^{\star} = \sqrt{2 \log m}\)</span>.</p>
 <p>On rejette <span class="math inline">\(\mathcal{H}_0\)</span> si <span class="math inline">\(\ts_i \leq -t^{\star}\)</span> ce qui amène à définir les <span class="math inline">\(q\)</span>-valeurs hiérarchiques

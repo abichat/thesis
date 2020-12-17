@@ -299,6 +299,8 @@
 \scriptsize
 \begin{tabular}{|p{8cm}l}
 \arrayrulecolor{Prune}
+\textbf{Nathalie VIALANEIX} &  Présidente\\
+Directrice de recherche -- INRAE Toulouse & \\
 \textbf{Étienne ROQUAIN} &  Rapporteur et examinateur\\
 Maître de conférences, HdR -- Sorbonne Université & \\
 \textbf{Joseph SALMON} &  Rapporteur et examinateur\\
@@ -309,8 +311,6 @@ Ingénieure de recherche -- INRAE Paris & \\
 Professeure des universités -- Université d'Évry & \\
 \textbf{Matthieu PICHAUD} &  Examinateur\\
 Danone & \\
-\textbf{Nathalie VIALANEIX} &  Examinatrice\\
-Directrice de recherche -- INRAE Toulouse & \\
 \end{tabular}
 \begin{tabular}{p{8cm}l}
 & \\
@@ -811,8 +811,6 @@ Wu et al. (\protect\hyperlink{ref-wu2011linking}{2011}) se sont intéressés aux
 \addcontentsline{toc}{subsubsection}{Zeller}
 
 Le jeu de données issu de Zeller et al. (\protect\hyperlink{ref-zeller2014potential}{2014}) contient \(42\) patients ayant un adénome, \(91\) patients ayant un cancer colorectal et \(66\) volontaires sains. Le but de l'étude est d'étudier les associations entre la composition du microbiote et le statut du patient, notamment pour trouver des biomarqueurs de la maladie. Tous les échantillons ont été caractérisés par l'approche gène marqueur (à l'aide du gène 16S) et par l'approche non-ciblée. En ne conservant que les taxons ayant une prévalence supérieure à \(~5\%\), l'approche gène marqueur a permis d'identifier \(119\) genres différents tandis que l'approche non-ciblée a identifié \(878\) MSPs --une autre entité métagénomique (Plaza Oñate et al., \protect\hyperlink{ref-plaza2018mspminer}{2018}).
-
-\newpage
 \begin{longtable}[]{@{}ccccc@{}}
 \caption{\label{tab:datasets} Jeux de données utilisés dans ce manuscrit.}\tabularnewline
 \toprule
@@ -1777,7 +1775,7 @@ Une fois ces \(p\)-valeurs lissées obtenues, Javanmard, Javadi, \& others (\pro
 Définissons \(t_{\text{max}} = \sqrt{2 \log m - 2 \log \log m}\) puis
 \begin{equation}
 \label{eq:tstar}
-t^{\star} = \inf \bigg\{ 0 \leq t \leq t_{\max} : \underbrace{\frac{2 m(1 - \Phi(t))}{R(t) \vee 1}}_{\widehat{\text{FDR}}(t)} \leq \alpha \bigg\},
+t^{\star} = \inf \bigg\{ 0 \leq t \leq t_{\max} : \underbrace{\frac{2m(1 - \Phi(t))}{R(t) \vee 1}}_{\widehat{\text{FDR}}(t)} \leq \alpha \bigg\},
 \end{equation}
 où \(R(t)= \sum_{i = 1}^m \indic_{\{\ts_i \leq -t\}}\) est le nombre d'hypothèses nulles rejetées au niveau \(t\). Le numérateur du quotient peut s'interpréter comme le nombre attendu de rejets sous l'hypothèse nulle, et celui-ci est donc une estimation du \(\text{FDR}\) au niveau \(t\), que l'on cherche à garder sous le seuil \(\alpha\). Si l'infimum en \eqref{eq:tstar} est \(+\infty\), on pose \(t^{\star} = \sqrt{2 \log m}\).
 
@@ -2325,7 +2323,7 @@ Cet article a été publié dans \href{https://doi.org/10.3389/fmicb.2020.00649}
 \section*{Hierarchical correction of p-values via a tree running Ornstein-Uhlenbeck process}\label{hierarchical-correction-of-p-values-via-a-tree-running-ornstein-uhlenbeck-process}}
 \addcontentsline{toc}{section}{Hierarchical correction of p-values via a tree running Ornstein-Uhlenbeck process}
 
-Cet article devrait être soumis dans \emph{Statistics and Computing} et est disponible sur \href{http://arxiv.org/abs/2009.13335}{\emph{arXiv}}.
+Cet article a été soumis et est disponible sur \href{http://arxiv.org/abs/2009.13335}{\emph{arXiv}}.
 
 \includepdf[pages=1-13]{productions/Bichat2020hierarchical.pdf}
 
@@ -2444,9 +2442,6 @@ On effectue un test de Wilcoxon sur ce nouveau jeu de données.
 \NormalTok{              ))}
 \end{Highlighting}
 \end{Shaded}
-\begin{verbatim}
-Warning: Removed 181 rows containing missing values (geom_label).
-\end{verbatim}
 \begin{center}\includegraphics[width=0.9\linewidth]{thesis_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 Nous donnons ensuite nos \(z\)-scores à la fonction \texttt{estimate\_shifts} pour déterminer la position idéale des sauts avec une régression lasso. La grille des \(\ou{\alpha}\) est également spécifiée mais celle des \(\lambda\) est déterminée automatiquement.
@@ -2481,9 +2476,6 @@ Estimated z-scores:   -1.7   -1.7   -1.7   -1.7  -1.7 -1.7   -1.7  -1.7   -1.7  
 \KeywordTok{plot}\NormalTok{(estimation_lasso)}
 \end{Highlighting}
 \end{Shaded}
-\begin{verbatim}
-Warning: Removed 178 rows containing missing values (geom_label).
-\end{verbatim}
 \begin{center}\includegraphics[width=0.9\linewidth]{thesis_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
 Trois sauts sur l'arbre ont été détectés, sur des branches ayant beaucoup de descendants.
@@ -2528,9 +2520,6 @@ z-scores:
 \KeywordTok{plot}\NormalTok{(estimation_scoresystem)}
 \end{Highlighting}
 \end{Shaded}
-\begin{verbatim}
-Warning: Removed 1 rows containing missing values (geom_label).
-\end{verbatim}
 \begin{center}\includegraphics[width=0.9\linewidth]{thesis_files/figure-latex/unnamed-chunk-11-1} \end{center}
 \begin{Shaded}
 \begin{Highlighting}[]

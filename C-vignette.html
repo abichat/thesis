@@ -241,6 +241,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="C" data-path="C-vignette.html"><a href="C-vignette.html"><i class="fa fa-check"></i><b>C</b> Vignette de zazou</a></li>
 <li class="chapter" data-level="" data-path="références.html"><a href="références.html"><i class="fa fa-check"></i>Références</a></li>
 <li class="chapter" data-level="" data-path="mentions-légales.html"><a href="mentions-légales.html"><i class="fa fa-check"></i>Mentions légales</a></li>
+<li class="divider"></li>
+<li><a href='https://abichat.github.io/defense' target='blank'>PhD defense</a></li>
 </ul>
 
       </nav>
@@ -346,13 +348,12 @@ MathJax.Hub.Config({
 <span id="cb11-9"><a href="C-vignette.html#cb11-9"></a>                   <span class="dt">title =</span> <span class="st">&quot;Difference in z-scores after fold-change&quot;</span>,</span>
 <span id="cb11-10"><a href="C-vignette.html#cb11-10"></a>                   <span class="dt">color =</span> <span class="kw">as.character</span>(<span class="kw">sign</span>(zscores <span class="op">-</span><span class="st"> </span>zscores_original)))</span>
 <span id="cb11-11"><a href="C-vignette.html#cb11-11"></a>              ))</span></code></pre></div>
-<pre><code>Warning: Removed 181 rows containing missing values (geom_label).</code></pre>
 <p><img src="thesis_files/figure-html/unnamed-chunk-9-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Nous donnons ensuite nos <span class="math inline">\(z\)</span>-scores à la fonction <code>estimate_shifts</code> pour déterminer la position idéale des sauts avec une régression lasso. La grille des <span class="math inline">\(\ou{\alpha}\)</span> est également spécifiée mais celle des <span class="math inline">\(\lambda\)</span> est déterminée automatiquement.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="C-vignette.html#cb13-1"></a>estimation_lasso &lt;-<span class="st"> </span><span class="kw">estimate_shifts</span>(<span class="dt">zscores =</span> zscores, <span class="dt">tree =</span> tree, </span>
-<span id="cb13-2"><a href="C-vignette.html#cb13-2"></a>                                    <span class="dt">alphaOU =</span> <span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>),</span>
-<span id="cb13-3"><a href="C-vignette.html#cb13-3"></a>                                    <span class="dt">method =</span> <span class="st">&quot;lasso&quot;</span>)</span>
-<span id="cb13-4"><a href="C-vignette.html#cb13-4"></a>estimation_lasso</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="C-vignette.html#cb12-1"></a>estimation_lasso &lt;-<span class="st"> </span><span class="kw">estimate_shifts</span>(<span class="dt">zscores =</span> zscores, <span class="dt">tree =</span> tree, </span>
+<span id="cb12-2"><a href="C-vignette.html#cb12-2"></a>                                    <span class="dt">alphaOU =</span> <span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>),</span>
+<span id="cb12-3"><a href="C-vignette.html#cb12-3"></a>                                    <span class="dt">method =</span> <span class="st">&quot;lasso&quot;</span>)</span>
+<span id="cb12-4"><a href="C-vignette.html#cb12-4"></a>estimation_lasso</span></code></pre></div>
 <pre><code>Tree is binary with 91 leafs and 180 branches
 Covariance matrix has been estimated from an OU with alpha = 5 and sigma = 3.162 
 ---
@@ -369,20 +370,19 @@ A parsimonious solution would involve 3 shifts
 Observed z-scores:  -2.474 -1.929 -1.451 -2.324 0.549 0.45 -2.397 0.636 -3.463 1.943 ...
 Estimated z-scores:   -1.7   -1.7   -1.7   -1.7  -1.7 -1.7   -1.7  -1.7   -1.7  -1.7 ...
 90 z-scores have been shifted (ie 1.1 % of sparsity)</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="C-vignette.html#cb15-1"></a><span class="kw">plot</span>(estimation_lasso)</span></code></pre></div>
-<pre><code>Warning: Removed 178 rows containing missing values (geom_label).</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="C-vignette.html#cb14-1"></a><span class="kw">plot</span>(estimation_lasso)</span></code></pre></div>
 <p><img src="thesis_files/figure-html/unnamed-chunk-10-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Trois sauts sur l’arbre ont été détectés, sur des branches ayant beaucoup de descendants.</p>
 <p>Si nous voulons avoir des <span class="math inline">\(p\)</span>-valeurs et des intervalles de confiance, il faut utiliser une régression <em>scaled lasso</em> avant d’appliquer la fonction <code>estimate_confint</code>.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="C-vignette.html#cb17-1"></a>estimation_scaledlasso &lt;-<span class="st"> </span></span>
-<span id="cb17-2"><a href="C-vignette.html#cb17-2"></a><span class="st">  </span><span class="kw">estimate_shifts</span>(<span class="dt">zscores =</span> zscores,</span>
-<span id="cb17-3"><a href="C-vignette.html#cb17-3"></a>                  <span class="dt">tree =</span> tree, <span class="dt">alphaOU =</span> <span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>),</span>
-<span id="cb17-4"><a href="C-vignette.html#cb17-4"></a>                  <span class="dt">method =</span> <span class="st">&quot;scaled lasso&quot;</span>)</span>
-<span id="cb17-5"><a href="C-vignette.html#cb17-5"></a>estimation_scoresystem &lt;-<span class="st"> </span></span>
-<span id="cb17-6"><a href="C-vignette.html#cb17-6"></a><span class="st">  </span><span class="kw">estimate_confint</span>(estimation_scaledlasso, </span>
-<span id="cb17-7"><a href="C-vignette.html#cb17-7"></a>                   <span class="dt">method =</span> <span class="st">&quot;score system&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="C-vignette.html#cb15-1"></a>estimation_scaledlasso &lt;-<span class="st"> </span></span>
+<span id="cb15-2"><a href="C-vignette.html#cb15-2"></a><span class="st">  </span><span class="kw">estimate_shifts</span>(<span class="dt">zscores =</span> zscores,</span>
+<span id="cb15-3"><a href="C-vignette.html#cb15-3"></a>                  <span class="dt">tree =</span> tree, <span class="dt">alphaOU =</span> <span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>),</span>
+<span id="cb15-4"><a href="C-vignette.html#cb15-4"></a>                  <span class="dt">method =</span> <span class="st">&quot;scaled lasso&quot;</span>)</span>
+<span id="cb15-5"><a href="C-vignette.html#cb15-5"></a>estimation_scoresystem &lt;-<span class="st"> </span></span>
+<span id="cb15-6"><a href="C-vignette.html#cb15-6"></a><span class="st">  </span><span class="kw">estimate_confint</span>(estimation_scaledlasso, </span>
+<span id="cb15-7"><a href="C-vignette.html#cb15-7"></a>                   <span class="dt">method =</span> <span class="st">&quot;score system&quot;</span>)</span></code></pre></div>
 <pre><code>t_star is not feasible, falling back to default value.</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="C-vignette.html#cb19-1"></a>estimation_scoresystem</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="C-vignette.html#cb17-1"></a>estimation_scoresystem</span></code></pre></div>
 <pre><code>Tree is binary with 91 leafs and 180 branches
 Method: score system 
 Confidence threshold: 0.05 
@@ -396,32 +396,31 @@ z-scores:
 5  4206  -7.310320 -21.70978  7.0891438 0.15985974 1.0000000
 6 10038  -7.386608 -21.75859  6.9853783 0.15688556 1.0000000
   ...</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="C-vignette.html#cb21-1"></a><span class="kw">plot</span>(estimation_scoresystem)</span></code></pre></div>
-<pre><code>Warning: Removed 1 rows containing missing values (geom_label).</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="C-vignette.html#cb19-1"></a><span class="kw">plot</span>(estimation_scoresystem)</span></code></pre></div>
 <p><img src="thesis_files/figure-html/unnamed-chunk-11-1.png" width="90%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="C-vignette.html#cb23-1"></a>pvalues_smoothed &lt;-<span class="st"> </span><span class="kw">pull_pvalues</span>(estimation_scoresystem)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="C-vignette.html#cb20-1"></a>pvalues_smoothed &lt;-<span class="st"> </span><span class="kw">pull_pvalues</span>(estimation_scoresystem)</span></code></pre></div>
 <p>Après le débiaisage, les sauts dans les branches ne sont plus parcimonieux.</p>
 <p>Nous allons regarder les performances de notre prédicteur via une courbe ROC.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="C-vignette.html#cb24-1"></a>df_measures_zazou &lt;-<span class="st"> </span></span>
-<span id="cb24-2"><a href="C-vignette.html#cb24-2"></a><span class="st">  </span><span class="kw">ebc_tidy_by_threshold</span>(<span class="dt">detection_values =</span> pvalues_smoothed, </span>
-<span id="cb24-3"><a href="C-vignette.html#cb24-3"></a>                        <span class="dt">true =</span> otus_da, <span class="dt">all =</span> <span class="kw">rownames</span>(abund))</span>
-<span id="cb24-4"><a href="C-vignette.html#cb24-4"></a>df_measures_classic &lt;-<span class="st"> </span></span>
-<span id="cb24-5"><a href="C-vignette.html#cb24-5"></a><span class="st">  </span><span class="kw">ebc_tidy_by_threshold</span>(<span class="dt">detection_values =</span> pvalues, </span>
-<span id="cb24-6"><a href="C-vignette.html#cb24-6"></a>                        <span class="dt">true =</span> otus_da, <span class="dt">all =</span> <span class="kw">rownames</span>(abund))</span>
-<span id="cb24-7"><a href="C-vignette.html#cb24-7"></a><span class="kw">bind_rows</span>(<span class="kw">mutate</span>(df_measures_zazou, <span class="dt">type =</span> <span class="st">&quot;zazou&quot;</span>),</span>
-<span id="cb24-8"><a href="C-vignette.html#cb24-8"></a>          <span class="kw">mutate</span>(df_measures_classic, <span class="dt">type =</span> <span class="st">&quot;classic&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb24-9"><a href="C-vignette.html#cb24-9"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
-<span id="cb24-10"><a href="C-vignette.html#cb24-10"></a><span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> FPR, <span class="dt">y =</span> TPR, <span class="dt">color =</span> type) <span class="op">+</span></span>
-<span id="cb24-11"><a href="C-vignette.html#cb24-11"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
-<span id="cb24-12"><a href="C-vignette.html#cb24-12"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="C-vignette.html#cb21-1"></a>df_measures_zazou &lt;-<span class="st"> </span></span>
+<span id="cb21-2"><a href="C-vignette.html#cb21-2"></a><span class="st">  </span><span class="kw">ebc_tidy_by_threshold</span>(<span class="dt">detection_values =</span> pvalues_smoothed, </span>
+<span id="cb21-3"><a href="C-vignette.html#cb21-3"></a>                        <span class="dt">true =</span> otus_da, <span class="dt">all =</span> <span class="kw">rownames</span>(abund))</span>
+<span id="cb21-4"><a href="C-vignette.html#cb21-4"></a>df_measures_classic &lt;-<span class="st"> </span></span>
+<span id="cb21-5"><a href="C-vignette.html#cb21-5"></a><span class="st">  </span><span class="kw">ebc_tidy_by_threshold</span>(<span class="dt">detection_values =</span> pvalues, </span>
+<span id="cb21-6"><a href="C-vignette.html#cb21-6"></a>                        <span class="dt">true =</span> otus_da, <span class="dt">all =</span> <span class="kw">rownames</span>(abund))</span>
+<span id="cb21-7"><a href="C-vignette.html#cb21-7"></a><span class="kw">bind_rows</span>(<span class="kw">mutate</span>(df_measures_zazou, <span class="dt">type =</span> <span class="st">&quot;zazou&quot;</span>),</span>
+<span id="cb21-8"><a href="C-vignette.html#cb21-8"></a>          <span class="kw">mutate</span>(df_measures_classic, <span class="dt">type =</span> <span class="st">&quot;classic&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb21-9"><a href="C-vignette.html#cb21-9"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb21-10"><a href="C-vignette.html#cb21-10"></a><span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> FPR, <span class="dt">y =</span> TPR, <span class="dt">color =</span> type) <span class="op">+</span></span>
+<span id="cb21-11"><a href="C-vignette.html#cb21-11"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb21-12"><a href="C-vignette.html#cb21-12"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
 <p><img src="thesis_files/figure-html/unnamed-chunk-12-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>La courbe ROC de <em>zazou</em> est au dessus de celle de la méthode standard. Et ceci se traduit en terme d’AUC :</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="C-vignette.html#cb25-1"></a><span class="kw">ebc_AUC_from_measures</span>(df_measures_zazou)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="C-vignette.html#cb22-1"></a><span class="kw">ebc_AUC_from_measures</span>(df_measures_zazou)</span></code></pre></div>
 <pre><code>[1] 0.9825212</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="C-vignette.html#cb27-1"></a><span class="kw">ebc_AUC_from_measures</span>(df_measures_classic)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="C-vignette.html#cb24-1"></a><span class="kw">ebc_AUC_from_measures</span>(df_measures_classic)</span></code></pre></div>
 <pre><code>[1] 0.8850636</code></pre>
 <p>Version de <code>{zazou}</code> utilisée dans cette analyse :</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="C-vignette.html#cb29-1"></a><span class="kw">packageVersion</span>(<span class="st">&quot;zazou&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="C-vignette.html#cb26-1"></a><span class="kw">packageVersion</span>(<span class="st">&quot;zazou&quot;</span>)</span></code></pre></div>
 <pre><code>[1] &#39;0.0.1&#39;</code></pre>
 
 <!--
